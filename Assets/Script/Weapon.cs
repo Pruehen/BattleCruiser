@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     float turningSpeedPerSecond = 90;
     float coolDown = 0.1f;//발사 쿨타임
     float delay = 0;
+
     bool coolDownComplete = false;//쿨타임 완료
     bool fireAngleComplete = false;//발사각 완료
     bool readyToFire = false;//발사 준비 완료

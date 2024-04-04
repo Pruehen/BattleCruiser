@@ -39,6 +39,7 @@ public class Player : Singleton<Player>
     void Update()
     {
         SetTurretTargetPos(aimPosition);
+        SetTurretParentVelocity(rigidbody2D.velocity);
 
         aimPosition = Camera.main.ScreenToWorldPoint(screenAimPoint);//월드 벡터로 변환
         aimDirection = aimPosition - (Vector2)transform.position;//플레이어 기준 로컬 벡터로 변환
@@ -49,7 +50,8 @@ public class Player : Singleton<Player>
         AltitudeHoldPropulsion();
         ControllPropulsion();
 
-        SetTurretParentVelocity(rigidbody2D.velocity);
+        PlayerUI.Instance.SetAltText(this.transform.position.y);
+        PlayerUI.Instance.SetSpeedText(rigidbody2D.velocity.magnitude);
     }
     void ControllPropulsion()//상하좌우 추진
     {
