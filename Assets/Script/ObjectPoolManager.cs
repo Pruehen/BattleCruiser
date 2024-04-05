@@ -75,7 +75,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             CreatePool(item);//자동으로 풀을 생성
         }
-
+        item.transform.SetParent(objectPools[itemType].transform);
         objectPools[itemType].queue.EnqueuePool(item.GetComponent<Component>());
     }
     public void AllDestroyObject(GameObject prefab)//prefab과 같은 타입의 모든 오브젝트를 큐에 다시 담음.
