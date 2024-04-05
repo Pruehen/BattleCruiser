@@ -6,12 +6,22 @@ public class Vehicle : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
     public Rigidbody2D Rigidbody2D() { return rigidbody2D; }
-    float mass = 0;
+    float mass = 0;//질량 (Rigidbody2D의 정보를 받아옴)
     bool isDead = false;
+    float hp;//현재 체력
+    float maxHp = 100000;//최대 체력
+    float HpRatio() { return 100 * hp / maxHp; }//hp비율. 0~100의 값을 가짐.
+    float armor = 40;//방어력. 0~100의 값을 가짐.
+
+    bool calledAt75 = false;
+    bool calledAt50 = false;
+    bool calledAt25 = false;
+    bool calledAt12 = false;
+    bool calledAt6 = false;
 
     Vector2 controllVector = Vector2.zero;//컨트롤 이동 벡터
-    float hoverPower = 5;//상하 이동 추력
-    float strafePower = 10;//좌우 이동 추력
+    float hoverPower = 5;//상하 이동 가속력
+    float strafePower = 10;//좌우 이동 가속력
     float horizontalRestorationPower = 2;//복원력
 
     //public Vector2 screenAimPoint = Vector2.zero;//에임 위치(스크린 기준)
@@ -35,6 +45,10 @@ public class Vehicle : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        hp = maxHp;        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -98,6 +112,38 @@ public class Vehicle : MonoBehaviour
         fireTrigger = value;
         SetTurretTrigger(fireTrigger);
     }
+
+    public void Demage(float apDmg, float heDmg)
+    {
+        apDmg = Mathf.Clamp(apDmg - (apDmg * armor * 0.01f) - armor, 1, apDmg);//방어력에 따른 물리 데미지 경감
+        Debug.Log($"물리 데미지 : {apDmg}");
+        Debug.Log($"폭발 데미지 : {heDmg}");
+        hp -= apDmg + heDmg;
+        float hpRatio = HpRatio();
+        Debug.Log($"체력 비율 : {hpRatio}");
+
+        if(!calledAt75 && hpRatio < 75)
+        {
+            calledAt75 = true;
+        }
+        else if (!calledAt50 && hpRatio < 50)
+        {
+            calledAt50 = true;
+        }
+        else if (!calledAt25 && hpRatio < 50)
+        {
+            calledAt25 = true;
+        }
+        else if (!calledAt12 && hpRatio < 50)
+        {
+            calledAt12 = true;
+        }
+        else if (!calledAt6 && hpRatio < 50)
+        {
+            calledAt6 = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 

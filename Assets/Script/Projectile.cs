@@ -66,11 +66,10 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Vehicle"))
         {
-            float kineticDmg = apDmgFactor * rigidbody2D.velocity.sqrMagnitude * 0.0005f * caliber;
+            float kineticDmg = apDmgFactor * rigidbody2D.velocity.sqrMagnitude * 0.0000005f * caliber * caliber * caliber;
             float explosiveDmg = caliber * caliber * caliber * heDmgFactor * 0.001f;
 
-            Debug.Log($"물리 데미지 : {kineticDmg}");
-            Debug.Log($"폭발 데미지 : {explosiveDmg}");
+            collision.GetComponent<Vehicle>().Demage(kineticDmg, explosiveDmg);
         }
         ProjectileDestroy();
     }

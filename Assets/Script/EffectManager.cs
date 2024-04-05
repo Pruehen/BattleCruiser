@@ -7,6 +7,7 @@ public class EffectManager : Singleton<EffectManager>
 {
     public GameObject[] muzzleFlashes;
     public GameObject[] explosionEffect;
+    public GameObject[] demagedEffect;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class EffectManager : Singleton<EffectManager>
         item.GetComponent<ParticleSystem>().Play();//위치, 회전 지정 후 파티클 플레이
         StartCoroutine(EffectEnqueue(0.05f, item, parentTemp));//코루틴으로 일정 시간 경과 후 인큐
     }
-    public void GenerateExplosion(Vector2 position, float caliber)
+    public void GenerateExplosion(Vector2 position, float caliber)//폭발 이펙트 생성
     {
         GameObject item;
         if(caliber < 100)
@@ -46,6 +47,16 @@ public class EffectManager : Singleton<EffectManager>
         item.transform.localScale = new Vector3(size, size, size);
         item.GetComponent<ParticleSystem>().Play();//위치, 회전 지정 후 파티클 플레이
         StartCoroutine(EffectEnqueue(1, item));//코루틴으로 일정 시간 경과 후 인큐
+    }
+    public void GenerateDemageEffect(Transform parent, int index)//손상 이펙트 생성
+    {        
+        GameObject item = ObjectPoolManager.Instance.DequeueObject(demagedEffect[index]);//손상 화염 또는 연기 이펙트 생성        
+
+        item.transform.SetParent(parent);//트랜스폼 변환
+        item.transform.position = parent.position;
+        item.transform.rotation = Quaternion.identity;
+
+        item.GetComponent<ParticleSystem>().Play();//위치, 회전 지정 후 파티클 플레이        
     }
 
     IEnumerator EffectEnqueue(float time, GameObject item, Transform defaultParent = null)//인큐 및 트랜스폼 초기화
