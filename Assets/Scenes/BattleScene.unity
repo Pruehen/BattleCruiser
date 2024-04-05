@@ -541,6 +541,8 @@ MonoBehaviour:
   demagedEffect:
   - {fileID: 8649236416844267929, guid: 097c769bcb332a84683d2356508ad5ef, type: 3}
   - {fileID: 90730771693678607, guid: 1d67058cbda12ef47b301e63a55049a0, type: 3}
+  - {fileID: 3121847219011696124, guid: d12704827af24044ab93baa072e5c219, type: 3}
+  - {fileID: 5156201333536720014, guid: c2216f382860b994d85ac73dbc3f91f1, type: 3}
 --- !u!4 &169210103
 Transform:
   m_ObjectHideFlags: 0
@@ -672,6 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsTrf: {fileID: 1434029924}
+  spriteTrf: {fileID: 901161585}
 --- !u!66 &313295243
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -2138,6 +2141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsTrf: {fileID: 953875851}
+  spriteTrf: {fileID: 1671707362}
 --- !u!50 &736405262
 Rigidbody2D:
   serializedVersion: 4
