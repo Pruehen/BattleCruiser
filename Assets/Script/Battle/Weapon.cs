@@ -6,16 +6,16 @@ public class Weapon : MonoBehaviour
 {
     public GameObject projectile;
     public Transform firePoint;
-    float projectiledVelocity = 120;//발사 속도
+    float projectiledVelocity = 100;//발사 속도
     float dispersion = 3;//발사각 분포(각도)
-    float shellLifeTime = 30;//탄 작동 시간
+    float shellLifeTime = 6;//탄 작동 시간
     Vector2 parentVelocity = Vector2.zero;
-    float caliber = 155f;
+    float caliber = 30f;
     float apDmgFactor = 1;
     float heDmgFactor = 1;
 
     float turningSpeedPerSecond = 90;
-    float coolDown = 1f;//발사 쿨타임
+    float coolDown = 0.1f;//발사 쿨타임
     float delay = 0;
 
     bool coolDownComplete = false;//쿨타임 완료
