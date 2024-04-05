@@ -588,13 +588,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1000
   m_LinearDrag: 0.05
-  m_AngularDrag: 0.05
+  m_AngularDrag: 2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!4 &313295237
 Transform:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -691,9 +691,9 @@ CompositeCollider2D:
     m_ColliderPaths:
     - - X: -85450000
         Y: -20725016
-      - X: -194550000
+      - X: -194549984
         Y: -20725016
-      - X: -194550000
+      - X: -194549984
         Y: -67275016
       - X: -85450000
         Y: -67275016
@@ -701,74 +701,74 @@ CompositeCollider2D:
     m_ColliderPaths:
     - - X: -40375320
         Y: 48154344
-      - X: -62960680
+      - X: -62960672
         Y: 48154344
-      - X: -62960680
+      - X: -62960672
         Y: 35245620
       - X: -40375320
         Y: 35245620
   - m_Collider: {fileID: 1501729386}
     m_ColliderPaths:
-    - - X: 232560544
-        Y: -22200718
-      - X: 79439456
-        Y: -22200718
-      - X: 79439456
-        Y: -69799248
-      - X: 232560544
-        Y: -69799248
+    - - X: 232560528
+        Y: -22200680
+      - X: 79439448
+        Y: -22200680
+      - X: 79439448
+        Y: -69799216
+      - X: 232560528
+        Y: -69799216
   - m_Collider: {fileID: 1770089097}
     m_ColliderPaths:
-    - - X: -48450004
+    - - X: -48450008
         Y: 57275012
-      - X: -157550000
+      - X: -157549984
         Y: 57275012
-      - X: -157550000
+      - X: -157549984
         Y: 10725017
-      - X: -48450004
+      - X: -48450008
         Y: 10725017
   - m_Collider: {fileID: 2008599632}
     m_ColliderPaths:
     - - X: 104190256
-        Y: -23584984
+        Y: -23584986
       - X: -98190248
-        Y: -23584984
+        Y: -23584986
       - X: -98190248
         Y: -54415044
       - X: 104190256
         Y: -54415044
   - m_Collider: {fileID: 610131070}
     m_ColliderPaths:
-    - - X: 250000000
-        Y: 25000000
-      - X: -250000000
-        Y: 25000000
-      - X: -250000000
-        Y: -25000000
-      - X: 250000000
-        Y: -25000000
+    - - X: 249999984
+        Y: 24999998
+      - X: -249999984
+        Y: 24999998
+      - X: -249999984
+        Y: -24999998
+      - X: 249999984
+        Y: -24999998
   m_CompositePaths:
     m_Paths:
-    - - {x: 23.256025, y: -6.9799247}
-      - {x: 23.256083, y: -2.5}
-      - {x: 25, y: -2.499971}
-      - {x: 24.999971, y: 2.5}
-      - {x: -4.8450003, y: 2.5000293}
+    - - {x: 23.256023, y: -6.979922}
+      - {x: 23.256083, y: -2.4999998}
+      - {x: 24.999998, y: -2.4999704}
+      - {x: 24.99997, y: 2.4999998}
+      - {x: -4.8450007, y: 2.5000293}
       - {x: -4.844971, y: 3.5245621}
       - {x: -4.037532, y: 3.5245912}
       - {x: -4.0375614, y: 4.8154345}
-      - {x: -4.8450003, y: 4.815464}
+      - {x: -4.8450007, y: 4.815464}
       - {x: -4.84503, y: 5.7275014}
-      - {x: -15.755, y: 5.7274723}
-      - {x: -15.755029, y: 2.5}
-      - {x: -25, y: 2.499971}
-      - {x: -24.999971, y: -2.5}
-      - {x: -19.455, y: -2.5000293}
-      - {x: -19.454971, y: -6.727502}
+      - {x: -15.754998, y: 5.7274723}
+      - {x: -15.755028, y: 2.4999998}
+      - {x: -24.999998, y: 2.4999704}
+      - {x: -24.99997, y: -2.4999998}
+      - {x: -19.454998, y: -2.5000293}
+      - {x: -19.45497, y: -6.727502}
       - {x: -8.545, y: -6.7274723}
       - {x: -8.5449705, y: -5.4415045}
-      - {x: 7.943946, y: -5.4415336}
-      - {x: 7.9439754, y: -6.9799247}
+      - {x: 7.943945, y: -5.4415336}
+      - {x: 7.9439745, y: -6.979922}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &433819806
@@ -2149,13 +2149,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1000
   m_LinearDrag: 0.05
-  m_AngularDrag: 0.05
+  m_AngularDrag: 2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!4 &736405263
 Transform:
   m_ObjectHideFlags: 0
@@ -2187,7 +2187,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

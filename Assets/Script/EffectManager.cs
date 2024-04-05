@@ -41,7 +41,9 @@ public class EffectManager : Singleton<EffectManager>
         {
             item = ObjectPoolManager.Instance.DequeueObject(explosionEffect[1]);//중형 폭발 이펙트 생성
         }
-        item.transform.position = position;        
+        item.transform.position = position;
+        float size = Mathf.Sqrt(caliber) * 0.1f;
+        item.transform.localScale = new Vector3(size, size, size);
         item.GetComponent<ParticleSystem>().Play();//위치, 회전 지정 후 파티클 플레이
         StartCoroutine(EffectEnqueue(1, item));//코루틴으로 일정 시간 경과 후 인큐
     }

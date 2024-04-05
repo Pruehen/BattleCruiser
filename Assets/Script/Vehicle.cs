@@ -12,6 +12,7 @@ public class Vehicle : MonoBehaviour
     Vector2 controllVector = Vector2.zero;//컨트롤 이동 벡터
     float hoverPower = 5;//상하 이동 추력
     float strafePower = 10;//좌우 이동 추력
+    float horizontalRestorationPower = 2;//복원력
 
     //public Vector2 screenAimPoint = Vector2.zero;//에임 위치(스크린 기준)
     Vector2 aimPosition = Vector2.zero;//에임 위치(절대 좌표)
@@ -38,15 +39,16 @@ public class Vehicle : MonoBehaviour
     void Update()
     {
         SetTurretTargetPos(aimPosition);
-        SetTurretParentVelocity(rigidbody2D.velocity);
-        
+        SetTurretParentVelocity(rigidbody2D.velocity);        
+
         aimDirection = aimPosition - (Vector2)transform.position;//장비 중심 기준 로컬 벡터로 변환
     }
 
     private void FixedUpdate()
     {
-        AltitudeHoldPropulsion();
-        ControllPropulsion();
+        AltitudeHoldPropulsion();//고도유지 추진
+        ControllPropulsion();//상하좌우 추진
+        HorizontalRestoration();//수평복원 회전
     }
     void ControllPropulsion()//상하좌우 추진
     {
@@ -54,7 +56,11 @@ public class Vehicle : MonoBehaviour
     }
     void AltitudeHoldPropulsion()//고도유지 추진
     {
-        rigidbody2D.AddForce(Vector2.up * 9.8f * mass, ForceMode2D.Force);
+        rigidbody2D.AddForce(this.transform.up * 9.8f * mass, ForceMode2D.Force);
+    }
+    void HorizontalRestoration()//수평 복원
+    {
+        rigidbody2D.AddTorque(this.transform.up.x * horizontalRestorationPower * mass * 360, ForceMode2D.Force);
     }
     void SetTurretTargetPos(Vector2 aimPoint)//터렛 목표 각도로 회전
     {

@@ -6,8 +6,13 @@ public class Weapon : MonoBehaviour
 {
     public GameObject projectile;
     public Transform firePoint;
-    float projectiledVelocity = 110;
+    float projectiledVelocity = 110;//발사 속도
+    float dispersion = 3;//발사각 분포(각도)
+    float shellLifeTime = 6;//탄 작동 시간
     Vector2 parentVelocity = Vector2.zero;
+    float caliber = 30;
+    float apDmgFactor = 1;
+    float heDmgFactor = 1;
 
     float turningSpeedPerSecond = 90;
     float coolDown = 0.1f;//발사 쿨타임
@@ -58,8 +63,10 @@ public class Weapon : MonoBehaviour
         if (readyToFire == false)
             return;
 
-        Projectile item = ObjectPoolManager.Instance.DequeueObject(projectile).GetComponent<Projectile>();
-        item.Init(firePoint.position, (Vector2)transform.right * projectiledVelocity + parentVelocity, firePoint.rotation, 6, 30);
+        Projectile item = ObjectPoolManager.Instance.DequeueObject(projectile).GetComponent<Projectile>();//탄 생성
+        Quaternion dispersionAngle = Quaternion.Euler(0, 0, Random.Range(-(dispersion * 0.5f), dispersion * 0.5f));//발사각도 오차 생성
+        Vector2 fireVelocity = dispersionAngle * (Vector2)transform.right * projectiledVelocity;//발사 벡터 생성
+        item.Init(firePoint.position, fireVelocity + parentVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor);//발사
 
         delay = 0;
         coolDownComplete = false;
