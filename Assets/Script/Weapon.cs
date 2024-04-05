@@ -59,10 +59,12 @@ public class Weapon : MonoBehaviour
             return;
 
         Projectile item = ObjectPoolManager.Instance.DequeueObject(projectile).GetComponent<Projectile>();
-        item.Init(firePoint.position, (Vector2)transform.right * projectiledVelocity + parentVelocity, firePoint.rotation, 3);
+        item.Init(firePoint.position, (Vector2)transform.right * projectiledVelocity + parentVelocity, firePoint.rotation, 6, 30);
 
         delay = 0;
         coolDownComplete = false;
+
+        EffectManager.Instance.GenerateMuzzleFlash(firePoint, true);
     }
     
     bool TurretRotate()//터렛 회전 함수. 발사 준비가 완료되면 true 반환

@@ -6,109 +6,52 @@ using UnityEngine.InputSystem;
 
 public class Player : Singleton<Player>
 {
-    Rigidbody2D rigidbody2D;
-    float mass = 0;
-    bool isDead = false;
-
-    Vector2 controllVector = Vector2.zero;//ÄÁÆ®·Ñ ÀÌµ¿ º¤ÅÍ
-    public float hoverPower = 5;//»óÇÏ ÀÌµ¿ Ãß·Â
-    public float strafePower = 10;//ÁÂ¿ì ÀÌµ¿ Ãß·Â
-
-    public Vector2 screenAimPoint = Vector2.zero;//¿¡ÀÓ À§Ä¡(½ºÅ©¸° ±âÁØ)
-    public Vector2 aimPosition = Vector2.zero;//¿¡ÀÓ À§Ä¡(Àı´ë ÁÂÇ¥)
-    public Vector2 aimDirection = Vector2.zero;//¿¡ÀÓ ¹æÇâ(»ó´ë ÁÂÇ¥)
-
+    public Vector2 screenAimPoint = Vector2.zero;//ì—ì„ ìœ„ì¹˜(ìŠ¤í¬ë¦° ê¸°ì¤€)
+    Vector2 inputMovement = Vector2.zero;
+    Vehicle controlledShip;
     public bool fireTrigger = false;
-
-    public Transform weaponsTrf;
-    List<Weapon> childWeaponList;
 
     private void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        mass = rigidbody2D.mass;
-
-        childWeaponList = new List<Weapon>();
-        for (int i = 0; i < weaponsTrf.childCount; i++)
-        {            
-            childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
-        }
+        controlledShip = GetComponent<Vehicle>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetTurretTargetPos(aimPosition);
-        SetTurretParentVelocity(rigidbody2D.velocity);
-
-        aimPosition = Camera.main.ScreenToWorldPoint(screenAimPoint);//¿ùµå º¤ÅÍ·Î º¯È¯
-        aimDirection = aimPosition - (Vector2)transform.position;//ÇÃ·¹ÀÌ¾î ±âÁØ ·ÎÄÃ º¤ÅÍ·Î º¯È¯
-    }
-
-    private void FixedUpdate()
-    {
-        AltitudeHoldPropulsion();
-        ControllPropulsion();
+        controlledShip.SetAimPosition(Camera.main.ScreenToWorldPoint(screenAimPoint));
+        controlledShip.SetControllVector(inputMovement);
+        controlledShip.SetTrigger(fireTrigger);
 
         PlayerUI.Instance.SetAltText(this.transform.position.y);
-        PlayerUI.Instance.SetSpeedText(rigidbody2D.velocity.magnitude);
-    }
-    void ControllPropulsion()//»óÇÏÁÂ¿ì ÃßÁø
-    {
-        rigidbody2D.AddForce(controllVector * mass, ForceMode2D.Force);
-    }
-    void AltitudeHoldPropulsion()//°íµµÀ¯Áö ÃßÁø
-    {
-        rigidbody2D.AddForce(Vector2.up * 9.8f * mass, ForceMode2D.Force);
-    }
-    void SetTurretTargetPos(Vector2 aimPoint)//ÅÍ·¿ ¸ñÇ¥ °¢µµ·Î È¸Àü
-    {
-        foreach (Weapon turret in childWeaponList)
-        {
-            turret.SetTargetPoint(aimPoint);
-        }
-    }
-    void SetTurretTrigger(bool value)//ÅÍ·¿ Æ®¸®°Å Á¶Á¤
-    {
-        foreach (Weapon turret in childWeaponList)
-        {
-            turret.SetTrigger(value);
-        }
-    }
-    void SetTurretParentVelocity(Vector2 velocity)
-    {
-        foreach (Weapon turret in childWeaponList)
-        {
-            turret.SetParentVelocity(velocity);
-        }
+        PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
     }
 
 
-    void OnMove(InputValue inputValue)//WASD Á¶ÀÛ
+    void OnMove(InputValue inputValue)//WASD ì¡°ì‘
     {
-        Vector2 inputMovement = inputValue.Get<Vector2>();//ÀÎÇ² º¤ÅÍ ¹Ş¾Æ¿È
-        controllVector = new Vector2(inputMovement.x * strafePower, inputMovement.y * hoverPower);//Á¶Á¾ º¤ÅÍ·Î º¯È¯
+        inputMovement = inputValue.Get<Vector2>();//ì¸í’‹ ë²¡í„° ë°›ì•„ì˜´        
     }
-    void OnAim(InputValue inputValue)//¸¶¿ì½º À§Ä¡
+    void OnAim(InputValue inputValue)//ë§ˆìš°ìŠ¤ ìœ„ì¹˜
     {
-        screenAimPoint = inputValue.Get<Vector2>();//¸¶¿ì½º À§Ä¡ ¹Ş¾Æ¿È
-        PlayerUI.Instance.SetAimPointPosition(screenAimPoint);//¿¡ÀÓÆ÷ÀÎÆ® À§Ä¡°»½Å
+        screenAimPoint = inputValue.Get<Vector2>();//ë§ˆìš°ìŠ¤ ìœ„ì¹˜ ë°›ì•„ì˜´
+        PlayerUI.Instance.SetAimPointPosition(screenAimPoint);//ì—ì„í¬ì¸íŠ¸ ìœ„ì¹˜ê°±ì‹ 
     }
-    void OnLeftClick(InputValue inputValue)//¸¶¿ì½º ÁÂÅ¬¸¯
+    void OnLeftClick(InputValue inputValue)//ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­
     {
         float isClick = inputValue.Get<float>();
 
-        if(isClick == 1)//´­·¶À» ¶§
+        if(isClick == 1)//ëˆŒë €ì„ ë•Œ
         {
             fireTrigger = true;
         }
-        else//¶¿ ¶§
+        else//ë—„ ë•Œ
         {
             fireTrigger = false;
         }
-        SetTurretTrigger(fireTrigger);
+        controlledShip.SetTrigger(fireTrigger);
     }
-    void OnRightClick(InputValue inputValue)//¸¶¿ì½º ¿ìÅ¬¸¯
+    void OnRightClick(InputValue inputValue)//ë§ˆìš°ìŠ¤ ìš°í´ë¦­
     {
         Debug.Log(inputValue);
     }
