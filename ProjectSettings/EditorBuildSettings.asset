@@ -6,7 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
+    path: Assets/BattleCruiser/Scenes/Intro.unity
+    guid: 005d8ae9eb4cc08499e7c6684c6bcbdc
+  - enabled: 1
+    path: Assets/BattleCruiser/Scenes/Main.unity
+    guid: 63d2391e6cec5e1498231b906e050086
+  - enabled: 1
+    path: Assets/BattleCruiser/Scenes/NewGameIntro.unity
+    guid: 185a9270fea05444d947261df3974172
+  - enabled: 1
+    path: Assets/BattleCruiser/Scenes/Strategy.unity
+    guid: 41af0a2db066dbb4987a99e5ed04c30e
+  - enabled: 1
+    path: Assets/BattleCruiser/Scenes/Battle.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 373df9d081d1990489702f789007ed6b, type: 2}
