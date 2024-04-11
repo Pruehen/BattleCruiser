@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class MainCamControll : MonoBehaviour
 {
     float minCamSize = 30;//최대 확대 사이즈
-    float maxCamSize = 500;//최대 축소 사이즈
+    float maxCamSize = 1000;//최대 축소 사이즈
     float defaultCamSize = 70;//기본 사이즈
     float sensitivity = 0.05f;//마우스 휠 민감도    
     float camSpeed = 10;//카메라가 얼마나 빨리 목표 위치로 이동할지. 1~20 권장

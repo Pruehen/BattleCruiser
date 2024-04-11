@@ -14,7 +14,7 @@ public class SceneChanger : SceneSingleton<SceneChanger>
 
     private void Awake()
     {
-        Debug.Log($"{SceneChanger.Instance.name}의 인스턴싱 완료");
+        Debug.Log($"{Instance.name} 인스턴싱 완료");
     }
     public void SceneChange(SceneName sceneName)
     {

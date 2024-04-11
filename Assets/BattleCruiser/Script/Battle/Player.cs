@@ -27,8 +27,9 @@ public class Player : SceneSingleton<Player>
     {
         worldAimPoint = Camera.main.ScreenToWorldPoint(screenAimPoint);
         controlledShip.SetAimPosition(worldAimPoint);
-        controlledShip.SetControllVector(inputMovement);        
+        controlledShip.SetControllVector(inputMovement);
 
+        PlayerUI.Instance.SetDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
         PlayerUI.Instance.SetAltText(this.transform.position.y);
         PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
         PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);
@@ -43,8 +44,7 @@ public class Player : SceneSingleton<Player>
     void OnAim(InputValue inputValue)//마우스 위치
     {
         screenAimPoint = inputValue.Get<Vector2>();//마우스 위치 받아옴
-        PlayerUI.Instance.SetAimPointPosition(screenAimPoint);//에임포인트 위치갱신
-        PlayerUI.Instance.SetDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
+        PlayerUI.Instance.SetAimPointPosition(screenAimPoint);//에임포인트 위치갱신        
     }
     void OnLeftClick(InputValue inputValue)//마우스 좌클릭
     {

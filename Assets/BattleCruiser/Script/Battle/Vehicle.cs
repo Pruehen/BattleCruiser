@@ -172,7 +172,7 @@ public class Vehicle : MonoBehaviour
     }
     public void SetTrigger(bool value)//발사 트리거 인풋
     {
-        if (isDead == false)
+        if (isSplashed == false)
         {
             fireTrigger = value;
         }
@@ -258,6 +258,8 @@ public class Vehicle : MonoBehaviour
         StartCoroutine(OnDestructEffect(0));
         StartCoroutine(OnDestructEffect(0.5f));
         StartCoroutine(OnDestructEffect(1));
+        StartCoroutine(OnDestructEffect(1.5f));
+        StartCoroutine(OnDestructEffect(2));
     }
 
     IEnumerator OnDestructEffect(float delayTime)
