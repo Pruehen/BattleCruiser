@@ -68,7 +68,7 @@ public class AI_Enemy : MonoBehaviour
         moveTargetTemp = moveTarget;
 
         moveOrder = moveTarget * p - currentVelocity * d;
-        Debug.Log(moveOrder);
+        //Debug.Log(moveOrder);
 
         moveOrder = moveOrder.normalized;
         controllUnit.SetInputMovement(moveOrder);
@@ -92,7 +92,7 @@ class DistanceKeep : IMoveStrategy
     {
         Vector2 movePositon = new Vector2(200 + randomGain1 + targetPositon.x, Mathf.Clamp(randomGain2 + targetPositon.y, 50, 10000));        
 
-        Debug.Log("거리 유지 명령");
+        //Debug.Log("거리 유지 명령");
         return movePositon;
     }
 }

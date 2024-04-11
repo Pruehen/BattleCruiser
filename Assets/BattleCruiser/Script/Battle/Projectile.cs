@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Projectile : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
+    Vector2 velocityTemp;
 
     bool isUse = false;
     float usingTime = 0;
@@ -45,6 +47,7 @@ public class Projectile : MonoBehaviour
     private void FixedUpdate()
     {
         rigidbody2D.AddTorque(GetAngleBetweenVectors(this.transform.right, rigidbody2D.velocity));//탄의 진행 방향으로 탄을 회전
+        velocityTemp = rigidbody2D.velocity;
     }
 
     void SelfDestroy()
@@ -67,8 +70,12 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Vehicle"))
         {
-            float kineticDmg = apDmgFactor * rigidbody2D.velocity.sqrMagnitude * 0.00005f * caliber * caliber;
+            float kineticEnergy = (velocityTemp - collision.gameObject.GetComponent<Rigidbody2D>().velocity).sqrMagnitude;            
+            float kineticDmg = apDmgFactor * kineticEnergy * 0.00005f * caliber * caliber;            
             float explosiveDmg = caliber * caliber * caliber * heDmgFactor * 0.001f;
+
+            Debug.Log(kineticDmg);
+            Debug.Log(explosiveDmg);
 
             collision.gameObject.GetComponent<Vehicle>().Demage(kineticDmg, explosiveDmg);
         }

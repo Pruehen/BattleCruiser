@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        controlledShip.Init(true, 500000, 10000, 50, 50, 100, 3);//함선 데이터 초기화
+        controlledShip.Init(true, 500000, 10000, 50, 10, 20, 3);//함선 데이터 초기화
 
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 6, 40, 1, 1, 45, 0.1f, Vector2.zero));
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 6, 40, 1, 1, 45, 0.1f, Vector2.zero));

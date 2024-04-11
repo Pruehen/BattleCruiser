@@ -176,11 +176,11 @@ public class Vehicle : MonoBehaviour
         if (!isDead)
         {
             apDmg = Mathf.Clamp(apDmg - (apDmg * armor * 0.01f) - armor, 1, apDmg);//방어력에 따른 물리 데미지 경감
-            Debug.Log($"물리 데미지 : {apDmg}");
-            Debug.Log($"폭발 데미지 : {heDmg}");
+            //Debug.Log($"물리 데미지 : {apDmg}");
+            //Debug.Log($"폭발 데미지 : {heDmg}");
             hp -= apDmg + heDmg;
             float hpRatio = HpRatio();
-            Debug.Log($"체력 비율 : {hpRatio}");
+            //Debug.Log($"체력 비율 : {hpRatio}");
 
             DemageEffectGenerate(hpRatio);
 

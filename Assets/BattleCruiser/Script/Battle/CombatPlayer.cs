@@ -20,7 +20,7 @@ public class CombatPlayer : SceneSingleton<CombatPlayer>
 
     private void Start()
     {
-        controlledShip.Init(false, 1000000, 10000, 50, 50, 100, 3);
+        controlledShip.Init(false, 1000000, 10000, 50, 10, 20, 3);
 
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
