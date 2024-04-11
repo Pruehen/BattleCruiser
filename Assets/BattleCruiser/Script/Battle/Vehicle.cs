@@ -76,7 +76,7 @@ public class Vehicle : MonoBehaviour
         {
             for (int i = 0; i < weaponDatas.Count; i++)
             {
-                childWeaponList[i].Init(isEnemy, weaponDatas[i]);
+                childWeaponList[i].Init(isEnemy, weaponDatas[i], childWeaponList[i].gameObject.transform.localPosition);
             }
         }
         else

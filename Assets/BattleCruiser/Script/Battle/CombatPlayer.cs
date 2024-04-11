@@ -20,12 +20,12 @@ public class CombatPlayer : SceneSingleton<CombatPlayer>
 
     private void Start()
     {
-        controlledShip.Init(false, 1000000, 10000, 50, 10, 20, 3);
+        controlledShip.Init(false, 1000000, 10000, 50, 50, 100, 3);
 
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
 
         controlledShip.WeaponInit(weaponData.weaponDatas);
     }
@@ -38,6 +38,8 @@ public class CombatPlayer : SceneSingleton<CombatPlayer>
 
         PlayerUI.Instance.SetAltText(this.transform.position.y);
         PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
+        PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);
+        PlayerUI.Instance.SetVelocityMarker(controlledShip.Rigidbody2D().velocity, this.transform.position);
     }
 
 

@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        controlledShip.Init(true, 500000, 10000, 50, 10, 20, 3);//함선 데이터 초기화
+        controlledShip.Init(true, 500000, 10000, 50, 50, 100, 3);//함선 데이터 초기화
 
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 6, 40, 1, 1, 45, 0.1f, Vector2.zero));
         weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 100, 3, 6, 40, 1, 1, 45, 0.1f, Vector2.zero));
@@ -35,11 +35,18 @@ public class Enemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        aimPoint = target.position;
-
+    {        
         controlledShip.SetControllVector(inputMovement);
         controlledShip.SetTrigger(fireTrigger);
         controlledShip.SetAimPosition(aimPoint);
-    }    
+    }
+    
+    public void SetInputMovement(Vector2 vector2)
+    {
+        inputMovement = vector2;
+    }
+    public void SetAimPoint(Vector2 vector2)
+    {
+        aimPoint = vector2;
+    }
 }

@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
     {
         parentVelocity = velocity;
     }
-    public void Init(bool isEnemy, WeaponData weaponData)
+    public void Init(bool isEnemy, WeaponData weaponData, Vector2 localPosition)
     {
         this.isEnemy = isEnemy;
         this.projectiledVelocity = weaponData.projectiledVelocity;
@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
         this.heDmgFactor = weaponData.heDmgFactor;
         this.turningSpeedPerSecond = weaponData.turningSpeedPerSecond;
         this.coolDown = weaponData.coolDown;
-        this.transform.localPosition = weaponData.equipPosition;
+        this.transform.localPosition = localPosition;
 
         isInit = true;
     }
