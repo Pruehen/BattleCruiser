@@ -26,6 +26,7 @@ public class Vehicle : MonoBehaviour
     float hoverPower = 5;//상하 이동 가속력
     float strafePower = 10;//좌우 이동 가속력
     float horizontalRestorationPower = 2;//복원력
+    float altPropulsionGain = 1;//고도에 따른 추진력 감소
 
     //public Vector2 screenAimPoint = Vector2.zero;//에임 위치(스크린 기준)
     Vector2 aimPosition = Vector2.zero;//에임 위치(절대 좌표)
@@ -117,6 +118,10 @@ public class Vehicle : MonoBehaviour
     {
         if (!isDead)
         {
+            float airPressure = Mathf.Clamp(200 / (this.transform.position.y + 50), 0, 1);
+            altPropulsionGain = airPressure;
+            rigidbody2D.drag = airPressure;
+
             AltitudeHoldPropulsion();//고도유지 추진
             ControllPropulsion();//상하좌우 추진
             HorizontalRestoration();//수평복원 회전
@@ -124,11 +129,11 @@ public class Vehicle : MonoBehaviour
     }
     void ControllPropulsion()//상하좌우 추진
     {
-        rigidbody2D.AddForce(controllVector * mass, ForceMode2D.Force);
+        rigidbody2D.AddForce(controllVector * mass * altPropulsionGain, ForceMode2D.Force);
     }
     void AltitudeHoldPropulsion()//고도유지 추진
     {
-        rigidbody2D.AddForce(this.transform.up * 9.8f * mass, ForceMode2D.Force);
+        rigidbody2D.AddForce(this.transform.up * 9.8f * mass * altPropulsionGain, ForceMode2D.Force);
     }
     void HorizontalRestoration()//수평 복원
     {

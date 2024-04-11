@@ -20,22 +20,22 @@ public class PlayerUI : SceneSingleton<PlayerUI>
     }
     public void SetDistanceText(float distance)
     {
-        distanceText.text = ((int)distance * 10).ToString();
+        distanceText.text = ((int)(distance * 10)).ToString();
     }
 
     public void SetSpeedText(float value)
     {
-        speedText.text = ((int)value * 10).ToString();
+        speedText.text = ((int)(value * 10)).ToString();
     }
 
     public void SetAltText(float value)
     {
-        altText.text = ((int)value * 10).ToString();
+        altText.text = ((int)(value * 10)).ToString();
     }
 
     public void SetVelocityMarker(Vector2 velocity, Vector2 playerPosition)
     {
-        if(velocity.magnitude < 5)
+        if(velocity.magnitude < 0.5f)
         {
             velocityMarker.gameObject.SetActive(false);
         }
