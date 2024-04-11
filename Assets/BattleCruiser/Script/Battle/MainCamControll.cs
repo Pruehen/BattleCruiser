@@ -24,8 +24,8 @@ public class MainCamControll : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 offset = ((Vector3)CombatPlayer.Instance.screenAimPoint - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0)) * 0.0001f * camSize;
-        camTargetPosition = CombatPlayer.Instance.transform.position + new Vector3(0, 0, -10) + offset * canRange;
+        Vector3 offset = ((Vector3)Player.Instance.screenAimPoint - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0)) * 0.0001f * camSize;
+        camTargetPosition = Player.Instance.transform.position + new Vector3(0, 0, -10) + offset * canRange;
         this.transform.position = Vector3.Lerp(this.transform.position, camTargetPosition, Time.deltaTime * camSpeed);
         cam.orthographicSize = camSize;
     }

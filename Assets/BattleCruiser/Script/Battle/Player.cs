@@ -4,36 +4,29 @@ using UnityEngine;
 
 using UnityEngine.InputSystem;
 
-public class CombatPlayer : SceneSingleton<CombatPlayer>
+public class Player : SceneSingleton<Player>
 {
     public Vector2 screenAimPoint = Vector2.zero;//에임 위치(스크린 기준)
+    Vector2 worldAimPoint = Vector2.zero;//에임 위치(월드 좌표)
     Vector2 inputMovement = Vector2.zero;
     Vehicle controlledShip;
-    EquipWeaponData weaponData;
-    public bool fireTrigger = false;    
-
-    private void Awake()
-    {
-        controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
-        weaponData = GetComponent<EquipWeaponData>();//함선에 장비된 무기 데이터 클래스 (무기데이터 초기화에 사용)
-    }
+    ShipData shipData;
+    public bool fireTrigger = false;
 
     private void Start()
     {
-        controlledShip.Init(false, 1000000, 10000, 50, 10, 20, 3);
+        controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
+        shipData = JsonDataManager.Instance.saveData.shipDataDictionary["Ship_002"];//함선이 사용할 함선 데이터
 
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
-
-        controlledShip.WeaponInit(weaponData.weaponDatas);
+        controlledShip.Init(false, shipData);
+        controlledShip.WeaponInit(shipData.weaponDatas);
     }
 
     // Update is called once per frame
     void Update()
     {
-        controlledShip.SetAimPosition(Camera.main.ScreenToWorldPoint(screenAimPoint));
+        worldAimPoint = Camera.main.ScreenToWorldPoint(screenAimPoint);
+        controlledShip.SetAimPosition(worldAimPoint);
         controlledShip.SetControllVector(inputMovement);        
 
         PlayerUI.Instance.SetAltText(this.transform.position.y);
@@ -51,6 +44,7 @@ public class CombatPlayer : SceneSingleton<CombatPlayer>
     {
         screenAimPoint = inputValue.Get<Vector2>();//마우스 위치 받아옴
         PlayerUI.Instance.SetAimPointPosition(screenAimPoint);//에임포인트 위치갱신
+        PlayerUI.Instance.SetDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
     }
     void OnLeftClick(InputValue inputValue)//마우스 좌클릭
     {

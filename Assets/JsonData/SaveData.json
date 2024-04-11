@@ -1,0 +1,114 @@
+{
+  "shipDataDictionary": {
+    "Ship_001": {
+      "className": "테스트 초계함",
+      "maxHp": 100000.0,
+      "mass": 10000.0,
+      "armor": 50.0,
+      "hoverPower": 10.0,
+      "strafePower": 20.0,
+      "horizontalRestorationPower": 3.0,
+      "weaponDatas": [
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.1
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.1
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.1
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.1
+        }
+      ]
+    },
+    "Ship_002": {
+      "className": "테스트 초계함 2",
+      "maxHp": 1000000.0,
+      "mass": 10000.0,
+      "armor": 50.0,
+      "hoverPower": 20.0,
+      "strafePower": 40.0,
+      "horizontalRestorationPower": 3.0,
+      "weaponDatas": [
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 30.0,
+          "caliber": 200.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.2
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 30.0,
+          "caliber": 200.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.2
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 30.0,
+          "caliber": 200.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.2
+        },
+        {
+          "projectiletype": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 3.0,
+          "shellLifeTime": 30.0,
+          "caliber": 200.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.2
+        }
+      ]
+    }
+  }
+}

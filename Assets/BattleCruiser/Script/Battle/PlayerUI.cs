@@ -5,6 +5,8 @@ using TMPro;
 public class PlayerUI : SceneSingleton<PlayerUI>
 {
     public RectTransform aimPoint;
+    public TextMeshProUGUI distanceText;
+
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI altText;
 
@@ -16,15 +18,19 @@ public class PlayerUI : SceneSingleton<PlayerUI>
     {
         aimPoint.position = screenPosition;
     }
+    public void SetDistanceText(float distance)
+    {
+        distanceText.text = ((int)distance * 10).ToString();
+    }
 
     public void SetSpeedText(float value)
     {
-        speedText.text = ((int)value).ToString();
+        speedText.text = ((int)value * 10).ToString();
     }
 
     public void SetAltText(float value)
     {
-        altText.text = ((int)value).ToString();
+        altText.text = ((int)value * 10).ToString();
     }
 
     public void SetVelocityMarker(Vector2 velocity, Vector2 playerPosition)

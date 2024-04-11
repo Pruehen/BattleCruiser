@@ -30,7 +30,7 @@ public class AI_Enemy : MonoBehaviour
     {
         controllUnit = GetComponent<Enemy>();
         controllVehicle = GetComponent<Vehicle>();
-        targetVehicle = CombatPlayer.Instance.GetComponent<Vehicle>();
+        targetVehicle = Player.Instance.GetComponent<Vehicle>();
     }
 
     // Start is called before the first frame update
@@ -75,6 +75,8 @@ public class AI_Enemy : MonoBehaviour
     }
     void SetAim()//목표 위치에 에임포인트를 옮기는 함수. 타겟 함선의 이동과 탄도 특성을 고려해야 함
     {
+        Vector2 targetAimPosition;
+
         aimPoint = targetPosition;
         controllUnit.SetAimPoint(aimPoint);
     }

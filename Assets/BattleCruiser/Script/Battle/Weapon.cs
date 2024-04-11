@@ -22,15 +22,26 @@ public class Weapon : MonoBehaviour
     bool readyToFire = false;//발사 준비 완료
     bool trigger = false;//트리거
 
-    Vector2 targetPosition;
-    Vector2 toTargetVector2;
+    Vector2 targetPosition;//조준 좌표(월드)
+    Vector2 toTargetVector2;//조준 좌표(로컬)
 
     bool isEnemy = false;
     bool isInit = false;
 
-    public void SetTargetPoint(Vector2 targetPos)
+    public void SetTargetPoint(Vector2 targetPos)//조준 좌표 세팅 및 거리, 중력, 저항을 고려한 조준 보정
     {
-        targetPosition = targetPos;
+        float distance = (targetPos - (Vector2)this.transform.position).magnitude;//목표와의 거리
+        float eta = distance / projectiledVelocity;//목표까지의 도달 예상 시간
+        Vector2 calcTargetPos = new Vector2(targetPos.x, targetPos.y + (eta * 4.9f * eta));//초기 좌표 세팅
+
+        float drag = 3/caliber;//공기 저항
+        float finalVelocity = projectiledVelocity * Mathf.Exp(-drag * eta);//공기 저항에 따른 최종 탄착 예상 속도
+        eta = (calcTargetPos - (Vector2)this.transform.position).magnitude / ((projectiledVelocity + finalVelocity) * 0.5f);//포물선 궤적 및 공기 저항에 따른 도달 예상 시간 재계산
+        finalVelocity = projectiledVelocity * Mathf.Exp(-drag * eta);//공기 저항에 따른 최종 탄착 예상 속도를 변화한 eta값에 맞춰 재계산
+        eta = (calcTargetPos - (Vector2)this.transform.position).magnitude / ((projectiledVelocity + finalVelocity) * 0.5f);//포물선 궤적 및 공기 저항에 따른 도달 예상 시간 재계산
+        calcTargetPos = new Vector2(targetPos.x, targetPos.y + Mathf.Clamp(Mathf.Pow(eta, 2 + (eta * 0.009f)) * 4.9f, 0, distance));//최종 세팅
+
+        targetPosition = calcTargetPos;
     }
     public void SetTrigger(bool value)
     {

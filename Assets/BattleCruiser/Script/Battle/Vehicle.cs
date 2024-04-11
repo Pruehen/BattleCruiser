@@ -42,19 +42,14 @@ public class Vehicle : MonoBehaviour
 
     private void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        mass = rigidbody2D.mass;
+        rigidbody2D = GetComponent<Rigidbody2D>();//자기 자신의 리지드바디        
 
-        childWeaponList = new List<Weapon>();
-        for (int i = 0; i < weaponsTrf.childCount; i++)
-        {
-            childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
-        }
+        childWeaponList = new List<Weapon>();//자기 자신의 무기 리스트
+        spriteTrfs = new List<Transform>();//자기 자신의 스프라이트 구성체 리스트
 
-        spriteTrfs = new List<Transform>();
         for (int i = 0; i < spriteTrf.childCount; i++)
         {
-            spriteTrfs.Add(spriteTrf.GetChild(i));
+            spriteTrfs.Add(spriteTrf.GetChild(i));//스프라이트 저장
         }        
     }
     public void Init(bool isEnemy, float maxHp, float mass, float armor, float hoverPower, float strafePower, float horizontalRestorationPower)
@@ -71,12 +66,27 @@ public class Vehicle : MonoBehaviour
 
         isInit = true;
     }
+    public void Init(bool isEnemy, ShipData shipData)
+    {
+        this.isEnemy = isEnemy;
+        this.maxHp = shipData.maxHp;
+        hp = maxHp;
+        this.mass = shipData.mass;
+        rigidbody2D.mass = mass;
+        this.armor = shipData.armor;
+        this.hoverPower = shipData.hoverPower;
+        this.strafePower = shipData.strafePower;
+        this.horizontalRestorationPower = shipData.horizontalRestorationPower;
+
+        isInit = true;
+    }
     public void WeaponInit(List<WeaponData> weaponDatas)
     {
-        if(weaponDatas.Count == childWeaponList.Count)//두 리스트의 수가 같을 경우
+        if(weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
         {
-            for (int i = 0; i < weaponDatas.Count; i++)
+            for (int i = 0; i < weaponsTrf.childCount; i++)
             {
+                childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
                 childWeaponList[i].Init(isEnemy, weaponDatas[i], childWeaponList[i].gameObject.transform.localPosition);
             }
         }
@@ -176,8 +186,15 @@ public class Vehicle : MonoBehaviour
             //Debug.Log($"물리 데미지 : {apDmg}");
             //Debug.Log($"폭발 데미지 : {heDmg}");
             hp -= apDmg + heDmg;
+            
+            if(isEnemy)
+            {
+                GameManager.Instance.KineticDmgUp(apDmg);
+                GameManager.Instance.ChemicalDmgUp(heDmg);
+            }
+
             float hpRatio = HpRatio();
-            Debug.Log($"체력 비율 : {hpRatio}");
+            //Debug.Log($"체력 비율 : {hpRatio}");
 
             DemageEffectGenerate(hpRatio);
 
