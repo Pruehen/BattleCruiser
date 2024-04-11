@@ -22,10 +22,10 @@ public class CombatPlayer : SceneSingleton<CombatPlayer>
     {
         controlledShip.Init(false, 1000000, 10000, 50, 10, 20, 3);
 
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
-        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 300, 3, 10, 203, 1, 1, 45, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
+        weaponData.weaponDatas.Add(new WeaponData(ProjectileType.Shell, 80, 3, 10, 406, 1, 1, 180, 2f, Vector2.zero));
 
         controlledShip.WeaponInit(weaponData.weaponDatas);
     }

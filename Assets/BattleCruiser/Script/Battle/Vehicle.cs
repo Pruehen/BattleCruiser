@@ -10,7 +10,7 @@ public class Vehicle : MonoBehaviour
     bool isDead = false;
     bool isSplashed = false;
     float hp;//현재 체력
-    float maxHp = 100000;//최대 체력
+    float maxHp;//최대 체력
     bool isEnemy = false;
     bool isInit = false;
     float HpRatio() { return 100 * hp / maxHp; }//hp비율. 0~100의 값을 가짐.
@@ -61,6 +61,7 @@ public class Vehicle : MonoBehaviour
     {
         this.isEnemy = isEnemy;
         this.maxHp = maxHp;
+        hp = maxHp;
         this.mass = mass;
         rigidbody2D.mass = mass;
         this.armor = armor;
@@ -84,11 +85,7 @@ public class Vehicle : MonoBehaviour
             Debug.LogError("무장의 수량이 다릅니다.");
         }
     }
-
-    private void Start()
-    {
-        hp = maxHp;        
-    }
+   
     // Update is called once per frame
     void Update()
     {
@@ -180,7 +177,7 @@ public class Vehicle : MonoBehaviour
             //Debug.Log($"폭발 데미지 : {heDmg}");
             hp -= apDmg + heDmg;
             float hpRatio = HpRatio();
-            //Debug.Log($"체력 비율 : {hpRatio}");
+            Debug.Log($"체력 비율 : {hpRatio}");
 
             DemageEffectGenerate(hpRatio);
 

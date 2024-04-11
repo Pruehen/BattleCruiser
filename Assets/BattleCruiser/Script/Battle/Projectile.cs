@@ -74,9 +74,6 @@ public class Projectile : MonoBehaviour
             float kineticDmg = apDmgFactor * kineticEnergy * 0.00005f * caliber * caliber;            
             float explosiveDmg = caliber * caliber * caliber * heDmgFactor * 0.001f;
 
-            Debug.Log(kineticDmg);
-            Debug.Log(explosiveDmg);
-
             collision.gameObject.GetComponent<Vehicle>().Demage(kineticDmg, explosiveDmg);
         }
         ProjectileDestroy(collision.contacts[0].point);
