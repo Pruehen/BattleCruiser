@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
         float eta = distance / projectiledVelocity;//목표까지의 도달 예상 시간
         Vector2 calcTargetPos = new Vector2(targetPos.x, targetPos.y + (eta * 4.9f * eta));//초기 좌표 세팅
 
-        float drag = 10/caliber;//공기 저항
+        float drag = 1/caliber;//공기 저항
         float finalVelocity = projectiledVelocity * Mathf.Exp(-drag * eta);//공기 저항에 따른 최종 탄착 예상 속도
         eta = (calcTargetPos - (Vector2)this.transform.position).magnitude / ((projectiledVelocity + finalVelocity) * 0.5f);//포물선 궤적 및 공기 저항에 따른 도달 예상 시간 재계산
         finalVelocity = projectiledVelocity * Mathf.Exp(-drag * eta);//공기 저항에 따른 최종 탄착 예상 속도를 변화한 eta값에 맞춰 재계산

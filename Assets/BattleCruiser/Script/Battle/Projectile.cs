@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
         this.transform.position = position;
         this.transform.rotation = quaternion;
         rigidbody2D.velocity = velocity;//좌표, 회전, 속도 초기화
-        rigidbody2D.drag = 10 / caliber;
+        rigidbody2D.drag = 1 / caliber;
         float size = Mathf.Sqrt(caliber) * 0.1f;        
         this.transform.localScale = new Vector3(size, size, size);
 

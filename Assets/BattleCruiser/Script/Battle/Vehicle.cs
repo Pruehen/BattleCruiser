@@ -15,6 +15,7 @@ public class Vehicle : MonoBehaviour
     bool isInit = false;
     float HpRatio() { return 100 * hp / maxHp; }//hp비율. 0~100의 값을 가짐.
     float armor = 50;//방어력. 0~100의 값을 가짐.
+    public float maxWeaponVelocity { get; private set; }//현재 장비된 무기 중 가장 탄속이 높은 무기의 탄속
 
     bool calledAt75 = false;
     bool calledAt60 = false;
@@ -83,12 +84,18 @@ public class Vehicle : MonoBehaviour
     }
     public void WeaponInit(List<WeaponData> weaponDatas)
     {
-        if(weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
+        maxWeaponVelocity = 0;
+        if (weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
         {
             for (int i = 0; i < weaponsTrf.childCount; i++)
             {
                 childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
                 childWeaponList[i].Init(isEnemy, weaponDatas[i], childWeaponList[i].gameObject.transform.localPosition);
+
+                if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)
+                {
+                    maxWeaponVelocity = weaponDatas[i].projectiledVelocity;
+                }
             }
         }
         else

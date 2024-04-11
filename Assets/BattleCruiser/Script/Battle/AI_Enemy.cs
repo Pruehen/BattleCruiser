@@ -17,6 +17,8 @@ public class AI_Enemy : MonoBehaviour
     Vector2 targetPosition;//타겟 위치
     Vector2 targetVelocity;//타겟 속도
 
+    float maxWeaponVelocity;
+
     [Header("PID")]
     float p = 0.001f;//비례 제어 변수
     float i = 1;//적분 제어 변수
@@ -39,6 +41,14 @@ public class AI_Enemy : MonoBehaviour
         moveStrategy = new DistanceKeep();
         randomGain1 = Random.Range(-100f, 100f);
         randomGain2 = Random.Range(-100f, 100f);
+        maxWeaponVelocity = 300;
+        StartCoroutine(maxWeaponVelocitySet());
+    }
+
+    IEnumerator maxWeaponVelocitySet()
+    {
+        yield return new WaitForSeconds(1);
+        maxWeaponVelocity = controllVehicle.maxWeaponVelocity;
     }
 
     // Update is called once per frame
@@ -75,9 +85,12 @@ public class AI_Enemy : MonoBehaviour
     }
     void SetAim()//목표 위치에 에임포인트를 옮기는 함수. 타겟 함선의 이동과 탄도 특성을 고려해야 함
     {
-        Vector2 targetAimPosition;
+        float distance = (targetPosition - currentPosition).magnitude;//약식 거리
+        float eta = distance / maxWeaponVelocity;//약식 탄 도달 속도
 
-        aimPoint = targetPosition;
+        Vector2 targetAimPosition = targetPosition + targetVelocity * eta;
+
+        aimPoint = targetAimPosition;
         controllUnit.SetAimPoint(aimPoint);
     }
 }
