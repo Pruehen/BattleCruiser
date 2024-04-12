@@ -3,30 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PrefabManager : MonoBehaviour
+public class PrefabManager : SceneSingleton<PrefabManager>
 {
-    static PrefabManager instance;
-    public static PrefabManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = (PrefabManager)FindObjectOfType(typeof(PrefabManager));
-                DontDestroyOnLoad(instance.gameObject);
-
-                if (instance == null)
-                {
-                    GameObject singletonObject = new GameObject();
-                    singletonObject.name = "PrefabManager";
-                    instance = singletonObject.AddComponent<PrefabManager>();
-                }
-            }
-
-            return instance;
-        }
-    }
-
     public GameObject enemy;
     public GameObject projectile;
     public GameObject projectile_Enemy;
@@ -34,6 +12,6 @@ public class PrefabManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"{Instance.name} 인스턴싱 완료");
+        Debug.Log($"{Instance.name} 로컬 인스턴싱 완료");
     }
 }

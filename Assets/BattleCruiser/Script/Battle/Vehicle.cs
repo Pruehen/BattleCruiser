@@ -34,6 +34,7 @@ public class Vehicle : MonoBehaviour
     Vector2 aimDirection = Vector2.zero;//에임 방향(상대 좌표)
 
     bool fireTrigger = false;
+    Vehicle target;
 
     public Transform weaponsTrf;
     List<Weapon> childWeaponList;
@@ -47,27 +48,9 @@ public class Vehicle : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();//자기 자신의 리지드바디        
 
         childWeaponList = new List<Weapon>();//자기 자신의 무기 리스트
-        spriteTrfs = new List<Transform>();//자기 자신의 스프라이트 구성체 리스트
-
-        for (int i = 0; i < spriteTrf.childCount; i++)
-        {
-            spriteTrfs.Add(spriteTrf.GetChild(i));//스프라이트 저장
-        }        
+        spriteTrfs = new List<Transform>();//자기 자신의 스프라이트 구성체 리스트       
     }
-    public void Init(bool isEnemy, float maxHp, float mass, float armor, float hoverPower, float strafePower, float horizontalRestorationPower)
-    {
-        this.isEnemy = isEnemy;
-        this.maxHp = maxHp;
-        hp = maxHp;
-        this.mass = mass;
-        rigidbody2D.mass = mass;
-        this.armor = armor;
-        this.hoverPower = hoverPower;
-        this.strafePower = strafePower;
-        this.horizontalRestorationPower = horizontalRestorationPower;
 
-        isInit = true;
-    }
     public void Init(bool isEnemy, ShipData shipData)
     {
         this.isEnemy = isEnemy;
@@ -79,6 +62,11 @@ public class Vehicle : MonoBehaviour
         this.hoverPower = shipData.hoverPower;
         this.strafePower = shipData.strafePower;
         this.horizontalRestorationPower = shipData.horizontalRestorationPower;
+
+        for (int i = 0; i < spriteTrf.childCount; i++)
+        {
+            spriteTrfs.Add(spriteTrf.GetChild(i));//스프라이트 저장
+        }
 
         isInit = true;
     }
@@ -275,7 +263,14 @@ public class Vehicle : MonoBehaviour
         EffectManager.Instance.GenerateDemageEffect(this.transform, (Vector2)this.transform.position + new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f)), 2);
     }
 
-
+    public void SetTarget(Vehicle target)
+    {
+        this.target = target;
+    }
+    public Vehicle GetTarget()
+    {
+        return this.target;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead && !isSplashed && collision.gameObject.CompareTag("Ground"))

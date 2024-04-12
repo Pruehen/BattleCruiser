@@ -32,15 +32,17 @@ public class AI_Enemy : MonoBehaviour
     {
         controllUnit = GetComponent<Enemy>();
         controllVehicle = GetComponent<Vehicle>();
-        targetVehicle = Player.Instance.GetComponent<Vehicle>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        targetVehicle = Player.Instance.GetComponent<Vehicle>();
         moveStrategy = new DistanceKeep();
+
         randomGain1 = Random.Range(-100f, 100f);
         randomGain2 = Random.Range(-100f, 100f);
+
         maxWeaponVelocity = 300;
         StartCoroutine(maxWeaponVelocitySet());
     }

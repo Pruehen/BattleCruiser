@@ -110,5 +110,13 @@
         }
       ]
     }
-  }
+  },
+  "stageList": [
+    {
+      "stageShipDataList": [
+        "Ship_001",
+        "Ship_001"
+      ]
+    }
+  ]
 }

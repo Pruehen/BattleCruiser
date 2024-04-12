@@ -5,7 +5,10 @@ using TMPro;
 public class PlayerUI : SceneSingleton<PlayerUI>
 {
     public RectTransform aimPoint;
-    public TextMeshProUGUI distanceText;
+    public TextMeshProUGUI aimDistanceText;
+
+    public RectTransform lockOnPoint;
+    public TextMeshProUGUI lockOnDistanceText;
 
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI altText;
@@ -18,10 +21,24 @@ public class PlayerUI : SceneSingleton<PlayerUI>
     {
         aimPoint.position = screenPosition;
     }
-    public void SetDistanceText(float distance)
+    public void SetAimDistanceText(float distance)
     {
-        distanceText.text = ((int)(distance * 10)).ToString();
+        aimDistanceText.text = ((int)(distance * 10)).ToString();
     }
+    public void SetLockOnPointPosition(Vector2 worldPosition)
+    {
+        lockOnPoint.gameObject.SetActive(true);
+        lockOnPoint.position = Camera.main.WorldToScreenPoint(worldPosition);
+    }
+    public void DisableLockOnPoint()
+    {
+        lockOnPoint.gameObject.SetActive(false);
+    }
+    public void SetLockOnDistanceText(float distance)
+    {
+        lockOnDistanceText.text = string.Format($"{distance * 10:N0}");
+    }
+
 
     public void SetSpeedText(float value)
     {

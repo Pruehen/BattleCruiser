@@ -29,7 +29,7 @@ public class Player : SceneSingleton<Player>
         controlledShip.SetAimPosition(worldAimPoint);
         controlledShip.SetControllVector(inputMovement);
 
-        PlayerUI.Instance.SetDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
+        PlayerUI.Instance.SetAimDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
         PlayerUI.Instance.SetAltText(this.transform.position.y);
         PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
         PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);

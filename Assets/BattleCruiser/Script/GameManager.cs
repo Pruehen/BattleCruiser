@@ -1,38 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : GlobalSingleton<GameManager>
 {
-    static GameManager instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = (GameManager)FindObjectOfType(typeof(GameManager));
-                DontDestroyOnLoad(instance.gameObject);
+    int selectedStage;
 
-                if (instance == null)
-                {
-                    GameObject singletonObject = new GameObject();
-                    singletonObject.name = "GameManager";
-                    instance = singletonObject.AddComponent<GameManager>();
-                }
-            }
-
-            return instance;
-        }
-    }
     private void Awake()
     {
         Debug.Log($"{Instance.name} 인스턴싱 완료");
     }
-
+    public void SetStageNum(int num)
+    {
+        selectedStage = num;
+    }
     public void StageInit()
     {
-        
+        Transform spawnTrf = GameObject.Find("Vehicles").transform;
+        Debug.Log(selectedStage);
     }
 
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ShipData
 {
@@ -52,5 +51,15 @@ public class WeaponData
         this.turningSpeedPerSecond = turningSpeedPerSecond;
         this.coolDown = coolDown;
         //this.equipPosition = equipPosition;
+    }
+}
+
+public class StageData
+{
+    public List<string> stageShipDataList;//함선 딕셔너리 키를 가지고 있는 리스트
+
+    public StageData(List<string> stageShipDataList)
+    {
+        this.stageShipDataList = stageShipDataList;
     }
 }
