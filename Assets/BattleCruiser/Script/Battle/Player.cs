@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 using UnityEngine.InputSystem;
@@ -34,6 +35,36 @@ public class Player : SceneSingleton<Player>
         PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
         PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);
         PlayerUI.Instance.SetVelocityMarker(controlledShip.Rigidbody2D().velocity, this.transform.position);
+        if(controlledShip.GetTarget() != null)
+        {
+            Vector2 targetPos = controlledShip.GetTarget().transform.position;
+            PlayerUI.Instance.SetLockOnPointPosition(targetPos);
+            PlayerUI.Instance.SetLockOnDistanceText((targetPos - (Vector2)this.transform.position).magnitude);
+        }
+        else
+        {
+            PlayerUI.Instance.DisableLockOnPoint();
+        }
+    }
+
+    void TargetLockOn()
+    {
+        List<Vehicle> vehicles = BattleSceneManager.Instance.activeEnemyList;
+        float mindistance = float.MaxValue;
+        Vehicle target = null;
+
+        foreach (Vehicle item in vehicles)
+        {
+            float sqrdistance = ((Vector2)item.gameObject.transform.position - worldAimPoint).sqrMagnitude;
+
+            if(sqrdistance < mindistance && item.isDead == false && sqrdistance < 400)
+            {
+                target = item;
+                mindistance = sqrdistance;
+            }
+        }
+
+        controlledShip.SetTarget(target);
     }
 
 
@@ -53,6 +84,10 @@ public class Player : SceneSingleton<Player>
         if(isClick == 1)//눌렀을 때
         {
             fireTrigger = true;
+            if(controlledShip.GetTarget() == null)
+            {
+                TargetLockOn();
+            }
         }
         else//뗄 때
         {
@@ -62,7 +97,12 @@ public class Player : SceneSingleton<Player>
     }
     void OnRightClick(InputValue inputValue)//마우스 우클릭
     {
-        Debug.Log(inputValue);
+        float isClick = inputValue.Get<float>();
+
+        if (isClick == 1)//눌렀을 때
+        {
+            TargetLockOn();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

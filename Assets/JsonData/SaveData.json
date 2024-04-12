@@ -1,119 +1,73 @@
 {
   "shipDataDictionary": {
     "Ship_001": {
-      "className": "테스트 초계함",
-      "maxHp": 100000.0,
-      "mass": 10000.0,
-      "armor": 50.0,
-      "hoverPower": 10.0,
-      "strafePower": 20.0,
+      "className": "마코급 초계함",
+      "maxHp": 280000.0,
+      "mass": 2800.0,
+      "armor": 48.0,
+      "hoverPower": 30.0,
+      "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 100.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 10.0,
-          "caliber": 30.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.1
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 100.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 10.0,
-          "caliber": 30.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.1
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 100.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 10.0,
-          "caliber": 30.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.1
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 100.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 10.0,
-          "caliber": 30.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.1
-        }
+        "Weapon_001",
+        "Weapon_001",
+        "Weapon_001",
+        "Weapon_001"
       ]
     },
     "Ship_002": {
-      "className": "테스트 초계함 2",
-      "maxHp": 1000000.0,
-      "mass": 10000.0,
+      "className": "글라디우스급 중초계함",
+      "maxHp": 360000.0,
+      "mass": 3600.0,
       "armor": 50.0,
-      "hoverPower": 20.0,
-      "strafePower": 40.0,
+      "hoverPower": 36.0,
+      "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 200.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 30.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.2
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 200.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 30.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.2
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 200.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 30.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.2
-        },
-        {
-          "projectiletype": 0,
-          "projectiledVelocity": 200.0,
-          "dispersion": 3.0,
-          "shellLifeTime": 30.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 0.2
-        }
+        "Weapon_002",
+        "Weapon_002",
+        "Weapon_002",
+        "Weapon_002"
       ]
+    }
+  },
+  "weaponDataDictionary": {
+    "Weapon_001": {
+      "weaponName": "30mm 기관포",
+      "projectiletype": 0,
+      "projectiledVelocity": 100.0,
+      "dispersion": 4.0,
+      "shellLifeTime": 10.0,
+      "caliber": 30.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 180.0,
+      "coolDown": 0.1
+    },
+    "Weapon_002": {
+      "weaponName": "76mm 속사포",
+      "projectiletype": 0,
+      "projectiledVelocity": 130.0,
+      "dispersion": 2.5,
+      "shellLifeTime": 12.0,
+      "caliber": 76.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 90.0,
+      "coolDown": 0.6
     }
   },
   "stageList": [
     {
       "stageShipDataList": [
+        "Ship_001",
+        "Ship_001"
+      ]
+    },
+    {
+      "stageShipDataList": [
+        "Ship_001",
+        "Ship_001",
         "Ship_001",
         "Ship_001"
       ]

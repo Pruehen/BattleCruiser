@@ -7,29 +7,35 @@ public class Enemy : MonoBehaviour
 {    
     Vector2 inputMovement = Vector2.zero;//이동 명령
     Vector2 aimPoint = Vector2.zero;//조준 명령
-    Vehicle controlledShip;
-    ShipData shipData;
+    Vehicle controlledShip;    
     public bool fireTrigger = true;
 
-    Transform target;
+    Vehicle target;
     Vector3 targetVelocity;
 
-    private void Start()
+    bool isInit = false;
+
+    public void Init(ShipData shipData)
     {
-        controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
-        shipData = JsonDataManager.Instance.saveData.shipDataDictionary["Ship_001"];//함선이 사용할 함선 데이터
-        target = Player.Instance.gameObject.transform;
+        controlledShip = GetComponent<Vehicle>();//현재 함선 클래스        
+        target = Player.Instance.gameObject.GetComponent<Vehicle>();        
 
         controlledShip.Init(true, shipData);//함선 데이터 초기화
         controlledShip.WeaponInit(shipData.weaponDatas);
+        controlledShip.SetTarget(target);
+
+        isInit = true;
     }
 
     // Update is called once per frame
     void Update()
-    {        
-        controlledShip.SetControllVector(inputMovement);
-        controlledShip.SetTrigger(fireTrigger);
-        controlledShip.SetAimPosition(aimPoint);
+    {
+        if (isInit)
+        {
+            controlledShip.SetControllVector(inputMovement);
+            controlledShip.SetTrigger(fireTrigger);
+            controlledShip.SetAimPosition(aimPoint);
+        }
     }
     
     public void SetInputMovement(Vector2 vector2)

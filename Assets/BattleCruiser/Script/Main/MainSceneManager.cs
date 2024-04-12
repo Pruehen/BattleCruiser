@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainSceneManager : MonoBehaviour
+public class MainSceneManager : SceneSingleton<MainSceneManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Debug.Log($"{Instance.name} 로컬 인스턴싱 완료");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetStageNum(int num)
     {
-        
+        GameManager.Instance.SetStageNum(num);
     }
 }

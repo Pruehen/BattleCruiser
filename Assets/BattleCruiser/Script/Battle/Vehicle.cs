@@ -7,7 +7,7 @@ public class Vehicle : MonoBehaviour
     Rigidbody2D rigidbody2D;
     public Rigidbody2D Rigidbody2D() { return rigidbody2D; }
     float mass = 0;//질량 (Rigidbody2D의 정보를 받아옴)    
-    bool isDead = false;
+    public bool isDead { get; private set; }
     bool isSplashed = false;
     float hp;//현재 체력
     float maxHp;//최대 체력
@@ -34,14 +34,18 @@ public class Vehicle : MonoBehaviour
     Vector2 aimDirection = Vector2.zero;//에임 방향(상대 좌표)
 
     bool fireTrigger = false;
-    Vehicle target;
+    Vehicle target;//락온한 타겟.
 
     public Transform weaponsTrf;
     List<Weapon> childWeaponList;
 
     public Transform spriteTrf;
-    List<Transform> spriteTrfs;   
-   
+    List<Transform> spriteTrfs;
+
+    public Transform mainEngineTrf;
+    public Transform subEngineTrf;
+    List<Transform> mainEngineTrfs;
+    List<Transform> subEngineTrfs;
 
     private void Awake()
     {
@@ -49,6 +53,8 @@ public class Vehicle : MonoBehaviour
 
         childWeaponList = new List<Weapon>();//자기 자신의 무기 리스트
         spriteTrfs = new List<Transform>();//자기 자신의 스프라이트 구성체 리스트       
+        mainEngineTrfs = new List<Transform>();//자기 자신의 엔진 리스트
+        subEngineTrfs = new List<Transform>();
     }
 
     public void Init(bool isEnemy, ShipData shipData)
@@ -67,22 +73,36 @@ public class Vehicle : MonoBehaviour
         {
             spriteTrfs.Add(spriteTrf.GetChild(i));//스프라이트 저장
         }
+        for (int i = 0; i < mainEngineTrf.childCount; i++)
+        {
+            mainEngineTrfs.Add(mainEngineTrf.GetChild(i));//메인 엔진 위치 저장
+            EffectManager.Instance.GenerateEngineEffect(mainEngineTrfs[i]);            
+        }
+        for (int i = 0; i < subEngineTrf.childCount; i++)
+        {
+            subEngineTrfs.Add(subEngineTrf.GetChild(i));//서브 엔진 위치 저장
+            EffectManager.Instance.GenerateEngineEffect(subEngineTrfs[i]);
+            subEngineTrfs[i].localScale *= 0.5f;
+        }
 
+        isDead = false;
         isInit = true;
     }
-    public void WeaponInit(List<WeaponData> weaponDatas)
+    public void WeaponInit(List<string> weaponDatas)
     {
         maxWeaponVelocity = 0;
         if (weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
         {
             for (int i = 0; i < weaponsTrf.childCount; i++)
             {
-                childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
-                childWeaponList[i].Init(isEnemy, weaponDatas[i], childWeaponList[i].gameObject.transform.localPosition);
+                WeaponData weaponData = JsonDataManager.Instance.saveData.weaponDataDictionary[weaponDatas[i]];
 
-                if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)
+                childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
+                childWeaponList[i].Init(isEnemy, weaponData, childWeaponList[i].gameObject.transform.localPosition);
+
+                if (weaponData.projectiledVelocity > maxWeaponVelocity)
                 {
-                    maxWeaponVelocity = weaponDatas[i].projectiledVelocity;
+                    maxWeaponVelocity = weaponData.projectiledVelocity;
                 }
             }
         }
@@ -106,6 +126,11 @@ public class Vehicle : MonoBehaviour
             SetTurretParentVelocity(rigidbody2D.velocity);
 
             aimDirection = aimPosition - (Vector2)transform.position;//장비 중심 기준 로컬 벡터로 변환
+
+            if(target != null && target.isDead)
+            {
+                SetTarget(null);
+            }
         }
     }
 
@@ -160,6 +185,18 @@ public class Vehicle : MonoBehaviour
     public void SetControllVector(Vector2 controllVector)//조종 인풋
     {
         this.controllVector = new Vector2(controllVector.x * strafePower, controllVector.y * hoverPower);
+        foreach (Transform t in subEngineTrfs)
+        {
+            if(controllVector == Vector2.zero || isDead)
+            {
+                t.gameObject.SetActive(false);
+            }
+            else if(!isDead)
+            {
+                t.gameObject.SetActive(true);
+                t.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(controllVector.y, controllVector.x) * Mathf.Rad2Deg - 90);
+            }            
+        }
     }
     public void SetAimPosition(Vector2 aimPosition)//조준 인풋
     {
@@ -189,8 +226,8 @@ public class Vehicle : MonoBehaviour
             
             if(isEnemy)
             {
-                GameManager.Instance.KineticDmgUp(apDmg);
-                GameManager.Instance.ChemicalDmgUp(heDmg);
+                BattleSceneManager.Instance.KineticDmgUp(apDmg);
+                BattleSceneManager.Instance.ChemicalDmgUp(heDmg);
             }
 
             float hpRatio = HpRatio();
@@ -248,7 +285,17 @@ public class Vehicle : MonoBehaviour
     {
         isDead = true;
         rigidbody2D.angularDrag = 0;
+        rigidbody2D.drag = 0.05f;
         rigidbody2D.AddTorque(Random.Range(-90f * mass, 90f * mass), ForceMode2D.Impulse);//임의 회전 부여
+
+        foreach (Transform t in mainEngineTrfs)
+        {
+            t.gameObject.SetActive(false);
+        }
+        foreach (Transform t in subEngineTrfs)
+        {
+            t.gameObject.SetActive(false);
+        }
 
         StartCoroutine(OnDestructEffect(0));
         StartCoroutine(OnDestructEffect(0.5f));

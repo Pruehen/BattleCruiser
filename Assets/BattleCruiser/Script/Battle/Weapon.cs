@@ -114,7 +114,7 @@ public class Weapon : MonoBehaviour
         delay = 0;
         coolDownComplete = false;
 
-        EffectManager.Instance.GenerateMuzzleFlash(firePoint, true);
+        EffectManager.Instance.GenerateMuzzleFlash(firePoint, true, caliber);
     }
     
     bool TurretRotate()//터렛 회전 함수. 발사 준비가 완료되면 true 반환

@@ -11,9 +11,9 @@ public class ShipData
     public float strafePower;//좌우 가속
     public float horizontalRestorationPower;//수평 복원력
 
-    public List<WeaponData> weaponDatas;//무기 정보
+    public List<string> weaponDatas;//무기 키 정보
 
-    public ShipData(string className, float maxHp, float mass, float armor, float hoverPower, float strafePower, float horizontalRestorationPower, List<WeaponData> weaponDatas)
+    public ShipData(string className, float maxHp, float mass, float armor, float hoverPower, float strafePower, float horizontalRestorationPower, List<string> weaponDatas)
     {
         this.className = className;
         this.maxHp = maxHp;
@@ -28,6 +28,7 @@ public class ShipData
 
 public class WeaponData
 {
+    public string weaponName;//무기 이름
     public int projectiletype;//발사체 타입
     public float projectiledVelocity;//초기 발사 속도
     public float dispersion;//발사각 분포(각도)
@@ -39,8 +40,9 @@ public class WeaponData
     public float coolDown;//발사 쿨타임
     //public Vector2 equipPosition;//무장 장착 로컬 좌표 
 
-    public WeaponData(int projectiletype, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, float heDmgFactor, float turningSpeedPerSecond, float coolDown)
+    public WeaponData(string name, int projectiletype, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, float heDmgFactor, float turningSpeedPerSecond, float coolDown)
     {
+        this.weaponName = name;
         this.projectiletype = projectiletype;
         this.projectiledVelocity = projectiledVelocity;
         this.dispersion = dispersion;

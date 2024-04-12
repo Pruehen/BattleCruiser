@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
+using static JsonDataManager;
 
 public class JsonDataManager : GlobalSingleton<JsonDataManager>
 {
@@ -11,7 +12,7 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
     {
         Debug.Log($"{Instance.name} 인스턴싱 완료");
         DataLoad();
-        TestInsert(false);
+        TestInsert(true);
 
         DataSave();
     }
@@ -20,10 +21,22 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
         if (!isTest)
             return;
 
-        saveData.stageList = new List<StageData>();
+
+        /*
+        saveData.shipDataDictionary.Add("Ship_002", new ShipData("글라디우스급 중초계함", 360000, 3600, 50, 12, 20, 3, new List<string>()));
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
+
+        saveData.weaponDataDictionary.Add("Weapon_001", new WeaponData("30mm 기관포", 0, 100, 3, 10, 30, 1, 1, 180, 0.1f));
+
         saveData.stageList.Add(new StageData(new List<string>()));
-        saveData.stageList[0].stageShipDataList.Add("Ship_001");
-        saveData.stageList[0].stageShipDataList.Add("Ship_001");
+        saveData.stageList[2].stageShipDataList.Add("Ship_001");
+        saveData.stageList[2].stageShipDataList.Add("Ship_001");
+        saveData.stageList[2].stageShipDataList.Add("Ship_001");
+        saveData.stageList[2].stageShipDataList.Add("Ship_001");
+        */
     }
     
     string saveDataFileName = "/JsonData/SaveData.json";    
@@ -31,14 +44,9 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
 
     public class SaveData
     {
-        public Dictionary<string, ShipData> shipDataDictionary;
-        public List<StageData> stageList;
-
-        public SaveData(Dictionary<string, ShipData> shipDataDictionary, List<StageData> stageList)
-        {
-            this.shipDataDictionary = shipDataDictionary;
-            this.stageList = stageList;
-        }
+        public Dictionary<string, ShipData> shipDataDictionary = new Dictionary<string, ShipData>();
+        public Dictionary<string, WeaponData> weaponDataDictionary = new Dictionary<string, WeaponData>();
+        public List<StageData> stageList = new List<StageData>();
     }
     public SaveData saveData;
 
