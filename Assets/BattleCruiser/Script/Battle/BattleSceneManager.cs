@@ -81,7 +81,7 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
         Time.fixedDeltaTime *= 5;
         Time.timeScale = 1f;
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(3);
 
         GameUI.Instance.OnResultWdw(isWin);
     }

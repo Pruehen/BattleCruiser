@@ -5,8 +5,8 @@
       "maxHp": 280000.0,
       "mass": 2800.0,
       "armor": 48.0,
-      "hoverPower": 28.0,
-      "strafePower": 50.0,
+      "hoverPower": 30.0,
+      "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
         "Weapon_001",
@@ -24,16 +24,17 @@
       "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
-        "Weapon_002",
-        "Weapon_002",
-        "Weapon_002",
-        "Weapon_002"
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005"
       ]
     }
   },
   "weaponDataDictionary": {
     "Weapon_001": {
       "weaponName": "30mm 기관포",
+      "projectiletype": 0,
       "projectiledVelocity": 100.0,
       "dispersion": 6.0,
       "shellLifeTime": 10.0,
@@ -41,15 +42,16 @@
       "apDmgFactor": 1.0,
       "heDmgFactor": 1.0,
       "turningSpeedPerSecond": 180.0,
-      "coolDown": 3.0,
+      "coolDown": 2.0,
       "multiShot": 20,
       "multiShotDelay": 0.05
     },
     "Weapon_002": {
       "weaponName": "76mm 속사포",
+      "projectiletype": 0,
       "projectiledVelocity": 130.0,
       "dispersion": 3.0,
-      "shellLifeTime": 15.0,
+      "shellLifeTime": 12.0,
       "caliber": 76.0,
       "apDmgFactor": 1.0,
       "heDmgFactor": 1.0,
@@ -57,6 +59,48 @@
       "coolDown": 3.0,
       "multiShot": 3,
       "multiShotDelay": 0.5
+    },
+    "Weapon_003": {
+      "weaponName": "127mm 대공포",
+      "projectiletype": 0,
+      "projectiledVelocity": 200.0,
+      "dispersion": 1.0,
+      "shellLifeTime": 12.0,
+      "caliber": 127.0,
+      "apDmgFactor": 0.1,
+      "heDmgFactor": 2.0,
+      "turningSpeedPerSecond": 90.0,
+      "coolDown": 1.0,
+      "multiShot": 1,
+      "multiShotDelay": 0.0
+    },
+    "Weapon_004": {
+      "weaponName": "203mm 2연장 함포",
+      "projectiletype": 0,
+      "projectiledVelocity": 130.0,
+      "dispersion": 6.0,
+      "shellLifeTime": 20.0,
+      "caliber": 203.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 45.0,
+      "coolDown": 3.0,
+      "multiShot": 2,
+      "multiShotDelay": 0.0
+    },
+    "Weapon_005": {
+      "weaponName": "406mm 3연장 함포",
+      "projectiletype": 0,
+      "projectiledVelocity": 130.0,
+      "dispersion": 8.0,
+      "shellLifeTime": 30.0,
+      "caliber": 406.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 15.0,
+      "coolDown": 10.0,
+      "multiShot": 3,
+      "multiShotDelay": 0.0
     }
   },
   "stageList": [
@@ -74,43 +118,5 @@
         "Ship_001"
       ]
     }
-  ],
-  "userData": {
-    "customWeaponDatas": [
-      {
-        "weaponData": {
-          "weaponName": "장포신 철갑탄 76mm 속사포",
-          "projectiledVelocity": 173.914948,
-          "dispersion": 1.52023554,
-          "shellLifeTime": 15.0,
-          "caliber": 76.0,
-          "apDmgFactor": 2.02698064,
-          "heDmgFactor": 0.0,
-          "turningSpeedPerSecond": 90.0,
-          "coolDown": 4.56070662,
-          "multiShot": 3,
-          "multiShotDelay": 0.5
-        },
-        "rarity": "일반"
-      },
-      {
-        "weaponData": {
-          "weaponName": "장포신 철갑탄 76mm 속사포",
-          "projectiledVelocity": 185.031769,
-          "dispersion": 1.61741042,
-          "shellLifeTime": 15.0,
-          "caliber": 76.0,
-          "apDmgFactor": 2.15654731,
-          "heDmgFactor": 0.0,
-          "turningSpeedPerSecond": 90.0,
-          "coolDown": 4.8522315,
-          "multiShot": 3,
-          "multiShotDelay": 0.5
-        },
-        "rarity": "일반"
-      }
-    ],
-    "nanobot": 0,
-    "level": 0
-  }
+  ]
 }

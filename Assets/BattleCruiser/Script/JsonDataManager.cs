@@ -5,40 +5,43 @@ using UnityEngine;
 using System.IO;
 using UnityEditor;
 using static JsonDataManager;
+using UnityEngine.UIElements;
 
 public class JsonDataManager : GlobalSingleton<JsonDataManager>
 {
     private void Awake()
     {
         Debug.Log($"{Instance.name} 인스턴싱 완료");
-        DataLoad();
-        TestInsert(true);
-
+        DataLoad();        
         DataSave();
     }
-    void TestInsert(bool isTest)
-    {
-        if (!isTest)
-            return;
+    void NewDataInsert()
+    {        
+        saveData.shipDataDictionary.Add("Ship_001", new ShipData("글라디우스급 중초계함", 280000, 2800, 48, 30, 60, 3, new List<string>()));
+        saveData.shipDataDictionary["Ship_001"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_001"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_001"].weaponDatas.Add("Weapon_001");
+        saveData.shipDataDictionary["Ship_001"].weaponDatas.Add("Weapon_001");
 
+        saveData.shipDataDictionary.Add("Ship_002", new ShipData("글라디우스급 중초계함", 360000, 3600, 50, 36, 60, 3, new List<string>()));
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
+        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
 
-        /*
-        saveData.shipDataDictionary.Add("Ship_002", new ShipData("글라디우스급 중초계함", 360000, 3600, 50, 12, 20, 3, new List<string>()));
-        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
-        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
-        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
-        saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_001");
-
-        saveData.weaponDataDictionary.Add("Weapon_001", new WeaponData("30mm 기관포", 0, 100, 3, 10, 30, 1, 1, 180, 0.1f));
+        saveData.weaponDataDictionary.Add("Weapon_001", new WeaponData("30mm 기관포", 100, 6, 10, 30, 1, 1, 180, 3, 20, 0.05f));
+        saveData.weaponDataDictionary.Add("Weapon_002", new WeaponData("76mm 속사포", 130, 3, 15, 76, 1, 1, 90, 3, 3, 0.5f));
 
         saveData.stageList.Add(new StageData(new List<string>()));
-        saveData.stageList[2].stageShipDataList.Add("Ship_001");
-        saveData.stageList[2].stageShipDataList.Add("Ship_001");
-        saveData.stageList[2].stageShipDataList.Add("Ship_001");
-        saveData.stageList[2].stageShipDataList.Add("Ship_001");
-        */
+        saveData.stageList[0].stageShipDataList.Add("Ship_001");
+        saveData.stageList[0].stageShipDataList.Add("Ship_001");
+        saveData.stageList.Add(new StageData(new List<string>()));
+        saveData.stageList[1].stageShipDataList.Add("Ship_001");
+        saveData.stageList[1].stageShipDataList.Add("Ship_001");
+        saveData.stageList[1].stageShipDataList.Add("Ship_001");
+        saveData.stageList[1].stageShipDataList.Add("Ship_001");
     }
-    
+
     string saveDataFileName = "/JsonData/SaveData.json";    
     string saveFolderPath = "/JsonData/";
 
@@ -47,6 +50,7 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
         public Dictionary<string, ShipData> shipDataDictionary = new Dictionary<string, ShipData>();
         public Dictionary<string, WeaponData> weaponDataDictionary = new Dictionary<string, WeaponData>();
         public List<StageData> stageList = new List<StageData>();
+        public UserData userData = new UserData();
     }
     public SaveData saveData;
 
@@ -70,10 +74,26 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
             return;
 
         var fileData = File.ReadAllText(Application.dataPath + saveDataFileName);
-        var data = JsonConvert.DeserializeObject<SaveData>(fileData);
-        saveData = data;
 
-        Debug.Log("데이터 불러오기 완료");
+        try
+        {
+            var data = JsonConvert.DeserializeObject<SaveData>(fileData);
+            saveData = data;
+            if(saveData == null)
+            {
+                saveData = new SaveData();
+                NewDataInsert();
+                Debug.Log("새 저장 데이터 생성");
+            }
+
+            Debug.Log("데이터 불러오기 완료");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"데이터 불러오기 실패 : {e.Message}");
+            saveData = new SaveData();
+            throw;
+        }
     }
 
     //public void SetData(string id, ShipData targetValue)//특정 키의 값을 저장할 때 사용

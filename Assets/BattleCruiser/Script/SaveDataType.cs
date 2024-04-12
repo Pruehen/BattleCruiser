@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class ShipData
 {
@@ -46,11 +48,12 @@ public class WeaponData
     public bool isPropulsion = false;
     [JsonIgnore]
     public bool isGuided = false;
-    //public Vector2 equipPosition;//¹«Àå ÀåÂø ·ÎÄÃ ÁÂÇ¥ 
 
-    public WeaponData(string name, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay)
+    [JsonConstructor]
+    public WeaponData(string weaponName, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
+        float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay)
     {
-        this.weaponName = name;        
+        this.weaponName = weaponName;        
         this.projectiledVelocity = projectiledVelocity;
         this.dispersion = dispersion;
         this.shellLifeTime = shellLifeTime;
@@ -61,7 +64,8 @@ public class WeaponData
         this.coolDown = coolDown;
         this.multiShot = multiShot;
         this.multiShotDelay = multiShotDelay;
-        //this.equipPosition = equipPosition;
+        isPropulsion = false;
+        isGuided = false;
     }
 
     public WeaponData(WeaponData weaponData)
@@ -77,52 +81,63 @@ public class WeaponData
         this.coolDown = weaponData.coolDown;
         this.multiShot = weaponData.multiShot;
         this.multiShotDelay = weaponData.multiShotDelay;
+        isPropulsion = false;
+        isGuided = false;
     }
 }
 
 public class CustomWeaponData
 {     
     public WeaponData weaponData;//ÀúÀåÇÒ ¹«±â ½ºÆå
-    public Option1 option1;
-    public Option2 option2;
+    int option1;
+    int option2;
     string prefix1;
     string prefix2;
-    
+    int rarityNum;//¹«±â Èñ±Íµµ. 0~3
+    public string rarity;
 
-    public enum Option1
+    public string[] GetData()
     {
-        ÀåÆ÷½Å,
-        ´ÜÆ÷½Å,
-        ·ÎÄÏÃßÁø
-    }
-    public enum Option2
-    {
-        Ã¶°©Åº,
-        °íÆøÅº,
-        À¯µµÅº
+        string[] data = new string[9];
+
+        data[0] = $"·¹¾îµµ : {rarity}";
+        data[1] = $"ÀÌ¸§   : {weaponData.weaponName}";
+        data[2] = $"Åº¼Ó   : {weaponData.projectiledVelocity:N0}m/s";
+        data[3] = $"ºÐ»êµµ : {weaponData.dispersion:N2}µµ";
+        data[4] = $"±¸°æ   : {weaponData.caliber:N0}mm";
+        data[5] = $"¹°¸® ÇÇÇØ : {weaponData.apDmgFactor * weaponData.projectiledVelocity * weaponData.projectiledVelocity * 0.00005f * weaponData.caliber * weaponData.caliber:N0}";
+        data[6] = $"È­ÇÐ ÇÇÇØ : {weaponData.caliber * weaponData.caliber * weaponData.caliber * weaponData.heDmgFactor * 0.001f:N0}";
+        data[7] = $"Æ÷½Å È¸Àü : {weaponData.turningSpeedPerSecond:N0}µµ/s";
+        data[8] = $"RPM   : {weaponData.multiShot * 60 / weaponData.coolDown:N0}";
+
+        return data;
     }
 
-    public CustomWeaponData(string baseWeaponKey, Option1 option1, Option2 option2)
+    public CustomWeaponData(string baseWeaponKey, int option1, int option2, int rarityNum, float randomGain)
     {        
         this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[baseWeaponKey]);
         this.option1 = option1;
         this.option2 = option2;
+        this.rarityNum = rarityNum;
 
         switch (option1)
         {
-            case Option1.ÀåÆ÷½Å:
+            case 0:
+                prefix1 = "";
+                break;
+            case 1:
                 prefix1 = "ÀåÆ÷½Å";
                 weaponData.projectiledVelocity *= 1.2f;
                 weaponData.coolDown *= 1.5f;
                 weaponData.dispersion *= 0.5f;
                 break;
-            case Option1.´ÜÆ÷½Å:
+            case 2:
                 prefix1 = "´ÜÆ÷½Å";
                 weaponData.projectiledVelocity *= 0.8f;
                 weaponData.coolDown *= 0.7f;
                 weaponData.dispersion *= 2f;
                 break;
-            case Option1.·ÎÄÏÃßÁø:
+            case 3:
                 prefix1 = "·ÎÄÏÃßÁø";
                 weaponData.projectiledVelocity *= 2f;                
                 weaponData.dispersion *= 3f;
@@ -134,19 +149,22 @@ public class CustomWeaponData
 
         switch (option2)
         {
-            case Option2.Ã¶°©Åº:
+            case 0:
+                prefix2 = "";
+                break;
+            case 1:
                 prefix2 = "Ã¶°©Åº";
                 weaponData.projectiledVelocity *= 1.1f;
                 weaponData.apDmgFactor *= 2f;
                 weaponData.heDmgFactor = 0;
                 break;
-            case Option2.°íÆøÅº:
+            case 2:
                 prefix2 = "°íÆøÅº";
                 weaponData.projectiledVelocity *= 0.9f;
                 weaponData.apDmgFactor = 0;
                 weaponData.heDmgFactor *= 3;
                 break;
-            case Option2.À¯µµÅº:
+            case 3:
                 prefix2 = "À¯µµÅº";
                 weaponData.projectiledVelocity *= 0.8f;
                 weaponData.apDmgFactor *= 0.5f;
@@ -156,6 +174,48 @@ public class CustomWeaponData
                 break;
         }
         weaponData.weaponName = string.Format($"{prefix1} {prefix2} {weaponData.weaponName}");
+
+        switch (rarityNum)
+        {
+            case 0:
+                rarity = "ÀÏ¹Ý";
+                break;
+            case 1:
+                rarity = "·¹¾î";
+                weaponData.apDmgFactor *= 1.1f;
+                weaponData.heDmgFactor *= 1.1f;
+                break;
+            case 2:
+                rarity = "¿¡ÇÈ";
+                weaponData.apDmgFactor *= 1.1f;
+                weaponData.heDmgFactor *= 1.3f;
+                weaponData.projectiledVelocity *= 1.1f;
+                weaponData.coolDown *= 0.9f;
+                break;
+            case 3:
+                rarity = "·¹Àü´õ¸®";
+                weaponData.apDmgFactor *= 1.3f;
+                weaponData.heDmgFactor *= 2f;
+                weaponData.projectiledVelocity *= 1.2f;
+                weaponData.coolDown *= 0.8f;
+                break;            
+            default:
+                rarity = "¿À·ù";
+                break;
+        }
+
+        weaponData.projectiledVelocity *= randomGain;
+        weaponData.coolDown *= randomGain;
+        weaponData.dispersion *= randomGain;
+        weaponData.apDmgFactor *= randomGain;
+        weaponData.heDmgFactor *= randomGain;
+    }
+
+    [JsonConstructor]
+    public CustomWeaponData(WeaponData weaponData, string rarity)
+    {
+        this.weaponData = weaponData;
+        this.rarity = rarity;
     }
 }
 
@@ -166,5 +226,34 @@ public class StageData
     public StageData(List<string> stageShipDataList)
     {
         this.stageShipDataList = stageShipDataList;
+    }
+}
+
+public class UserData
+{
+    public LinkedList<CustomWeaponData> customWeaponDatas;
+    public int nanobot { get; private set; }
+    public int level { get; private set; }
+
+    public UserData()
+    {
+        this.customWeaponDatas = new LinkedList<CustomWeaponData>();
+        nanobot = 0;
+        level = 0;
+    }
+    public UserData(LinkedList<CustomWeaponData> customWeaponDatas, int nanobot, int level)
+    {
+        this.customWeaponDatas = customWeaponDatas;
+        this.nanobot = nanobot;
+        this.level = level;
+    }
+
+    public void nanobotUp(int value)
+    {
+        nanobot += value;
+    }
+    public void levelUp(int value)
+    {
+        level += value;
     }
 }
