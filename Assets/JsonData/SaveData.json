@@ -24,10 +24,10 @@
       "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
-        "Weapon_002",
-        "Weapon_002",
-        "Weapon_002",
-        "Weapon_002"
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005"
       ]
     }
   },
@@ -36,25 +36,71 @@
       "weaponName": "30mm 기관포",
       "projectiletype": 0,
       "projectiledVelocity": 100.0,
-      "dispersion": 4.0,
+      "dispersion": 6.0,
       "shellLifeTime": 10.0,
       "caliber": 30.0,
       "apDmgFactor": 1.0,
       "heDmgFactor": 1.0,
       "turningSpeedPerSecond": 180.0,
-      "coolDown": 0.1
+      "coolDown": 2.0,
+      "multiShot": 20,
+      "multiShotDelay": 0.05
     },
     "Weapon_002": {
       "weaponName": "76mm 속사포",
       "projectiletype": 0,
       "projectiledVelocity": 130.0,
-      "dispersion": 2.5,
+      "dispersion": 3.0,
       "shellLifeTime": 12.0,
       "caliber": 76.0,
       "apDmgFactor": 1.0,
       "heDmgFactor": 1.0,
       "turningSpeedPerSecond": 90.0,
-      "coolDown": 0.6
+      "coolDown": 3.0,
+      "multiShot": 3,
+      "multiShotDelay": 0.5
+    },
+    "Weapon_003": {
+      "weaponName": "127mm 대공포",
+      "projectiletype": 0,
+      "projectiledVelocity": 200.0,
+      "dispersion": 1.0,
+      "shellLifeTime": 12.0,
+      "caliber": 127.0,
+      "apDmgFactor": 0.1,
+      "heDmgFactor": 2.0,
+      "turningSpeedPerSecond": 90.0,
+      "coolDown": 1.0,
+      "multiShot": 1,
+      "multiShotDelay": 0.0
+    },
+    "Weapon_004": {
+      "weaponName": "203mm 2연장 함포",
+      "projectiletype": 0,
+      "projectiledVelocity": 130.0,
+      "dispersion": 6.0,
+      "shellLifeTime": 20.0,
+      "caliber": 203.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 45.0,
+      "coolDown": 3.0,
+      "multiShot": 2,
+      "multiShotDelay": 0.0
+    },
+    "Weapon_005": {
+      "weaponName": "406mm 3연장 함포",
+      "projectiletype": 0,
+      "projectiledVelocity": 130.0,
+      "dispersion": 8.0,
+      "shellLifeTime": 30.0,
+      "caliber": 406.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 15.0,
+      "coolDown": 10.0,
+      "multiShot": 3,
+      "multiShotDelay": 0.0
     }
   },
   "stageList": [

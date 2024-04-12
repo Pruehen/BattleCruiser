@@ -38,9 +38,11 @@ public class WeaponData
     public float heDmgFactor;//화학 데미지 팩터
     public float turningSpeedPerSecond;//터렛 회전 속도
     public float coolDown;//발사 쿨타임
+    public int multiShot;//한번에 발사하는 수량
+    public float multiShotDelay;//1살보시 발사 딜레이
     //public Vector2 equipPosition;//무장 장착 로컬 좌표 
 
-    public WeaponData(string name, int projectiletype, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, float heDmgFactor, float turningSpeedPerSecond, float coolDown)
+    public WeaponData(string name, int projectiletype, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay)
     {
         this.weaponName = name;
         this.projectiletype = projectiletype;
@@ -52,6 +54,8 @@ public class WeaponData
         this.heDmgFactor = heDmgFactor;
         this.turningSpeedPerSecond = turningSpeedPerSecond;
         this.coolDown = coolDown;
+        this.multiShot = multiShot;
+        this.multiShotDelay = multiShotDelay;
         //this.equipPosition = equipPosition;
     }
 }

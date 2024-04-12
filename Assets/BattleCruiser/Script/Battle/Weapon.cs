@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
     float turningSpeedPerSecond = 90;
     float coolDown = 0.1f;//발사 쿨타임
     float delay = 0;
+    int multiShot;
+    float multiShotDelay;
 
     bool coolDownComplete = false;//쿨타임 완료
     bool fireAngleComplete = false;//발사각 완료
@@ -63,6 +65,10 @@ public class Weapon : MonoBehaviour
         this.turningSpeedPerSecond = weaponData.turningSpeedPerSecond;
         this.coolDown = weaponData.coolDown;
         this.transform.localPosition = localPosition;
+        this.multiShot = weaponData.multiShot;
+        this.multiShotDelay = weaponData.multiShotDelay;
+        delay = this.coolDown;
+
 
         isInit = true;
     }
@@ -74,10 +80,10 @@ public class Weapon : MonoBehaviour
             Debug.LogWarning("초기화되지 않은 무기 사용");
         }
 
-        if(delay < coolDown)
+        if(delay <= coolDown)
         {
             delay += Time.deltaTime;
-            if(delay >= coolDown)
+            if(delay > coolDown)
             {
                 coolDownComplete = true;
             }
@@ -88,10 +94,10 @@ public class Weapon : MonoBehaviour
 
         if(trigger)
         {
-            Fire();
+            FireTrigger();
         }    
     }
-    void Fire()
+    void FireTrigger()
     {
         if (readyToFire == false)
             return;
@@ -105,16 +111,24 @@ public class Weapon : MonoBehaviour
         {
             projectilePrf = PrefabManager.Instance.projectile;
         }
-
-        Projectile item = ObjectPoolManager.Instance.DequeueObject(projectilePrf).GetComponent<Projectile>();//탄 생성
-        Quaternion dispersionAngle = Quaternion.Euler(0, 0, Random.Range(-(dispersion * 0.5f), dispersion * 0.5f));//발사각도 오차 생성
-        Vector2 fireVelocity = dispersionAngle * (Vector2)transform.right * projectiledVelocity;//발사 벡터 생성
-        item.Init(firePoint.position, fireVelocity + parentVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor);//발사
-
         delay = 0;
         coolDownComplete = false;
 
-        EffectManager.Instance.GenerateMuzzleFlash(firePoint, true, caliber);
+        StartCoroutine(Fire(multiShotDelay, multiShot, projectilePrf));
+    }
+
+    IEnumerator Fire(float delayTime, int count, GameObject projectilePrf)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Projectile item = ObjectPoolManager.Instance.DequeueObject(projectilePrf).GetComponent<Projectile>();//탄 생성
+            Quaternion dispersionAngle = Quaternion.Euler(0, 0, Random.Range(-(dispersion * 0.5f), dispersion * 0.5f));//발사각도 오차 생성
+            Vector2 fireVelocity = dispersionAngle * (Vector2)transform.right * projectiledVelocity;//발사 벡터 생성
+            item.Init(firePoint.position, fireVelocity + parentVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor);//발사
+            EffectManager.Instance.GenerateMuzzleFlash(firePoint, true, caliber);
+
+            yield return new WaitForSeconds(delayTime);
+        }
     }
     
     bool TurretRotate()//터렛 회전 함수. 발사 준비가 완료되면 true 반환

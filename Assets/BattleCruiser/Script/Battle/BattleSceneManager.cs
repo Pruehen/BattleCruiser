@@ -37,8 +37,55 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(GameEndCheck());
     }
+
+    IEnumerator GameEndCheck()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(1);
+
+            if (Player.Instance.controlledShip.isDead)
+            {
+                //플레이어 패배 처리
+                StartCoroutine(GameEnd(false));
+                yield break;
+            }
+            else
+            {
+                bool allEnemyDead = true;
+                foreach (Vehicle enemy in activeEnemyList)
+                {
+                    if (enemy.isDead == false)
+                    {
+                        allEnemyDead = false;
+                    }
+                }
+
+                if (allEnemyDead)
+                {
+                    //플레이어 승리 처리
+                    StartCoroutine(GameEnd(true));
+                    yield break;
+                }
+            }
+        }
+    }
+
+    IEnumerator GameEnd(bool isWin)
+    {
+        Time.timeScale = 0.2f;
+        Time.fixedDeltaTime *= 0.2f;
+        yield return new WaitForSecondsRealtime(5);
+
+        Time.fixedDeltaTime *= 5;
+        Time.timeScale = 1f;
+        yield return new WaitForSecondsRealtime(1);
+
+        GameUI.Instance.OnResultWdw(isWin);
+    }
+
 
     float totalKineticDmg = 0;
     float totalChemicalDmg = 0;

@@ -10,7 +10,7 @@ public class Player : SceneSingleton<Player>
     public Vector2 screenAimPoint = Vector2.zero;//에임 위치(스크린 기준)
     Vector2 worldAimPoint = Vector2.zero;//에임 위치(월드 좌표)
     Vector2 inputMovement = Vector2.zero;
-    Vehicle controlledShip;
+    public Vehicle controlledShip { get; private set; }
     ShipData shipData;
     public bool fireTrigger = false;
 

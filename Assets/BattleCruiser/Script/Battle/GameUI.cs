@@ -8,6 +8,7 @@ public class GameUI : SceneSingleton<GameUI>
     public TextMeshProUGUI kineticDmgText;
     public TextMeshProUGUI chemicalDmgText;
 
+    public GameObject resultWdw;
     private void Start()
     {
         DisableDmgText();
@@ -60,4 +61,10 @@ public class GameUI : SceneSingleton<GameUI>
         kineticDmgText.gameObject.SetActive(false);
         chemicalDmgText.gameObject.SetActive(false);
     }    
+
+    public void OnResultWdw(bool isWin)
+    {
+        resultWdw.SetActive(true);
+        resultWdw.gameObject.GetComponent<ResultWdw>().isWin = isWin;
+    }
 }
