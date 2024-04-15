@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 
 public class ShipData
 {
@@ -257,17 +256,17 @@ public class StageData
 
 public class UserData
 {
-    public List<CustomWeaponData> customWeaponDatas;
+    public Dictionary<int, CustomWeaponData> customWeaponDatas;
     public int nanobot { get; private set; }
     public int level { get; private set; }
 
     public UserData()
     {
-        this.customWeaponDatas = new List<CustomWeaponData>();
+        this.customWeaponDatas = new Dictionary<int, CustomWeaponData>();
         nanobot = 0;
         level = 0;
     }
-    public UserData(List<CustomWeaponData> customWeaponDatas, int nanobot, int level)
+    public UserData(Dictionary<int, CustomWeaponData> customWeaponDatas, int nanobot, int level)
     {
         this.customWeaponDatas = customWeaponDatas;
         this.nanobot = nanobot;
@@ -281,5 +280,17 @@ public class UserData
     public void levelUp(int value)
     {
         level += value;
+    }
+    public bool CustomWeaponDataAdd(CustomWeaponData data)//인벤토리에 데이터 추가
+    {
+        for (int i = 0; i < 128; i++)
+        {
+            if(customWeaponDatas.ContainsKey(i) == false)//키가 없을 경우
+            {
+                customWeaponDatas.Add(i, data);                
+                return true;
+            }
+        }
+        return false;
     }
 }

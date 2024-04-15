@@ -4,11 +4,13 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    public Transform slotTrf { get; private set; }
-    //public int index { get; private set; }
+    public Transform slotParentTrf;
+    public Vector2 startlocalPosition;
+    public int index;
     public CustomWeaponData slotData { get; private set; }
 
     private void Start()//시작 시 모든 슬롯에 이벤트 시스템 추가
@@ -32,21 +34,21 @@ public class Slot : MonoBehaviour
 
         EventTrigger.Entry entryUp = new EventTrigger.Entry();
         entryUp.eventID = EventTriggerType.PointerUp;
-        entryUp.callback.AddListener((data) => { OnPointerUp(); });
+        entryUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
         eventTrigger.triggers.Add(entryUp);
+        
+        //slotData = null;
     }
 
     void OnPointerEnter(PointerEventData eventData)//슬롯에 마우스 올렸을 시
-    {
-        Slot targetSlot = eventData.pointerEnter.GetComponent<Slot>();
-
-        if (targetSlot.slotData != null)
+    {        
+        if (this.slotData != null)
         {
             ItemManager.Instance.isDataView = true;
             ItemManager.Instance.itemDataViewer.gameObject.SetActive(true);
-            ItemManager.Instance.itemDataViewer.SetText(targetSlot.slotData.GetData());
+            ItemManager.Instance.itemDataViewer.SetText(this.slotData.GetData());
 
-            //Debug.Log(targetSlot.index);
+            //Debug.Log(targetSlot.slotData.GetData()[0]);
         }
     }
     void OnPointerExit()//슬롯에서 마우스가 내려갔을 시
@@ -56,34 +58,68 @@ public class Slot : MonoBehaviour
     }
     void OnPointerDown()//마우스 클릭 누를 시
     {
-        Debug.Log("Mouse clicked!");
+        if (this.slotData != null)
+        {
+            ItemManager.Instance.selectedSlot = this;
+
+            this.transform.SetParent(GameObject.Find("Canvas").transform);
+            this.GetComponent<Image>().raycastTarget = false;
+        }
     }
-    void OnPointerUp()//마우스 클릭 뗄 시
+    void OnPointerUp(PointerEventData eventData)//마우스 클릭 뗄 시
     {
-        Debug.Log("Mouse clicked!");
+        if (this.slotData != null)
+        {
+            Slot target = eventData.pointerEnter.GetComponent<Slot>();
+            if (target != this && target != null)
+            {
+                SwapData(this, target);
+            }
+            else
+            {
+                this.gameObject.transform.SetParent(this.slotParentTrf);
+                this.gameObject.transform.localPosition = this.startlocalPosition;                
+            }
+            this.GetComponent<Image>().raycastTarget = true;
+            ItemManager.Instance.selectedSlot = null;
+        }
     }
-    public void Init()
-    {
-        //this.index = index;
-        this.slotTrf = this.gameObject.transform;
+    public void Init(int index)
+    {        
+        this.index = index;
+        this.slotParentTrf = this.gameObject.transform.parent;
+        startlocalPosition = this.transform.localPosition;
         slotData = null;
     }
 
     public void AddData(CustomWeaponData data)
     {
         slotData = data;
-        ItemManager.Instance.AddItem(data.baseWeaponKey.Index(), data.rarityNum, slotTrf);
+        ItemManager.Instance.AddItem(data.baseWeaponKey.Index(), data.rarityNum, this.transform);
     }
 
-    public void SwapData(Slot targetSlot)//타 슬롯과의 위치 및 데이터 교환
+    public static void SwapData(Slot targetSlot1, Slot targetSlot2)//타 슬롯과의 위치 및 데이터 교환
     {
-        Transform parentTemp = this.slotTrf.parent;
-        CustomWeaponData customWeaponDataTemp = this.slotData;
+        Vector2 positionTemp = targetSlot1.startlocalPosition;
+        Transform parentTemp = targetSlot1.slotParentTrf;
+        int indexTemp = targetSlot1.index;
 
-        slotTrf.SetParent(targetSlot.slotTrf.parent);
-        slotData = targetSlot.slotData;
+        targetSlot1.transform.SetParent(targetSlot2.slotParentTrf);//1번 슬롯의 부모를 2번 슬롯의 부모로 설정
+        targetSlot1.slotParentTrf = targetSlot1.transform.parent;//부모 갱신
+        targetSlot2.transform.SetParent(parentTemp);//2번 슬롯의 부모를 1번 슬롯의 부모로 설정
+        targetSlot2.slotParentTrf = targetSlot2.transform.parent;//부모 갱신
 
-        targetSlot.slotTrf.SetParent(parentTemp);
-        targetSlot.slotData = customWeaponDataTemp;
+        targetSlot1.transform.localPosition = targetSlot2.startlocalPosition;//1번 슬롯 위치를 2번 슬롯으로 이동
+        targetSlot1.startlocalPosition = targetSlot1.transform.localPosition;//1번 슬롯의 시작 포인트를 현재 위치로 갱신
+        targetSlot2.transform.localPosition = positionTemp;//2번 슬롯의 위치를 기존 1번 슬롯의 시작 포인트로 이동
+        targetSlot2.startlocalPosition = targetSlot2.transform.localPosition;//2번 슬롯의 시작 포인트를 현재 위치로 갱신
+
+        targetSlot1.index = targetSlot2.index;//1번 슬롯의 인덱스 갱신
+        targetSlot2.index = indexTemp;//2번 슬롯의 인덱스 갱신
+
+        ItemManager.Instance.slotData[targetSlot1.index] = targetSlot1;//딕셔너리의 데이터 갱신
+        //Debug.Log(targetSlot1.index);
+        ItemManager.Instance.slotData[targetSlot2.index] = targetSlot2;//딕셔너리의 데이터 갱신
+        //Debug.Log(targetSlot2.index);
     }
 }
