@@ -25,7 +25,7 @@ public class ResultWdw : MonoBehaviour
 
     IEnumerator ResultWdwInit()
     {
-        JsonDataManager.Instance.saveData.userData.customWeaponDatas.AddLast(new CustomWeaponData("Weapon_002", 1, 1, 0, Random.Range(0.9f, 1.1f)));
+        JsonDataManager.Instance.saveData.userData.customWeaponDatas.Add(new CustomWeaponData("Weapon_002", 1, 1, 0, Random.Range(0.9f, 1.1f)));
         JsonDataManager.Instance.DataSave();
 
         yield return new WaitForSecondsRealtime(1);

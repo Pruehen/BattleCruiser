@@ -2,8 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using System.Drawing;
 
 public class ShipData
 {
@@ -89,18 +88,42 @@ public class WeaponData
 public class CustomWeaponData
 {     
     public WeaponData weaponData;//저장할 무기 스펙
+    public string rarity { get; private set; }
+    public string baseWeaponKey { get; private set; }    
+    public int rarityNum { get; private set; }//무기 희귀도. 0~3    
+
     int option1;
     int option2;
     string prefix1;
     string prefix2;
-    int rarityNum;//무기 희귀도. 0~3
-    public string rarity;
+
 
     public string[] GetData()
     {
         string[] data = new string[9];
 
-        data[0] = $"레어도 : {rarity}";
+        string rarityColorCode;
+
+        switch (rarityNum)
+        {
+            case 0:
+                rarityColorCode = RarityColor.commonCode;
+                break;
+            case 1:
+                rarityColorCode = RarityColor.rareCode;
+                break;
+            case 2:
+                rarityColorCode = RarityColor.epicCode;
+                break;
+            case 3:
+                rarityColorCode = RarityColor.legendaryCode;
+                break;
+            default:
+                rarityColorCode = $"FFFFFF";
+                break;
+        }
+
+        data[0] = $"<color={rarityColorCode}>{rarity} 아이템</color>";
         data[1] = $"이름   : {weaponData.weaponName}";
         data[2] = $"탄속   : {weaponData.projectiledVelocity:N0}m/s";
         data[3] = $"분산도 : {weaponData.dispersion:N2}도";
@@ -114,8 +137,9 @@ public class CustomWeaponData
     }
 
     public CustomWeaponData(string baseWeaponKey, int option1, int option2, int rarityNum, float randomGain)
-    {        
-        this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[baseWeaponKey]);
+    {
+        this.baseWeaponKey = baseWeaponKey;
+        this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[this.baseWeaponKey]);
         this.option1 = option1;
         this.option2 = option2;
         this.rarityNum = rarityNum;
@@ -212,10 +236,12 @@ public class CustomWeaponData
     }
 
     [JsonConstructor]
-    public CustomWeaponData(WeaponData weaponData, string rarity)
+    public CustomWeaponData(WeaponData weaponData, string rarity, int rarityNum, string baseWeaponKey)
     {
         this.weaponData = weaponData;
         this.rarity = rarity;
+        this.rarityNum = rarityNum;
+        this.baseWeaponKey = baseWeaponKey;
     }
 }
 
@@ -231,17 +257,17 @@ public class StageData
 
 public class UserData
 {
-    public LinkedList<CustomWeaponData> customWeaponDatas;
+    public List<CustomWeaponData> customWeaponDatas;
     public int nanobot { get; private set; }
     public int level { get; private set; }
 
     public UserData()
     {
-        this.customWeaponDatas = new LinkedList<CustomWeaponData>();
+        this.customWeaponDatas = new List<CustomWeaponData>();
         nanobot = 0;
         level = 0;
     }
-    public UserData(LinkedList<CustomWeaponData> customWeaponDatas, int nanobot, int level)
+    public UserData(List<CustomWeaponData> customWeaponDatas, int nanobot, int level)
     {
         this.customWeaponDatas = customWeaponDatas;
         this.nanobot = nanobot;

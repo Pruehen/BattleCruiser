@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using UnityEditor;
-using static JsonDataManager;
-using UnityEngine.UIElements;
 
 public class JsonDataManager : GlobalSingleton<JsonDataManager>
 {

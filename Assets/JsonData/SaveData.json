@@ -57,6 +57,45 @@
       "coolDown": 3.0,
       "multiShot": 3,
       "multiShotDelay": 0.5
+    },
+    "Weapon_003": {
+      "weaponName": "127mm 대공포",
+      "projectiledVelocity": 200.0,
+      "dispersion": 1.0,
+      "shellLifeTime": 10.0,
+      "caliber": 127.0,
+      "apDmgFactor": 0.1,
+      "heDmgFactor": 2.0,
+      "turningSpeedPerSecond": 90.0,
+      "coolDown": 1.0,
+      "multiShot": 1,
+      "multiShotDelay": 0.0
+    },
+    "Weapon_004": {
+      "weaponName": "203mm 2연장 주포",
+      "projectiledVelocity": 120.0,
+      "dispersion": 6.0,
+      "shellLifeTime": 30.0,
+      "caliber": 203.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 30.0,
+      "coolDown": 3.0,
+      "multiShot": 2,
+      "multiShotDelay": 0.1
+    },
+    "Weapon_005": {
+      "weaponName": "406mm 3연장 주포",
+      "projectiledVelocity": 110.0,
+      "dispersion": 10.0,
+      "shellLifeTime": 50.0,
+      "caliber": 406.0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
+      "turningSpeedPerSecond": 10.0,
+      "coolDown": 10.0,
+      "multiShot": 3,
+      "multiShotDelay": 0.1
     }
   },
   "stageList": [
@@ -91,7 +130,9 @@
           "multiShot": 3,
           "multiShotDelay": 0.5
         },
-        "rarity": "일반"
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
       },
       {
         "weaponData": {
@@ -107,7 +148,225 @@
           "multiShot": 3,
           "multiShotDelay": 0.5
         },
-        "rarity": "일반"
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 30mm 기관포",
+          "projectiledVelocity": 136.677277,
+          "dispersion": 3.10630131,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 2.07086754,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 4.659452,
+          "multiShot": 20,
+          "multiShotDelay": 0.05
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 184.5931,
+          "dispersion": 1.61357594,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 2.366578,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.840728,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 127mm 대공포",
+          "projectiledVelocity": 262.279,
+          "dispersion": 0.4515822,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.198696181,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 1.21927178,
+          "multiShot": 1,
+          "multiShotDelay": 0.0
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 203mm 2연장 주포",
+          "projectiledVelocity": 180.133,
+          "dispersion": 2.8430078,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 2.46394,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 3.41160941,
+          "multiShot": 2,
+          "multiShotDelay": 0.1
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 406mm 3연장 주포",
+          "projectiledVelocity": 182.458649,
+          "dispersion": 5.2358427,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 2.722638,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 12.5660219,
+          "multiShot": 3,
+          "multiShotDelay": 0.1
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 30mm 기관포",
+          "projectiledVelocity": 121.00769,
+          "dispersion": 2.75017452,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.8334496,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 4.125262,
+          "multiShot": 20,
+          "multiShotDelay": 0.05
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 178.880264,
+          "dispersion": 1.56363869,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 2.29333663,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.690916,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 127mm 대공포",
+          "projectiledVelocity": 284.13678,
+          "dispersion": 0.489216149,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.215255126,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 1.32088351,
+          "multiShot": 1,
+          "multiShotDelay": 0.0
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 203mm 2연장 주포",
+          "projectiledVelocity": 205.051834,
+          "dispersion": 3.23629761,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 2.80479121,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 3.88355732,
+          "multiShot": 2,
+          "multiShotDelay": 0.1
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 406mm 3연장 주포",
+          "projectiledVelocity": 186.184982,
+          "dispersion": 5.342774,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 2.77824235,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 12.8226566,
+          "multiShot": 3,
+          "multiShotDelay": 0.1
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 155.365921,
+          "dispersion": 1.35809362,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.81079149,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.07428074,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
+      },
+      {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 179.0952,
+          "dispersion": 1.56551743,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 2.08735657,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.69655228,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
       }
     ],
     "nanobot": 0,

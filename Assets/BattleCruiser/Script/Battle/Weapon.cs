@@ -78,6 +78,7 @@ public class Weapon : MonoBehaviour
         if (isInit == false)
         {
             Debug.LogWarning("초기화되지 않은 무기 사용");
+            return;
         }
 
         if(delay <= coolDown)
