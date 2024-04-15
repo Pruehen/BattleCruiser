@@ -24,10 +24,10 @@
       "strafePower": 60.0,
       "horizontalRestorationPower": 3.0,
       "weaponDatas": [
-        "Weapon_004",
-        "Weapon_004",
-        "Weapon_004",
-        "Weapon_004"
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005",
+        "Weapon_005"
       ]
     }
   },
@@ -152,6 +152,24 @@
         "baseWeaponKey": "Weapon_002",
         "rarityNum": 0
       },
+      "2": {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 176.369156,
+          "dispersion": 1.54168832,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 2.05558443,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.625065,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
+      },
       "1000": {
         "weaponData": {
           "weaponName": "장포신 철갑탄 76mm 속사포",
@@ -223,6 +241,24 @@
         "rarity": "에픽",
         "baseWeaponKey": "Weapon_002",
         "rarityNum": 2
+      },
+      "3": {
+        "weaponData": {
+          "weaponName": "장포신 철갑탄 76mm 속사포",
+          "projectiledVelocity": 166.69104,
+          "dispersion": 1.45708942,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.942786,
+          "heDmgFactor": 0.0,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 4.37126827,
+          "multiShot": 3,
+          "multiShotDelay": 0.5
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 0
       }
     },
     "nanobot": 0,
