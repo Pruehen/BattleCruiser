@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    Vehicle parentVehicle;
+
     public Transform firePoint;
     float projectiledVelocity = 100;//발사 속도
     float dispersion = 3;//발사각 분포(각도)
@@ -56,7 +58,7 @@ public class Weapon : MonoBehaviour
     {
         parentVelocity = velocity;
     }
-    public void Init(bool isEnemy, WeaponData weaponData, Vector2 localPosition)
+    public void Init(bool isEnemy, WeaponData weaponData, Vector2 localPosition, Vehicle vehicle)
     {
         this.isEnemy = isEnemy;
         this.projectiledVelocity = weaponData.projectiledVelocity;
@@ -73,6 +75,7 @@ public class Weapon : MonoBehaviour
         this.projectileIsPropulsion = weaponData.isPropulsion;
         this.projectileIsGuided = weaponData.isGuided;
 
+        parentVehicle = vehicle;
         delay = this.coolDown;
         isInit = true;
     }
@@ -129,7 +132,7 @@ public class Weapon : MonoBehaviour
             Projectile item = ObjectPoolManager.Instance.DequeueObject(projectilePrf).GetComponent<Projectile>();//탄 생성
             Quaternion dispersionAngle = Quaternion.Euler(0, 0, Random.Range(-(dispersion * 0.5f), dispersion * 0.5f));//발사각도 오차 생성
             Vector2 fireVelocity = dispersionAngle * (Vector2)transform.right * projectiledVelocity;//발사 벡터 생성
-            item.Init(firePoint.position, parentVelocity, fireVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor, projectileIsPropulsion, projectileIsGuided);//발사
+            item.Init(firePoint.position, parentVelocity, fireVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor, projectileIsPropulsion, projectileIsGuided, parentVehicle.GetTarget());//발사
             EffectManager.Instance.GenerateMuzzleFlash(firePoint, true, caliber);
 
             yield return new WaitForSeconds(delayTime);

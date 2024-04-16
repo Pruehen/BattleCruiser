@@ -108,7 +108,7 @@ public class Vehicle : MonoBehaviour
                 totalMass += weaponDatas[i].mass;//총질량에 무장의 질량 추가
 
                 childWeaponList.Add(weapon);
-                weapon.Init(isEnemy, weaponDatas[i], weapon.gameObject.transform.localPosition);
+                weapon.Init(isEnemy, weaponDatas[i], weapon.gameObject.transform.localPosition, this);
 
                 if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)
                 {
