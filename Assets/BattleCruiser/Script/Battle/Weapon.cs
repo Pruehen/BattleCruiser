@@ -9,15 +9,18 @@ public class Weapon : MonoBehaviour
     float dispersion = 3;//발사각 분포(각도)
     float shellLifeTime = 6;//탄 작동 시간
     Vector2 parentVelocity = Vector2.zero;
-    float caliber = 100f;
-    float apDmgFactor = 1;
-    float heDmgFactor = 1;
+    float caliber = 100f;//탄 구경
+    float apDmgFactor = 1;//물리 데미지 계수
+    float heDmgFactor = 1;//화학 데미지 계수
 
-    float turningSpeedPerSecond = 90;
+    float turningSpeedPerSecond = 90;//초당 터렛 회전 속도
     float coolDown = 0.1f;//발사 쿨타임
     float delay = 0;
-    int multiShot;
-    float multiShotDelay;
+    int multiShot;//한번에 발사하는 수량
+    float multiShotDelay;//1살보 발당 딜레이
+    bool projectileIsPropulsion = false;//탄이 추진력을 가지고 있는지
+    bool projectileIsGuided = false;//탄이 유도력을 가지고 있는지
+
 
     bool coolDownComplete = false;//쿨타임 완료
     bool fireAngleComplete = false;//발사각 완료
@@ -67,9 +70,10 @@ public class Weapon : MonoBehaviour
         this.transform.localPosition = localPosition;
         this.multiShot = weaponData.multiShot;
         this.multiShotDelay = weaponData.multiShotDelay;
+        this.projectileIsPropulsion = weaponData.isPropulsion;
+        this.projectileIsGuided = weaponData.isGuided;
+
         delay = this.coolDown;
-
-
         isInit = true;
     }
 
@@ -125,7 +129,7 @@ public class Weapon : MonoBehaviour
             Projectile item = ObjectPoolManager.Instance.DequeueObject(projectilePrf).GetComponent<Projectile>();//탄 생성
             Quaternion dispersionAngle = Quaternion.Euler(0, 0, Random.Range(-(dispersion * 0.5f), dispersion * 0.5f));//발사각도 오차 생성
             Vector2 fireVelocity = dispersionAngle * (Vector2)transform.right * projectiledVelocity;//발사 벡터 생성
-            item.Init(firePoint.position, fireVelocity + parentVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor);//발사
+            item.Init(firePoint.position, parentVelocity, fireVelocity, firePoint.rotation, shellLifeTime, caliber, apDmgFactor, heDmgFactor, projectileIsPropulsion, projectileIsGuided);//발사
             EffectManager.Instance.GenerateMuzzleFlash(firePoint, true, caliber);
 
             yield return new WaitForSeconds(delayTime);

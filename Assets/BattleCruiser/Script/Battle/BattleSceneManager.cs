@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 {
@@ -13,6 +14,10 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
     {
         Debug.Log($"{Instance.name} 로컬 인스턴싱 완료");
         stage = GameManager.Instance.selectedStage;
+        PlayerShipData playerShipData = GameManager.Instance.playerShipData;//플레이어의 함선 데이터
+
+        Player player = Instantiate(PrefabManager.Instance.playerPrfs[playerShipData.shipIndex], new Vector2(0, 50), Quaternion.identity, vehicleTrf).GetComponent<Player>();
+        player.Init(playerShipData);//생성한 함선 초기화
 
         float minX = 300;
         float minY = 50;
@@ -25,7 +30,7 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
         {
             ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[stageData.stageShipDataList[i]];//생성할 함선 데이터
 
-            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemy, new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
+            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[0], new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
             createEnemy.name = shipData.className;
             Enemy enemy = createEnemy.GetComponent<Enemy>();
             enemy.Init(shipData);//생성한 함선 초기화

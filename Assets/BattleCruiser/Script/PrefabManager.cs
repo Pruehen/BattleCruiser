@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class PrefabManager : SceneSingleton<PrefabManager>
 {
-    public GameObject enemy;
+    public GameObject[] playerPrfs;
+    public GameObject[] enemyPrfs;
+
     public GameObject projectile;
     public GameObject projectile_Enemy;
-    public GameObject weapon;
+    public GameObject[] weapons;
 
     private void Awake()
     {

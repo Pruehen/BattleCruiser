@@ -26,8 +26,8 @@ public class JsonDataManager : GlobalSingleton<JsonDataManager>
         saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
         saveData.shipDataDictionary["Ship_002"].weaponDatas.Add("Weapon_002");
 
-        saveData.weaponDataDictionary.Add("Weapon_001", new WeaponData("30mm 기관포", 100, 6, 10, 30, 1, 1, 180, 3, 20, 0.05f));
-        saveData.weaponDataDictionary.Add("Weapon_002", new WeaponData("76mm 속사포", 130, 3, 15, 76, 1, 1, 90, 3, 3, 0.5f));
+        //saveData.weaponDataDictionary.Add("Weapon_001", new WeaponData("30mm 기관포", 100, 6, 10, 30, 1, 1, 180, 3, 20, 0.05f, ));
+        //saveData.weaponDataDictionary.Add("Weapon_002", new WeaponData("76mm 속사포", 130, 3, 15, 76, 1, 1, 90, 3, 3, 0.5f));
 
         saveData.stageList.Add(new StageData(new List<string>()));
         saveData.stageList[0].stageShipDataList.Add("Ship_001");

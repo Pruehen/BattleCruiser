@@ -6,7 +6,8 @@ public class Vehicle : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
     public Rigidbody2D Rigidbody2D() { return rigidbody2D; }
-    float mass = 0;//질량 (Rigidbody2D의 정보를 받아옴)    
+    float mass = 0;//기본 질량
+    float totalMass = 0;//무기를 포함한 총 질량. mass보다 큼
     public bool isDead { get; private set; }
     bool isSplashed = false;
     float hp;//현재 체력
@@ -59,15 +60,21 @@ public class Vehicle : MonoBehaviour
 
     public void Init(bool isEnemy, ShipData shipData)
     {
-        this.isEnemy = isEnemy;
-        this.maxHp = shipData.maxHp;
-        hp = maxHp;
-        this.mass = shipData.mass;
-        rigidbody2D.mass = mass;
-        this.armor = shipData.armor;
-        this.hoverPower = shipData.hoverPower;
-        this.strafePower = shipData.strafePower;
-        this.horizontalRestorationPower = shipData.horizontalRestorationPower;
+        if (shipData != null)
+        {
+            this.isEnemy = isEnemy;
+            this.maxHp = shipData.maxHp;
+            hp = maxHp;
+            this.mass = shipData.mass;
+            totalMass = mass;
+            rigidbody2D.mass = totalMass;
+            this.armor = shipData.armor;
+            this.hoverPower = shipData.hoverPower;
+            this.strafePower = shipData.strafePower;
+            this.horizontalRestorationPower = shipData.horizontalRestorationPower;
+
+            isInit = true;            
+        }
 
         for (int i = 0; i < spriteTrf.childCount; i++)
         {
@@ -86,29 +93,33 @@ public class Vehicle : MonoBehaviour
         }
 
         isDead = false;
-        isInit = true;
     }
-    public void WeaponInit(List<string> weaponDatas)
+    public void WeaponInit(List<int> weaponIndexs, List<WeaponData> weaponDatas)
     {
         maxWeaponVelocity = 0;
         if (weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
         {
-            for (int i = 0; i < weaponsTrf.childCount; i++)
+            for (int i = 0; i < weaponDatas.Count; i++)
             {
-                WeaponData weaponData = JsonDataManager.Instance.saveData.weaponDataDictionary[weaponDatas[i]];
+                if (weaponIndexs[i] == -1)//무장이 없을 경우 해당 루프 건너뜀
+                    continue;
 
-                childWeaponList.Add(weaponsTrf.GetChild(i).gameObject.GetComponent<Weapon>());
-                childWeaponList[i].Init(isEnemy, weaponData, childWeaponList[i].gameObject.transform.localPosition);
+                Weapon weapon = Instantiate(PrefabManager.Instance.weapons[weaponIndexs[i]], weaponsTrf.GetChild(i)).GetComponent<Weapon>();//무장 생성
+                totalMass += weaponDatas[i].mass;//총질량에 무장의 질량 추가
 
-                if (weaponData.projectiledVelocity > maxWeaponVelocity)
+                childWeaponList.Add(weapon);
+                weapon.Init(isEnemy, weaponDatas[i], weapon.gameObject.transform.localPosition);
+
+                if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)
                 {
-                    maxWeaponVelocity = weaponData.projectiledVelocity;
+                    maxWeaponVelocity = weaponDatas[i].projectiledVelocity;
                 }
-            }
+            }            
+            rigidbody2D.mass = totalMass;
         }
         else
         {
-            Debug.LogError("무장의 수량이 다릅니다.");
+            Debug.LogError("무장의 수량이 다릅니다");
         }
     }
    
@@ -153,7 +164,7 @@ public class Vehicle : MonoBehaviour
     }
     void AltitudeHoldPropulsion()//고도유지 추진
     {
-        rigidbody2D.AddForce(this.transform.up * 9.8f * mass * altPropulsionGain, ForceMode2D.Force);
+        rigidbody2D.AddForce(this.transform.up * 9.8f * totalMass * altPropulsionGain, ForceMode2D.Force);
     }
     void HorizontalRestoration()//수평 복원
     {

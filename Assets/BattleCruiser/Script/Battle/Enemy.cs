@@ -21,7 +21,16 @@ public class Enemy : MonoBehaviour
         target = Player.Instance.gameObject.GetComponent<Vehicle>();        
 
         controlledShip.Init(true, shipData);//함선 데이터 초기화
-        controlledShip.WeaponInit(shipData.weaponDatas);
+
+        List<int> weaponIndexs = new List<int>();
+        List<WeaponData> weaponDatas = new List<WeaponData>();
+        foreach (string key in shipData.weaponDatas)
+        {
+            weaponDatas.Add(JsonDataManager.Instance.saveData.weaponDataDictionary[key]);
+            weaponIndexs.Add(key.Index());
+        }
+
+        controlledShip.WeaponInit(weaponIndexs, weaponDatas);
         controlledShip.SetTarget(target);
 
         isInit = true;

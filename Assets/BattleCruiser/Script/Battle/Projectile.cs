@@ -9,57 +9,88 @@ public class Projectile : MonoBehaviour
     Vector2 velocityTemp;
 
     bool isUse = false;
-    float usingTime = 0;
+    float lifeTime = 0;
     float selfDestructTime = 0;
     float caliber;
     float apDmgFactor;
     float heDmgFactor;
+    float deltaV;
+    float propulsion;
+    bool guided;
 
     private void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(Vector2 position, Vector2 velocity, Quaternion quaternion, float time, float caliber, float apDmgFactor, float heDmgFactor)
+    public void Init(Vector2 position, Vector2 shipVelocity, Vector2 projectiledVelocity, Quaternion quaternion, float time, float caliber, float apDmgFactor, float heDmgFactor, bool propulsion, bool guided)
     {
+        this.caliber = caliber;
+        this.apDmgFactor = apDmgFactor;
+        this.heDmgFactor = heDmgFactor;
+
+        lifeTime = 0;
+        selfDestructTime = time + Random.Range(-0.5f, 0.5f);
+
+        if (propulsion)
+        {
+            this.deltaV = projectiledVelocity.magnitude;
+            this.propulsion = (deltaV * 2 * Time.fixedDeltaTime) / selfDestructTime;
+        }
+        else
+        {
+            deltaV = 0;
+            this.propulsion = 0;
+        }        
+        this.guided = guided;
+
         this.transform.position = position;
         this.transform.rotation = quaternion;
-        rigidbody2D.velocity = velocity;//좌표, 회전, 속도 초기화
+        if (propulsion)//로켓추진탄
+        {
+            rigidbody2D.velocity = shipVelocity;//좌표, 회전, 속도 초기화
+        }
+        else//일반탄
+        {
+            rigidbody2D.velocity = shipVelocity + projectiledVelocity;//좌표, 회전, 속도 초기화
+        }
+        
+
         rigidbody2D.drag = 1 / caliber;
         float size = Mathf.Sqrt(caliber) * 0.1f;        
         this.transform.localScale = new Vector3(size, size, size);
 
-        isUse = true;
-        usingTime = 0;
-        selfDestructTime = time + Random.Range(-0.5f, 0.5f);  
-        
-        this.caliber = caliber;
-        this.apDmgFactor = apDmgFactor;
-        this.heDmgFactor = heDmgFactor;
+        isUse = true;       
     }
 
     private void Update()
     {
-        usingTime += Time.deltaTime;
+        lifeTime += Time.deltaTime;        
         SelfDestroy();
     }
 
     private void FixedUpdate()
     {
+        if(deltaV != 0)//추진
+        {
+            rigidbody2D.AddForce(this.transform.right * propulsion, ForceMode2D.Force);
+            deltaV -= propulsion;
+        }
+
         rigidbody2D.AddTorque(GetAngleBetweenVectors(this.transform.right, rigidbody2D.velocity));//탄의 진행 방향으로 탄을 회전
         velocityTemp = rigidbody2D.velocity;
     }
 
     void SelfDestroy()
     {
-        if (usingTime >= selfDestructTime)
+        if (lifeTime >= selfDestructTime)
         {
             ProjectileDestroy(this.transform.position);
         }        
     }
     void ProjectileDestroy(Vector2 hitPosition)
     {
-        usingTime = 0;
+        lifeTime = 0;
         isUse = false;
 
         EffectManager.Instance.GenerateExplosion((Vector2)hitPosition, caliber);

@@ -6,12 +6,14 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
 {
     public GameObject[] weaponPrfs;//무장의 프리팹
 
-    public Transform customShipParentTrf;//커스텀쉽 전체의 루트 트랜스폼
+    public Transform customShipParentTrf;//커스텀쉽 클래스의 루트 트랜스폼
+    public Transform customShipGameObjectParentTrf;//커스텀쉽 게임오브젝트의 루트 트랜스폼
+
     public List<CustomShip> customShips;//커스텀쉽 클래스(UI 부분) 리스트
     public List<GameObject> customShipGameObjects;//커스텀쉽 게임오브젝트(스프라이트) 리스트
-    public List<Transform> turretPoints;//커스텀쉽에 달린 터렛 포인트의 리스트
 
-    int selectedCustomShipIndex;//사용할 함선 인덱스.
+    public List<Transform> turretPoints;//커스텀쉽에 달린 터렛 포인트의 리스트
+    int selectedShipIndex;
 
     private void Awake()
     {
@@ -21,8 +23,8 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
 
         for (int i = 0; i < customShipParentTrf.childCount; i++)
         {
-            customShips.Add(customShipParentTrf.GetChild(i).GetComponent<CustomShip>());
-            customShipGameObjects.Add(this.transform.GetChild(i).gameObject);
+            customShips.Add(customShipParentTrf.GetChild(i).GetComponent<CustomShip>());//UI부분 커스텀쉽            
+            customShipGameObjects.Add(customShipGameObjectParentTrf.GetChild(i).gameObject);//게임오브젝트 부분 커스텀쉽            
             turretPoints.Add(customShipGameObjects[i].transform.GetChild(customShipGameObjects[i].transform.childCount - 1));
         }
 
@@ -35,8 +37,7 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
     /// <param name="index"></param>
     public void SelectCustomShip(int index)
     {
-        selectedCustomShipIndex = index;
-
+        selectedShipIndex = index;
         for (int i = 0; i < customShips.Count; i++)
         {
             if(index == i)
@@ -50,6 +51,8 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
                 customShipGameObjects[i].SetActive(false);
             }
         }
+
+        //GameManager.Instance.SetShipData(selectedShipIndex);
     }
 
     /// <summary>
@@ -92,5 +95,10 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
 
             Instantiate(weaponPrfs[weaponIndex], targetTrf);
         }
+    }
+
+    public void SetShipData()//현재 상태를 게임매니저에 저장. 외부 버튼 눌러서 호출.
+    {
+        GameManager.Instance.SetShipData(selectedShipIndex);
     }
 }

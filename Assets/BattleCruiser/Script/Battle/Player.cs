@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using UnityEngine.InputSystem;
+using static GameManager;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : SceneSingleton<Player>
 {
@@ -11,39 +13,44 @@ public class Player : SceneSingleton<Player>
     Vector2 worldAimPoint = Vector2.zero;//에임 위치(월드 좌표)
     Vector2 inputMovement = Vector2.zero;
     public Vehicle controlledShip { get; private set; }
-    ShipData shipData;
+    
     public bool fireTrigger = false;
+    bool isInit = false;
 
-    private void Start()
+    public void Init(PlayerShipData playerShipData)
     {
         controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
-        shipData = JsonDataManager.Instance.saveData.shipDataDictionary["Ship_002"];//함선이 사용할 함선 데이터
 
-        controlledShip.Init(false, shipData);
-        controlledShip.WeaponInit(shipData.weaponDatas);
+        controlledShip.Init(false, playerShipData.shipData);//함선 데이터 초기화
+        controlledShip.WeaponInit(playerShipData.weaponIndexs, playerShipData.weaponDatas);//함선의 무기 초기화
+
+        isInit = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        worldAimPoint = Camera.main.ScreenToWorldPoint(screenAimPoint);
-        controlledShip.SetAimPosition(worldAimPoint);
-        controlledShip.SetControllVector(inputMovement);
+        if (isInit)
+        {
+            worldAimPoint = Camera.main.ScreenToWorldPoint(screenAimPoint);
+            controlledShip.SetAimPosition(worldAimPoint);
+            controlledShip.SetControllVector(inputMovement);
 
-        PlayerUI.Instance.SetAimDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
-        PlayerUI.Instance.SetAltText(this.transform.position.y);
-        PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
-        PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);
-        PlayerUI.Instance.SetVelocityMarker(controlledShip.Rigidbody2D().velocity, this.transform.position);
-        if(controlledShip.GetTarget() != null)
-        {
-            Vector2 targetPos = controlledShip.GetTarget().transform.position;
-            PlayerUI.Instance.SetLockOnPointPosition(targetPos);
-            PlayerUI.Instance.SetLockOnDistanceText((targetPos - (Vector2)this.transform.position).magnitude);
-        }
-        else
-        {
-            PlayerUI.Instance.DisableLockOnPoint();
+            PlayerUI.Instance.SetAimDistanceText((worldAimPoint - (Vector2)this.transform.position).magnitude);
+            PlayerUI.Instance.SetAltText(this.transform.position.y);
+            PlayerUI.Instance.SetSpeedText(controlledShip.Rigidbody2D().velocity.magnitude);
+            PlayerUI.Instance.SetMoveOrderMarker(inputMovement, this.transform.position);
+            PlayerUI.Instance.SetVelocityMarker(controlledShip.Rigidbody2D().velocity, this.transform.position);
+            if (controlledShip.GetTarget() != null)
+            {
+                Vector2 targetPos = controlledShip.GetTarget().transform.position;
+                PlayerUI.Instance.SetLockOnPointPosition(targetPos);
+                PlayerUI.Instance.SetLockOnDistanceText((targetPos - (Vector2)this.transform.position).magnitude);
+            }
+            else
+            {
+                PlayerUI.Instance.DisableLockOnPoint();
+            }
         }
     }
 
@@ -103,9 +110,5 @@ public class Player : SceneSingleton<Player>
         {
             TargetLockOn();
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
     }
 }

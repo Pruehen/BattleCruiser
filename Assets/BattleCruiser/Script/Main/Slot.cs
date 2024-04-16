@@ -11,7 +11,7 @@ public class Slot : MonoBehaviour
     public Transform slotParentTrf;
     public Vector2 startlocalPosition;
     public int index;
-    public CustomWeaponData slotData { get; private set; }
+    public CustomWeaponData slotWeaponData { get; private set; }
 
     private void Awake()//시작 시 모든 슬롯에 이벤트 시스템 추가
     {
@@ -42,11 +42,11 @@ public class Slot : MonoBehaviour
 
     void OnPointerEnter(PointerEventData eventData)//슬롯에 마우스 올렸을 시
     {        
-        if (this.slotData != null)
+        if (this.slotWeaponData != null)
         {
             ItemManager.Instance.isDataView = true;
             ItemManager.Instance.itemDataViewer.gameObject.SetActive(true);
-            ItemManager.Instance.itemDataViewer.SetText(this.slotData.GetData());
+            ItemManager.Instance.itemDataViewer.SetText(this.slotWeaponData.GetData());
 
             //Debug.Log(targetSlot.slotData.GetData()[0]);
         }
@@ -58,7 +58,7 @@ public class Slot : MonoBehaviour
     }
     void OnPointerDown()//마우스 클릭 누를 시
     {
-        if (this.slotData != null)
+        if (this.slotWeaponData != null)
         {
             ItemManager.Instance.selectedSlot = this;
 
@@ -68,10 +68,12 @@ public class Slot : MonoBehaviour
     }
     void OnPointerUp(PointerEventData eventData)//마우스 클릭 뗄 시
     {
-        if (this.slotData != null)
+        if (this.slotWeaponData != null && eventData != null)
         {
-            Slot target = eventData.pointerEnter.GetComponent<Slot>();
-            if (target != this && target != null)
+            Slot target;
+            bool check = eventData.pointerEnter.TryGetComponent(out target);
+
+            if (target != this && check)
             {
                 SwapData(this, target);
             }
@@ -89,12 +91,12 @@ public class Slot : MonoBehaviour
         this.index = index;
         this.slotParentTrf = this.gameObject.transform.parent;
         startlocalPosition = this.transform.localPosition;
-        slotData = null;
+        slotWeaponData = null;
     }
 
     public void AddData(CustomWeaponData data)
     {
-        slotData = data;
+        slotWeaponData = data;
         ItemManager.Instance.AddItem(data.baseWeaponKey.Index(), data.rarityNum, this.transform);
     }
 
@@ -120,10 +122,10 @@ public class Slot : MonoBehaviour
         ItemManager.Instance.slotData[targetSlot1.index] = targetSlot1;//딕셔너리의 데이터 갱신
         //Debug.Log(targetSlot1.index);
         ItemManager.Instance.slotData[targetSlot2.index] = targetSlot2;//딕셔너리의 데이터 갱신
-        //Debug.Log(targetSlot2.index);
+        //Debug.Log(targetSlot2.index);        
 
-        CustomShipManager.Instance.UpdataEquipment(targetSlot1.index, targetSlot1.slotData);
-        CustomShipManager.Instance.UpdataEquipment(targetSlot2.index, targetSlot2.slotData);
+        CustomShipManager.Instance.UpdataEquipment(targetSlot1.index, targetSlot1.slotWeaponData);
+        CustomShipManager.Instance.UpdataEquipment(targetSlot2.index, targetSlot2.slotWeaponData);
     }
 }
 

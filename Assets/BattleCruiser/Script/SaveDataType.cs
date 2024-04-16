@@ -41,17 +41,16 @@ public class WeaponData
     public float coolDown;//발사 쿨타임
     public int multiShot;//한번에 발사하는 수량
     public float multiShotDelay;//1살보시 발사 딜레이
-
-    [JsonIgnore]
-    public bool isPropulsion = false;
-    [JsonIgnore]
+    public float mass;//질량(kg)
+    
+    public bool isPropulsion = false;    
     public bool isGuided = false;
 
     [JsonConstructor]
     public WeaponData(string weaponName, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
-        float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay)
+        float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay, float mass, bool isPropulsion, bool isGuided)
     {
-        this.weaponName = weaponName;        
+        this.weaponName = weaponName;
         this.projectiledVelocity = projectiledVelocity;
         this.dispersion = dispersion;
         this.shellLifeTime = shellLifeTime;
@@ -62,8 +61,9 @@ public class WeaponData
         this.coolDown = coolDown;
         this.multiShot = multiShot;
         this.multiShotDelay = multiShotDelay;
-        isPropulsion = false;
-        isGuided = false;
+        this.mass = mass;
+        this.isPropulsion = isPropulsion;
+        this.isGuided = isGuided;
     }
 
     public WeaponData(WeaponData weaponData)
@@ -79,6 +79,8 @@ public class WeaponData
         this.coolDown = weaponData.coolDown;
         this.multiShot = weaponData.multiShot;
         this.multiShotDelay = weaponData.multiShotDelay;
+        this.mass = weaponData.mass;
+
         isPropulsion = false;
         isGuided = false;
     }
@@ -153,18 +155,22 @@ public class CustomWeaponData
                 weaponData.projectiledVelocity *= 1.2f;
                 weaponData.coolDown *= 1.5f;
                 weaponData.dispersion *= 0.5f;
+                weaponData.mass *= 1.5f;
                 break;
             case 2:
                 prefix1 = "단포신";
                 weaponData.projectiledVelocity *= 0.8f;
                 weaponData.coolDown *= 0.7f;
                 weaponData.dispersion *= 2f;
+                weaponData.mass *= 0.7f;
                 break;
             case 3:
                 prefix1 = "로켓추진";
-                weaponData.projectiledVelocity *= 2f;                
+                weaponData.projectiledVelocity *= 2f;
                 weaponData.dispersion *= 3f;
                 weaponData.apDmgFactor *= 0.2f;
+                weaponData.mass *= 0.5f;
+                weaponData.isPropulsion = true;
                 break;
             default:
                 break;
@@ -192,6 +198,7 @@ public class CustomWeaponData
                 weaponData.projectiledVelocity *= 0.8f;
                 weaponData.apDmgFactor *= 0.5f;
                 weaponData.heDmgFactor *= 0.5f;
+                weaponData.isGuided = true;
                 break;
             default:
                 break;

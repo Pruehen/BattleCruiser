@@ -9,7 +9,7 @@ public class ItemManager : SceneSingleton<ItemManager>
     public Transform slotParentTrf;//인벤토리 슬롯 전체의 루트 트랜스폼
     public Transform customShipTrf;//커스텀 쉽의 루트 트랜스폼
     public Dictionary<int, Slot> slotData;//슬롯 데이터 딕셔너리
-    public Dictionary<int, CustomWeaponData> weaponData;
+    //public Dictionary<int, CustomWeaponData> weaponData;
 
     public GameObject rarityCurver;//레어도 커버
     public GameObject newItemCurver;//새로운 아이템 커버
@@ -37,10 +37,10 @@ public class ItemManager : SceneSingleton<ItemManager>
 
         //SlotsInit();//슬롯에 이벤트 트리거 추가        
 
-        weaponData = JsonDataManager.Instance.saveData.userData.customWeaponDatas;        
+        Dictionary<int, CustomWeaponData> weaponData = JsonDataManager.Instance.saveData.userData.customWeaponDatas;        
         foreach (var item in weaponData)//딕셔너리의 모든 키 조회
         {
-            if (slotData[item.Key].slotData == null)
+            if (slotData[item.Key].slotWeaponData == null)
             {
                 slotData[item.Key].AddData(item.Value);
 
@@ -56,7 +56,7 @@ public class ItemManager : SceneSingleton<ItemManager>
     {
         if(isDataView)
         {
-            itemDataViewer.transform.position = new Vector2(Mathf.Clamp(Input.mousePosition.x, 0, Screen.width - 700), Mathf.Clamp(Input.mousePosition.y, 350, Screen.height));
+            itemDataViewer.transform.position = new Vector2(Mathf.Clamp(Input.mousePosition.x, 0, Screen.width - 700), Mathf.Clamp(Input.mousePosition.y, 700, Screen.height));
         }
         if(selectedSlot != null)
         {
@@ -94,15 +94,15 @@ public class ItemManager : SceneSingleton<ItemManager>
         Instantiate(weaponIcons[weaponIndex], itemData.transform);
     }
 
-    public void DataSave()
+    public void DataSave()//슬롯데이터를 웨폰데이터로 변환해서 저장. 외부 버튼 클릭해서 호출함.
     {
-        weaponData = new Dictionary<int, CustomWeaponData>();
+        Dictionary<int, CustomWeaponData> weaponData = new Dictionary<int, CustomWeaponData>();
 
         foreach (var item in slotData)//슬롯 데이터 순회
         {
-            if(item.Value.slotData != null)//해당 슬롯에 데이터가 존재할 경우
+            if(item.Value.slotWeaponData != null)//해당 슬롯에 데이터가 존재할 경우
             {
-                weaponData.Add(item.Key, item.Value.slotData);//데이터 추가
+                weaponData.Add(item.Key, item.Value.slotWeaponData);//데이터 추가
             }
         }
         JsonDataManager.Instance.saveData.userData.customWeaponDatas = weaponData;
