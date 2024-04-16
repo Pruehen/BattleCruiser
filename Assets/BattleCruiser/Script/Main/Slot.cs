@@ -13,7 +13,7 @@ public class Slot : MonoBehaviour
     public int index;
     public CustomWeaponData slotData { get; private set; }
 
-    private void Start()//시작 시 모든 슬롯에 이벤트 시스템 추가
+    private void Awake()//시작 시 모든 슬롯에 이벤트 시스템 추가
     {
         EventTrigger eventTrigger = this.GetComponent<EventTrigger>();
 
@@ -121,5 +121,9 @@ public class Slot : MonoBehaviour
         //Debug.Log(targetSlot1.index);
         ItemManager.Instance.slotData[targetSlot2.index] = targetSlot2;//딕셔너리의 데이터 갱신
         //Debug.Log(targetSlot2.index);
+
+        CustomShipManager.Instance.UpdataEquipment(targetSlot1.index, targetSlot1.slotData);
+        CustomShipManager.Instance.UpdataEquipment(targetSlot2.index, targetSlot2.slotData);
     }
 }
+

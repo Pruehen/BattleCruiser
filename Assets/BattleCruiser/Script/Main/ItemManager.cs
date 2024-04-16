@@ -20,7 +20,7 @@ public class ItemManager : SceneSingleton<ItemManager>
     public Slot selectedSlot = null;
 
 
-    void Awake()
+    void Start()
     {
         slotData = new Dictionary<int, Slot>();
 
@@ -43,6 +43,11 @@ public class ItemManager : SceneSingleton<ItemManager>
             if (slotData[item.Key].slotData == null)
             {
                 slotData[item.Key].AddData(item.Value);
+
+                if(item.Key >= 1000)//장착된 장비일 경우
+                {
+                    CustomShipManager.Instance.UpdataEquipment(item.Key, item.Value);
+                }
             }
         }
     }
