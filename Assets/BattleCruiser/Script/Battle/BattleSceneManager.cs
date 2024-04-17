@@ -6,7 +6,7 @@ using static GameManager;
 public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 {
     int stage;
-    public List<Vehicle> activeEnemyList;
+    public List<Vehicle> activeEnemyList { get; private set; }
 
     public Transform vehicleTrf;
 
@@ -25,6 +25,7 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
         float maxY = 200 + stage * 20;
 
         StageData stageData = JsonDataManager.Instance.saveData.stageList[stage];//저장된 json데이터의 스테이지 데이터를 참조해서 적 랜덤 좌표에 생성.
+        activeEnemyList = new List<Vehicle>();
 
         for (int i = 0; i < stageData.stageShipDataList.Count; i++)
         {

@@ -14,6 +14,9 @@ public class Vehicle : MonoBehaviour
     float maxHp;//최대 체력
     bool isEnemy = false;
     bool isInit = false;
+    public float maxEffectiveRange { get; private set; }//최대 유효 사거리
+    public float minEffectiveRange { get; private set; }//최소 유효 사거리
+
     float HpRatio() { return 100 * hp / maxHp; }//hp비율. 0~100의 값을 가짐.
     float armor = 50;//방어력. 0~100의 값을 가짐.
     public float maxWeaponVelocity { get; private set; }//현재 장비된 무기 중 가장 탄속이 높은 무기의 탄속
@@ -97,6 +100,9 @@ public class Vehicle : MonoBehaviour
     public void WeaponInit(List<int> weaponIndexs, List<WeaponData> weaponDatas)
     {
         maxWeaponVelocity = 0;
+        maxEffectiveRange = 0;
+        minEffectiveRange = float.MaxValue;
+
         if (weaponDatas.Count == weaponsTrf.childCount)//전달받은 무기 수량과 웨폰 트랜스폼의 자식 수량이 같을 경우
         {
             for (int i = 0; i < weaponDatas.Count; i++)
@@ -110,9 +116,17 @@ public class Vehicle : MonoBehaviour
                 childWeaponList.Add(weapon);
                 weapon.Init(isEnemy, weaponDatas[i], weapon.gameObject.transform.localPosition, this);
 
-                if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)
+                if (weaponDatas[i].projectiledVelocity > maxWeaponVelocity)//최대 탄속 설정
                 {
                     maxWeaponVelocity = weaponDatas[i].projectiledVelocity;
+                }
+                if (weapon.effectiveRange > maxEffectiveRange)//최대 유효 사거리 설정
+                {
+                    maxEffectiveRange = weapon.effectiveRange;
+                }
+                if (weapon.effectiveRange < minEffectiveRange)//최소 유효 사거리 설정
+                {
+                    minEffectiveRange = weapon.effectiveRange;
                 }
             }            
             rigidbody2D.mass = totalMass;

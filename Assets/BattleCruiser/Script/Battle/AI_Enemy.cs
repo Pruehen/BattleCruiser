@@ -10,12 +10,7 @@ public class AI_Enemy : MonoBehaviour
 
     Vehicle controllVehicle;//자신의 함선(참조용)
     Vehicle targetVehicle;//타겟 함선(참조용)
-
-    Vector2 currentPosition;//현재 위치
-    Vector2 currentVelocity;//현재 속도
-
-    Vector2 targetPosition;//타겟 위치
-    Vector2 targetVelocity;//타겟 속도
+    Vehicle mustCloseTeamVehicle;//자신과 가장 가까운 아군 함선
 
     float maxWeaponVelocity;
 
@@ -44,31 +39,30 @@ public class AI_Enemy : MonoBehaviour
         randomGain2 = Random.Range(-100f, 100f);
 
         maxWeaponVelocity = 300;
-        StartCoroutine(maxWeaponVelocitySet());
+
+        StartCoroutine(MaxWeaponVelocitySet());
+        StartCoroutine(MoveOrderRepeat());
     }
 
-    IEnumerator maxWeaponVelocitySet()
+    IEnumerator MaxWeaponVelocitySet()
     {
         yield return new WaitForSeconds(1);
-        maxWeaponVelocity = controllVehicle.maxWeaponVelocity;
+        maxWeaponVelocity = controllVehicle.maxWeaponVelocity;        
+    }
+    IEnumerator MoveOrderRepeat()//1초마다 이동 포인트를 갱신함
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            movePoint = moveStrategy.Order(controllVehicle, targetVehicle, randomGain1, randomGain2);//기본 이동 명령 생성
+        }        
     }
 
     // Update is called once per frame
     void Update()
-    {        
-        SetData();
-        movePoint = moveStrategy.Order(currentPosition, currentVelocity, targetPosition, targetVelocity, randomGain1, randomGain2);
-
+    {                
         MovePID();
         SetAim();
-    }
-    void SetData()//명령에 사용할 데이터 셋.
-    {
-        currentPosition = this.transform.position;
-        currentVelocity = controllVehicle.Rigidbody2D().velocity;
-
-        targetPosition = targetVehicle.gameObject.transform.position;
-        targetVelocity = targetVehicle.Rigidbody2D().velocity;
     }
 
     Vector2 moveTargetTemp;
@@ -76,21 +70,21 @@ public class AI_Enemy : MonoBehaviour
     {
         Vector2 moveOrder = Vector2.zero;//이동 명령 벡터
 
-        Vector2 moveTarget = movePoint - currentPosition;//목표 위치로의 로컬 벡터                
+        Vector2 moveTarget = movePoint - (Vector2)controllVehicle.transform.position;//목표 위치로의 로컬 벡터                
         moveTargetTemp = moveTarget;
 
-        moveOrder = moveTarget * p - currentVelocity * d;
-        //Debug.Log(moveOrder);
+        moveOrder = moveTarget * p - controllVehicle.Rigidbody2D().velocity * d;        
 
         moveOrder = moveOrder.normalized;
         controllUnit.SetInputMovement(moveOrder);
     }
     void SetAim()//목표 위치에 에임포인트를 옮기는 함수. 타겟 함선의 이동과 탄도 특성을 고려해야 함
     {
-        float distance = (targetPosition - currentPosition).magnitude;//약식 거리
+        float distance = ((Vector2)targetVehicle.transform.position - (Vector2)controllVehicle.transform.position).magnitude;//약식 거리
         float eta = distance / maxWeaponVelocity;//약식 탄 도달 속도
 
-        Vector2 targetAimPosition = targetPosition + targetVelocity * eta;
+        Vector2 targetAimPosition = (Vector2)targetVehicle.transform.position + 
+            (targetVehicle.Rigidbody2D().velocity - controllVehicle.Rigidbody2D().velocity) * eta;
 
         aimPoint = targetAimPosition;
         controllUnit.SetAimPoint(aimPoint);
@@ -100,34 +94,66 @@ public class AI_Enemy : MonoBehaviour
 
 interface IMoveStrategy
 {
-    Vector2 Order(Vector2 myPosition, Vector2 myVelocity, Vector2 targetPositon, Vector2 targetVelocity, float randomGain1, float randomGain2);
+    Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2);
+    void EnterStage();
 }
 
-class DistanceKeep : IMoveStrategy
+class DistanceKeep : IMoveStrategy//자신의 유효 사거리 중간값에 해당하는 거리를 두는 명령.
 {
-    public Vector2 Order(Vector2 myPosition, Vector2 myVelocity, Vector2 targetPositon, Vector2 targetVelocity, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
     {
-        Vector2 movePositon = new Vector2(200 + randomGain1 + targetPositon.x, Mathf.Clamp(randomGain2 + targetPositon.y, 50, 10000));        
+        Vector2 toTargetDir = (target.transform.position - myVehicle.transform.position).normalized;
+        float distance = (myVehicle.maxEffectiveRange + myVehicle.minEffectiveRange) * 0.5f;
+        Vector2 movePosition = (Vector2)target.transform.position - (toTargetDir * distance);
+
+        while (movePosition.y <= 50)
+        {
+            // 회전할 각도 설정 (양수일 경우 반시계 방향, 음수일 경우 시계 방향)
+            float angle = (toTargetDir.x > 0) ? -15f : 15f;
+
+            // 쿼터니언으로 회전
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            toTargetDir = rotation * toTargetDir;
+
+            // 새로운 목표 위치 다시 계산
+            movePosition = (Vector2)target.transform.position - (toTargetDir * distance);
+        }
 
         //Debug.Log("거리 유지 명령");
-        return movePositon;
+        return movePosition;
+    }    
+    public void EnterStage()
+    {
+
     }
 }
 
-class Broadside : IMoveStrategy
+class HoverAvoidance: IMoveStrategy
 {
-    public Vector2 Order(Vector2 myPosition, Vector2 myVelocity, Vector2 targetPositon, Vector2 targetVelocity, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
     {
-        Debug.Log("브로드사이드 명령");
+        //Vector2 movePositon = new Vector2(200 + randomGain1 + targetPositon.x, Mathf.Clamp(randomGain2 + targetPositon.y, 50, 10000));
+
+        //Debug.Log("상하 회피 명령");
         return Vector2.zero;
+    }
+    public void EnterStage()
+    {
+
     }
 }
 
 class Banzai : IMoveStrategy
 {
-    public Vector2 Order(Vector2 myPosition, Vector2 myVelocity, Vector2 targetPositon, Vector2 targetVelocity, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
     {
         Debug.Log("돌진 명령");
         return Vector2.zero;
     }
+    public void EnterStage()
+    {
+
+    }
 }
+
+

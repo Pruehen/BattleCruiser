@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
     float caliber = 100f;//탄 구경
     float apDmgFactor = 1;//물리 데미지 계수
     float heDmgFactor = 1;//화학 데미지 계수
+    public float effectiveRange { get; private set; }//유효 사거리
 
     float turningSpeedPerSecond = 90;//초당 터렛 회전 속도
     float coolDown = 0.1f;//발사 쿨타임
@@ -74,6 +75,8 @@ public class Weapon : MonoBehaviour
         this.multiShotDelay = weaponData.multiShotDelay;
         this.projectileIsPropulsion = weaponData.isPropulsion;
         this.projectileIsGuided = weaponData.isGuided;
+
+        effectiveRange = projectiledVelocity * shellLifeTime * 0.5f;
 
         parentVehicle = vehicle;
         delay = this.coolDown;

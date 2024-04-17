@@ -64,7 +64,7 @@ public class Player : SceneSingleton<Player>
         {
             float sqrdistance = ((Vector2)item.gameObject.transform.position - worldAimPoint).sqrMagnitude;
 
-            if(sqrdistance < mindistance && item.isDead == false && sqrdistance < 400)
+            if(sqrdistance < mindistance && item.isDead == false && sqrdistance < 1600)
             {
                 target = item;
                 mindistance = sqrdistance;

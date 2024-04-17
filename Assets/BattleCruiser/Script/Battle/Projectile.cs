@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class Projectile : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
+    TrailRenderer trilRenderer;
     Vector2 velocityTemp;
 
     bool isUse = false;
@@ -24,43 +25,59 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        trilRenderer = GetComponent<TrailRenderer>();
     }
 
     public void Init(Vector2 position, Vector2 shipVelocity, Vector2 projectiledVelocity, Quaternion quaternion, float time, float caliber, float apDmgFactor, float heDmgFactor, bool propulsion, bool guided, Vehicle target)
     {
-        this.caliber = caliber;
-        this.apDmgFactor = apDmgFactor;
-        this.heDmgFactor = heDmgFactor;
+        this.caliber = caliber;//직경 설정
+        this.apDmgFactor = apDmgFactor;//물리 데미지 팩터 설정
+        this.heDmgFactor = heDmgFactor;//화학 데미지 팩터 설정
 
-        lifeTime = 0;
-        selfDestructTime = time + Random.Range(-0.5f, 0.5f);
+        lifeTime = 0;//라이프타임 변수 초기화
+        selfDestructTime = time + Random.Range(-0.5f, 0.5f);//탄 작동 시간 설정
+
+        this.transform.position = position;//좌표 설정
+        this.transform.rotation = quaternion;//회전 설정
+
+        rigidbody2D.drag = 1 / caliber;//항력 설정
+        float size = Mathf.Sqrt(caliber) * 0.1f;//탄의 렌더 사이즈 변수 설정
+        this.transform.localScale = new Vector3(size, size, size);//실제 사이즈 변경
 
         if (propulsion)//로켓추진탄
         {
-            this.deltaV = projectiledVelocity.magnitude * 0.9f;
-            this.propulsion = (deltaV * 10) / selfDestructTime;
-            rigidbody2D.velocity = shipVelocity + projectiledVelocity * 0.1f;//좌표, 회전, 속도 초기화
+            this.deltaV = projectiledVelocity.magnitude;//속도증분
+            this.propulsion = (deltaV * 5) / selfDestructTime;//추력
+            rigidbody2D.velocity = shipVelocity + projectiledVelocity * 0.1f;//초기 속도 설정
+
+            EffectManager.Instance.GenerateEngineEffect(this.transform, selfDestructTime * 0.2f, size * 0.8f);//로켓추진 이펙트 생성            
         }
         else//일반탄
         {
             deltaV = 0;
             this.propulsion = 0;
-            rigidbody2D.velocity = shipVelocity + projectiledVelocity;//좌표, 회전, 속도 초기화
+            rigidbody2D.velocity = shipVelocity + projectiledVelocity;//초기 속도 설정
         }        
+
         if(guided && target != null)//유도탄
         {
-            this.target = target.transform;
+            this.target = target.transform;//타겟 설정
+            rigidbody2D.drag *= 2;//항력 2배로
         }
         else//무유도탄
         {
             this.target = null;
         }
-        this.transform.position = position;
-        this.transform.rotation = quaternion;
 
-        rigidbody2D.drag = 1 / caliber;
-        float size = Mathf.Sqrt(caliber) * 0.1f;        
-        this.transform.localScale = new Vector3(size, size, size);
+        if(caliber < 100)//탄의 직경이 100 미만
+        {
+            trilRenderer.enabled = false;
+        }
+        else//탄의 직경이 100 이상
+        {
+            trilRenderer.enabled = true;//트레일 렌더러 활성화
+            trilRenderer.Clear();//기존 레이 제거
+        }
 
         isUse = true;       
     }
@@ -92,7 +109,7 @@ public class Projectile : MonoBehaviour
     }
 
     Vector2 angleError_temp = Vector2.zero;
-    void Guided()
+    void Guided()//유도 부분
     {
         float targetAngle = GetAngleBetweenVectors(this.transform.right, target.transform.position - this.transform.position);
 
@@ -104,20 +121,22 @@ public class Projectile : MonoBehaviour
             angleError_temp = toTargetVec;
 
             Vector2 aed_local = this.transform.InverseTransformDirection(angleError_diff);
-            float torque = Mathf.Clamp(aed_local.y * 2, -0.02f, 0.02f) * caliber;
+            float torque = Mathf.Clamp(aed_local.y, -0.05f, 0.05f) * caliber; ;
+
+            if (Mathf.Abs(targetAngle) > 110)
+            {
+                torque *= -10;
+            }            
+            
 
             rigidbody2D.AddTorque(torque, ForceMode2D.Force);
         }
 
         Vector2 sideForce = (Vector2)this.transform.right * rigidbody2D.velocity.magnitude - rigidbody2D.velocity;
-        rigidbody2D.AddForce(sideForce, ForceMode2D.Force);
-
-        
-        if (targetAngle > 150)
-        {
-            target = null;
-        }
+        rigidbody2D.AddForce(sideForce, ForceMode2D.Force);      
     }
+
+
     void SelfDestroy()
     {
         if (lifeTime >= selfDestructTime)

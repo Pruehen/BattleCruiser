@@ -173,17 +173,59 @@
         "baseWeaponKey": "Weapon_002",
         "rarityNum": 1
       },
+      "2": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 98.22602,
+          "dispersion": 5.89356136,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 0.9822602,
+          "heDmgFactor": 0.9822602,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 2.94678068,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
       "3": {
         "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 91.23183,
+          "dispersion": 5.47390938,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 0.9123182,
+          "heDmgFactor": 0.9123182,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 2.73695469,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "4": {
+        "weaponData": {
           "weaponName": "  203mm 2연장 주포",
-          "projectiledVelocity": 156.080139,
-          "dispersion": 6.503339,
+          "projectiledVelocity": 133.474991,
+          "dispersion": 5.561458,
           "shellLifeTime": 30.0,
           "caliber": 203.0,
-          "apDmgFactor": 1.40905678,
-          "heDmgFactor": 2.16777968,
+          "apDmgFactor": 1.20498252,
+          "heDmgFactor": 1.85381937,
           "turningSpeedPerSecond": 30.0,
-          "coolDown": 2.60133576,
+          "coolDown": 2.22458339,
           "multiShot": 2,
           "multiShotDelay": 0.1,
           "mass": 1000.0,
@@ -192,27 +234,6 @@
         },
         "rarity": "레전더리",
         "baseWeaponKey": "Weapon_004",
-        "rarityNum": 3
-      },
-      "4": {
-        "weaponData": {
-          "weaponName": "  406mm 3연장 주포",
-          "projectiledVelocity": 141.8998,
-          "dispersion": 10.7499847,
-          "shellLifeTime": 50.0,
-          "caliber": 406.0,
-          "apDmgFactor": 1.397498,
-          "heDmgFactor": 2.149997,
-          "turningSpeedPerSecond": 10.0,
-          "coolDown": 8.599988,
-          "multiShot": 3,
-          "multiShotDelay": 0.1,
-          "mass": 5000.0,
-          "isPropulsion": false,
-          "isGuided": false
-        },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_005",
         "rarityNum": 3
       },
       "5": {
@@ -238,57 +259,36 @@
       },
       "6": {
         "weaponData": {
-          "weaponName": "  76mm 속사포",
-          "projectiledVelocity": 122.847633,
-          "dispersion": 2.83494544,
-          "shellLifeTime": 15.0,
-          "caliber": 76.0,
-          "apDmgFactor": 1.03948,
-          "heDmgFactor": 1.03948,
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 239.762878,
+          "dispersion": 1.08983123,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.119881444,
+          "heDmgFactor": 2.83356118,
           "turningSpeedPerSecond": 90.0,
-          "coolDown": 2.83494544,
-          "multiShot": 3,
-          "multiShotDelay": 0.5,
-          "mass": 60.0,
+          "coolDown": 0.9808481,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
           "isPropulsion": false,
           "isGuided": false
         },
-        "rarity": "레어",
-        "baseWeaponKey": "Weapon_002",
-        "rarityNum": 1
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
       },
       "7": {
         "weaponData": {
-          "weaponName": "  406mm 3연장 주포",
-          "projectiledVelocity": 142.991165,
-          "dispersion": 10.8326635,
-          "shellLifeTime": 50.0,
-          "caliber": 406.0,
-          "apDmgFactor": 1.40824628,
-          "heDmgFactor": 2.16653275,
-          "turningSpeedPerSecond": 10.0,
-          "coolDown": 8.666131,
-          "multiShot": 3,
-          "multiShotDelay": 0.1,
-          "mass": 5000.0,
-          "isPropulsion": false,
-          "isGuided": false
-        },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_005",
-        "rarityNum": 3
-      },
-      "8": {
-        "weaponData": {
           "weaponName": "  203mm 2연장 주포",
-          "projectiledVelocity": 133.474991,
-          "dispersion": 5.561458,
+          "projectiledVelocity": 136.787933,
+          "dispersion": 5.699497,
           "shellLifeTime": 30.0,
           "caliber": 203.0,
-          "apDmgFactor": 1.20498252,
-          "heDmgFactor": 1.85381937,
+          "apDmgFactor": 1.234891,
+          "heDmgFactor": 1.89983249,
           "turningSpeedPerSecond": 30.0,
-          "coolDown": 2.22458339,
+          "coolDown": 2.279799,
           "multiShot": 2,
           "multiShotDelay": 0.1,
           "mass": 1000.0,
@@ -299,26 +299,47 @@
         "baseWeaponKey": "Weapon_004",
         "rarityNum": 3
       },
-      "9": {
+      "8": {
         "weaponData": {
-          "weaponName": "  406mm 3연장 주포",
-          "projectiledVelocity": 142.921646,
-          "dispersion": 10.8273973,
-          "shellLifeTime": 50.0,
-          "caliber": 406.0,
-          "apDmgFactor": 1.40756154,
-          "heDmgFactor": 2.16547942,
-          "turningSpeedPerSecond": 10.0,
-          "coolDown": 8.661918,
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 134.070251,
+          "dispersion": 3.09392881,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.13444054,
+          "heDmgFactor": 1.13444054,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 3.09392881,
           "multiShot": 3,
-          "multiShotDelay": 0.1,
-          "mass": 5000.0,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
           "isPropulsion": false,
           "isGuided": false
         },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_005",
-        "rarityNum": 3
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "9": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 107.953094,
+          "dispersion": 6.47718573,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.079531,
+          "heDmgFactor": 1.079531,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.23859286,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
       },
       "10": {
         "weaponData": {
@@ -364,24 +385,24 @@
       },
       "12": {
         "weaponData": {
-          "weaponName": "  203mm 2연장 주포",
-          "projectiledVelocity": 136.787933,
-          "dispersion": 5.699497,
-          "shellLifeTime": 30.0,
-          "caliber": 203.0,
-          "apDmgFactor": 1.234891,
-          "heDmgFactor": 1.89983249,
-          "turningSpeedPerSecond": 30.0,
-          "coolDown": 2.279799,
-          "multiShot": 2,
-          "multiShotDelay": 0.1,
-          "mass": 1000.0,
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 214.44545,
+          "dispersion": 0.974752069,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.107222736,
+          "heDmgFactor": 2.5343554,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.877276838,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
           "isPropulsion": false,
           "isGuided": false
         },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_004",
-        "rarityNum": 3
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
       },
       "13": {
         "weaponData": {
@@ -394,6 +415,27 @@
           "heDmgFactor": 1.9490025,
           "turningSpeedPerSecond": 10.0,
           "coolDown": 7.79601,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "14": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 142.921646,
+          "dispersion": 10.8273973,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.40756154,
+          "heDmgFactor": 2.16547942,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.661918,
           "multiShot": 3,
           "multiShotDelay": 0.1,
           "mass": 5000.0,
@@ -446,6 +488,27 @@
         "baseWeaponKey": "Weapon_002",
         "rarityNum": 1
       },
+      "17": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 133.583481,
+          "dispersion": 3.08269572,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.13032174,
+          "heDmgFactor": 1.13032174,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 3.08269572,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
       "18": {
         "weaponData": {
           "weaponName": "  203mm 2연장 주포",
@@ -469,27 +532,6 @@
       },
       "19": {
         "weaponData": {
-          "weaponName": "테스트 무장",
-          "projectiledVelocity": 300.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 120.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 1.0,
-          "turningSpeedPerSecond": 180.0,
-          "coolDown": 1.0,
-          "multiShot": 1,
-          "multiShotDelay": 0.01,
-          "mass": 10.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "일반",
-        "baseWeaponKey": "Weapon_001",
-        "rarityNum": 0
-      },
-      "1000": {
-        "weaponData": {
           "weaponName": "  127mm 대공포",
           "projectiledVelocity": 236.966156,
           "dispersion": 1.07711887,
@@ -509,28 +551,7 @@
         "baseWeaponKey": "Weapon_003",
         "rarityNum": 2
       },
-      "1001": {
-        "weaponData": {
-          "weaponName": "  127mm 대공포",
-          "projectiledVelocity": 227.9771,
-          "dispersion": 1.03625953,
-          "shellLifeTime": 10.0,
-          "caliber": 127.0,
-          "apDmgFactor": 0.113988556,
-          "heDmgFactor": 2.69427466,
-          "turningSpeedPerSecond": 90.0,
-          "coolDown": 0.9326336,
-          "multiShot": 1,
-          "multiShotDelay": 0.0,
-          "mass": 400.0,
-          "isPropulsion": false,
-          "isGuided": false
-        },
-        "rarity": "에픽",
-        "baseWeaponKey": "Weapon_003",
-        "rarityNum": 2
-      },
-      "1002": {
+      "20": {
         "weaponData": {
           "weaponName": "  127mm 대공포",
           "projectiledVelocity": 202.502213,
@@ -551,7 +572,7 @@
         "baseWeaponKey": "Weapon_003",
         "rarityNum": 2
       },
-      "1003": {
+      "21": {
         "weaponData": {
           "weaponName": "  127mm 대공포",
           "projectiledVelocity": 206.868149,
@@ -571,6 +592,930 @@
         "rarity": "에픽",
         "baseWeaponKey": "Weapon_003",
         "rarityNum": 2
+      },
+      "22": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 105.693314,
+          "dispersion": 6.341599,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.05693316,
+          "heDmgFactor": 1.05693316,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.17079949,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "23": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 117.282761,
+          "dispersion": 2.70652533,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 0.9923926,
+          "heDmgFactor": 0.9923926,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 2.70652533,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "24": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 139.9018,
+          "dispersion": 5.82924128,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.26300228,
+          "heDmgFactor": 1.94308043,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.33169651,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "25": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 156.080139,
+          "dispersion": 6.503339,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.40905678,
+          "heDmgFactor": 2.16777968,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.60133576,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "26": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 133.998352,
+          "dispersion": 5.583265,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.20970738,
+          "heDmgFactor": 1.86108828,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.233306,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "27": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 130.405472,
+          "dispersion": 3.009357,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.10343087,
+          "heDmgFactor": 1.10343087,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 3.009357,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "28": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 222.735977,
+          "dispersion": 1.01243627,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.111367993,
+          "heDmgFactor": 2.63233423,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.9111926,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "29": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 158.265732,
+          "dispersion": 6.594405,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.42878783,
+          "heDmgFactor": 2.19813514,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.63776231,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "30": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 210.024445,
+          "dispersion": 0.9546566,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.105012231,
+          "heDmgFactor": 2.48210716,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.859190941,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "31": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 127.978065,
+          "dispersion": 9.695309,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.26039,
+          "heDmgFactor": 1.93906164,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 7.75624657,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "32": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 101.109,
+          "dispersion": 6.06654024,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.01109,
+          "heDmgFactor": 1.01109,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.03327012,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "33": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 132.261292,
+          "dispersion": 3.05218363,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.11913407,
+          "heDmgFactor": 1.11913407,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 3.05218363,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "34": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 224.932129,
+          "dispersion": 1.02241874,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.112466067,
+          "heDmgFactor": 2.65828872,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.920176864,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "35": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 134.758484,
+          "dispersion": 5.614937,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.21656966,
+          "heDmgFactor": 1.87164569,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.245975,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "36": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 141.8998,
+          "dispersion": 10.7499847,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.397498,
+          "heDmgFactor": 2.149997,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.599988,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "37": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 120.283333,
+          "dispersion": 9.112373,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.18460858,
+          "heDmgFactor": 1.82247472,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 7.289899,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "38": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 126.183952,
+          "dispersion": 9.559391,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.24272072,
+          "heDmgFactor": 1.91187811,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 7.64751244,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "39": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 122.847633,
+          "dispersion": 2.83494544,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.03948,
+          "heDmgFactor": 1.03948,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 2.83494544,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "40": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 123.667908,
+          "dispersion": 9.368781,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.21794152,
+          "heDmgFactor": 1.87375617,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 7.49502468,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "41": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 143.081924,
+          "dispersion": 10.83954,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.40914011,
+          "heDmgFactor": 2.167908,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.671632,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "42": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 107.882545,
+          "dispersion": 6.472953,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.07882547,
+          "heDmgFactor": 1.07882547,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.23647642,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "43": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 137.235931,
+          "dispersion": 3.166983,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.16122711,
+          "heDmgFactor": 1.16122711,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 3.166983,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "44": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 220.9179,
+          "dispersion": 1.00417221,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.110458948,
+          "heDmgFactor": 2.61084771,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.90375495,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "45": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 153.540756,
+          "dispersion": 6.39753151,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.38613176,
+          "heDmgFactor": 2.13251042,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.55901265,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "46": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 144.04715,
+          "dispersion": 10.9126625,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.4186461,
+          "heDmgFactor": 2.18253255,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.73013,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "47": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 227.9771,
+          "dispersion": 1.03625953,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.113988556,
+          "heDmgFactor": 2.69427466,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.9326336,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "48": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 142.991165,
+          "dispersion": 10.8326635,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.40824628,
+          "heDmgFactor": 2.16653275,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.666131,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "49": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 132.1902,
+          "dispersion": 5.507925,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.19338369,
+          "heDmgFactor": 1.83597493,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.20317,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "1002": {
+        "weaponData": {
+          "weaponName": "테스트 무장",
+          "projectiledVelocity": 200.0,
+          "dispersion": 0.0,
+          "shellLifeTime": 20.0,
+          "caliber": 100.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 0.1,
+          "multiShot": 1,
+          "multiShotDelay": 0.01,
+          "mass": 10.0,
+          "isPropulsion": true,
+          "isGuided": true
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "50": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 106.235565,
+          "dispersion": 6.374134,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.06235564,
+          "heDmgFactor": 1.06235564,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.187067,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "51": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 127.7617,
+          "dispersion": 2.948347,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.08106065,
+          "heDmgFactor": 1.08106065,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 2.948347,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "52": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 240.0553,
+          "dispersion": 1.09116042,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.120027654,
+          "heDmgFactor": 2.837017,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.982044339,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "53": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 143.697647,
+          "dispersion": 5.987402,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.29727042,
+          "heDmgFactor": 1.99580073,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.39496088,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "54": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 142.342575,
+          "dispersion": 10.7835283,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.40185857,
+          "heDmgFactor": 2.15670562,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.626822,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "55": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 109.18795,
+          "dispersion": 6.551277,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.09187949,
+          "heDmgFactor": 1.09187949,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.27563858,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "56": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 119.570206,
+          "dispersion": 2.75931263,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.011748,
+          "heDmgFactor": 1.011748,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 2.75931263,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "57": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 201.032776,
+          "dispersion": 0.913785338,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.100516394,
+          "heDmgFactor": 2.37584186,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.822406769,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "58": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 158.255463,
+          "dispersion": 6.593978,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.42869508,
+          "heDmgFactor": 2.19799256,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.63759112,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "59": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 140.493408,
+          "dispersion": 10.64344,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.3836472,
+          "heDmgFactor": 2.128688,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.514752,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
+      },
+      "60": {
+        "weaponData": {
+          "weaponName": "  30mm 기관포",
+          "projectiledVelocity": 105.527206,
+          "dispersion": 6.33163261,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0552721,
+          "heDmgFactor": 1.0552721,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.16581631,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
+        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "61": {
+        "weaponData": {
+          "weaponName": "  76mm 속사포",
+          "projectiledVelocity": 127.231392,
+          "dispersion": 2.936109,
+          "shellLifeTime": 15.0,
+          "caliber": 76.0,
+          "apDmgFactor": 1.07657337,
+          "heDmgFactor": 1.07657337,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 2.936109,
+          "multiShot": 3,
+          "multiShotDelay": 0.5,
+          "mass": 60.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레어",
+        "baseWeaponKey": "Weapon_002",
+        "rarityNum": 1
+      },
+      "62": {
+        "weaponData": {
+          "weaponName": "  127mm 대공포",
+          "projectiledVelocity": 217.4086,
+          "dispersion": 0.98822093,
+          "shellLifeTime": 10.0,
+          "caliber": 127.0,
+          "apDmgFactor": 0.108704306,
+          "heDmgFactor": 2.56937432,
+          "turningSpeedPerSecond": 90.0,
+          "coolDown": 0.8893988,
+          "multiShot": 1,
+          "multiShotDelay": 0.0,
+          "mass": 400.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "에픽",
+        "baseWeaponKey": "Weapon_003",
+        "rarityNum": 2
+      },
+      "63": {
+        "weaponData": {
+          "weaponName": "  203mm 2연장 주포",
+          "projectiledVelocity": 154.648315,
+          "dispersion": 6.44368,
+          "shellLifeTime": 30.0,
+          "caliber": 203.0,
+          "apDmgFactor": 1.39613056,
+          "heDmgFactor": 2.14789319,
+          "turningSpeedPerSecond": 30.0,
+          "coolDown": 2.577472,
+          "multiShot": 2,
+          "multiShotDelay": 0.1,
+          "mass": 1000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_004",
+        "rarityNum": 3
+      },
+      "64": {
+        "weaponData": {
+          "weaponName": "  406mm 3연장 주포",
+          "projectiledVelocity": 140.530182,
+          "dispersion": 10.6462269,
+          "shellLifeTime": 50.0,
+          "caliber": 406.0,
+          "apDmgFactor": 1.38400936,
+          "heDmgFactor": 2.12924528,
+          "turningSpeedPerSecond": 10.0,
+          "coolDown": 8.516981,
+          "multiShot": 3,
+          "multiShotDelay": 0.1,
+          "mass": 5000.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "레전더리",
+        "baseWeaponKey": "Weapon_005",
+        "rarityNum": 3
       }
     },
     "nanobot": 0,
