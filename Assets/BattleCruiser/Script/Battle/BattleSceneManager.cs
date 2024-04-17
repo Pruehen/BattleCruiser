@@ -5,8 +5,9 @@ using static GameManager;
 
 public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 {
-    int stage;
+    public int stage { get; private set; }
     public List<Vehicle> activeEnemyList { get; private set; }
+    List<DropItemData> dropItemDatas;
 
     public Transform vehicleTrf;
 
@@ -38,6 +39,12 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
             activeEnemyList.Add(createEnemy.GetComponent<Vehicle>());
         }
+
+        dropItemDatas = new List<DropItemData>();
+    }
+    public void AddDropItem(string weaponKey, int rarity)
+    {
+        dropItemDatas.Add(new DropItemData(weaponKey, rarity));
     }
 
     // Start is called before the first frame update
@@ -89,6 +96,15 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
         Time.timeScale = 1f;
         yield return new WaitForSecondsRealtime(3);
 
+        if(isWin)
+        {
+            for (int i = 0; i < dropItemDatas.Count; i++)//드랍 아이템을 추가
+            {
+                JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData(dropItemDatas[i].weaponKey, dropItemDatas[i].rarity));
+            }
+            Debug.Log($"{dropItemDatas.Count}개의 아이템 드랍");
+            JsonDataManager.Instance.DataSave();
+        }
         GameUI.Instance.OnResultWdw(isWin);
     }
 
@@ -130,5 +146,17 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
         dmgViewDelay = 0;
         isDmgView = true;
         GameUI.Instance.SetChemicalDmgText(totalChemicalDmg);
+    }
+
+    public class DropItemData
+    {
+        public string weaponKey { get; private set; }
+        public int rarity { get; private set; }
+
+        public DropItemData(string weaponKey, int rarity)
+        {
+            this.weaponKey = weaponKey;
+            this.rarity = rarity;
+        }
     }
 }

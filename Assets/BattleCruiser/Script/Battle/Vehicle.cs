@@ -321,6 +321,39 @@ public class Vehicle : MonoBehaviour
         {
             t.gameObject.SetActive(false);
         }
+        if(isEnemy)//적이 사망 시, 드랍 아이템 추가
+        {
+            float probabilityValue = (float)BattleSceneManager.Instance.stage;
+
+            float legendaryProbability = probabilityValue * 0.5f;
+            float epicProbability = legendaryProbability * 3;
+            float rareProbability = epicProbability * 3;
+
+            float randomProbability = Random.Range(0f, 100f);
+            int rarity = 0;
+
+            if(randomProbability < legendaryProbability)//레전더리 드랍
+            {
+                rarity = 3;
+            }
+            else if(randomProbability < epicProbability)//에픽 드랍
+            {
+                rarity = 2;
+            }
+            else if(randomProbability < rareProbability)//레어 드랍
+            {
+                rarity = 1;
+            }
+            else//커먼 드랍
+            {
+                rarity = 0;
+            }
+
+            int randomItemIndex = Random.Range(0, childWeaponList.Count);
+            string key = childWeaponList[randomItemIndex].weaponKey;
+
+            BattleSceneManager.Instance.AddDropItem(key, rarity);
+        }
 
         StartCoroutine(OnDestructEffect(0));
         StartCoroutine(OnDestructEffect(0.5f));

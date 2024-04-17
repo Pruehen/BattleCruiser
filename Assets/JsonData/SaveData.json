@@ -34,6 +34,7 @@
   "weaponDataDictionary": {
     "Weapon_001": {
       "weaponName": "30mm 개틀링 기관포",
+      "weaponKey": "Weapon_001",
       "sptiteIndex": 0,
       "projectiledVelocity": 100.0,
       "dispersion": 6.0,
@@ -51,6 +52,7 @@
     },
     "Weapon_002": {
       "weaponName": "76mm 속사포",
+      "weaponKey": "Weapon_002",
       "sptiteIndex": 1,
       "projectiledVelocity": 130.0,
       "dispersion": 3.0,
@@ -68,6 +70,7 @@
     },
     "Weapon_003": {
       "weaponName": "120mm 고폭 양용포",
+      "weaponKey": "Weapon_003",
       "sptiteIndex": 2,
       "projectiledVelocity": 200.0,
       "dispersion": 1.0,
@@ -85,6 +88,7 @@
     },
     "Weapon_004": {
       "weaponName": "203mm 2연장 주포",
+      "weaponKey": "Weapon_004",
       "sptiteIndex": 3,
       "projectiledVelocity": 120.0,
       "dispersion": 6.0,
@@ -102,6 +106,7 @@
     },
     "Weapon_005": {
       "weaponName": "406mm 3연장 주포",
+      "weaponKey": "Weapon_005",
       "sptiteIndex": 4,
       "projectiledVelocity": 110.0,
       "dispersion": 10.0,
@@ -119,6 +124,7 @@
     },
     "Weapon_006": {
       "weaponName": "90mm 로켓 발사기",
+      "weaponKey": "Weapon_006",
       "sptiteIndex": 2,
       "projectiledVelocity": 300.0,
       "dispersion": 20.0,
@@ -136,6 +142,7 @@
     },
     "Weapon_007": {
       "weaponName": "180mm 로켓 발사기",
+      "weaponKey": "Weapon_007",
       "sptiteIndex": 2,
       "projectiledVelocity": 200.0,
       "dispersion": 20.0,
@@ -153,6 +160,7 @@
     },
     "Weapon_008": {
       "weaponName": "200mm 레일 캐논",
+      "weaponKey": "Weapon_008",
       "sptiteIndex": 2,
       "projectiledVelocity": 1000.0,
       "dispersion": 1.0,
@@ -170,13 +178,14 @@
     },
     "Weapon_009": {
       "weaponName": "니들 미사일 런처",
+      "weaponKey": "Weapon_009",
       "sptiteIndex": 3,
       "projectiledVelocity": 100.0,
       "dispersion": 30.0,
       "shellLifeTime": 15.0,
       "caliber": 30.0,
-      "apDmgFactor": 1,
-      "heDmgFactor": 0,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 0.0,
       "turningSpeedPerSecond": 90.0,
       "coolDown": 10.0,
       "multiShot": 100,
@@ -187,13 +196,14 @@
     },
     "Weapon_010": {
       "weaponName": "하푼 미사일 런처",
+      "weaponKey": "Weapon_010",
       "sptiteIndex": 3,
       "projectiledVelocity": 150.0,
       "dispersion": 0.0,
       "shellLifeTime": 45.0,
       "caliber": 300.0,
-      "apDmgFactor": 1,
-      "heDmgFactor": 1,
+      "apDmgFactor": 1.0,
+      "heDmgFactor": 1.0,
       "turningSpeedPerSecond": 20.0,
       "coolDown": 10.0,
       "multiShot": 4,
@@ -204,6 +214,7 @@
     },
     "Weapon_011": {
       "weaponName": "머로더 미사일 런처",
+      "weaponKey": "Weapon_011",
       "sptiteIndex": 4,
       "projectiledVelocity": 200.0,
       "dispersion": 0.0,
@@ -238,16 +249,17 @@
   ],
   "userData": {
     "customWeaponDatas": {
-      "0": {
+      "1000": {
         "weaponData": {
           "weaponName": "120mm 고폭 양용포",
+          "weaponKey": "Weapon_003",
           "sptiteIndex": 2,
           "projectiledVelocity": 220.0,
           "dispersion": 1.0,
           "shellLifeTime": 10.0,
           "caliber": 120.0,
           "apDmgFactor": 0.110000007,
-          "heDmgFactor": 2.6,
+          "heDmgFactor": 200.6,
           "turningSpeedPerSecond": 90.0,
           "coolDown": 0.9,
           "multiShot": 1,
@@ -257,183 +269,50 @@
           "isGuided": false
         },
         "rarity": "에픽",
-        "baseWeaponKey": "Weapon_003",
         "rarityNum": 2
       },
-      "13": {
+      "0": {
         "weaponData": {
-          "weaponName": "머로더 미사일 런처",
-          "sptiteIndex": 4,
-          "projectiledVelocity": 200.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 120.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 3.0,
-          "turningSpeedPerSecond": 5.0,
-          "coolDown": 10.0,
-          "multiShot": 1,
-          "multiShotDelay": 1.0,
-          "mass": 1000.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "특수",
-        "baseWeaponKey": "Weapon_006",
-        "rarityNum": 3
-      },
-      "14": {
-        "weaponData": {
-          "weaponName": "머로더 미사일 런처",
-          "sptiteIndex": 4,
-          "projectiledVelocity": 200.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 120.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 3.0,
-          "turningSpeedPerSecond": 5.0,
-          "coolDown": 10.0,
-          "multiShot": 1,
-          "multiShotDelay": 1.0,
-          "mass": 1000.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "특수",
-        "baseWeaponKey": "Weapon_006",
-        "rarityNum": 3
-      },
-      "15": {
-        "weaponData": {
-          "weaponName": "머로더 미사일 런처",
-          "sptiteIndex": 4,
-          "projectiledVelocity": 200.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 120.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 3.0,
-          "turningSpeedPerSecond": 5.0,
-          "coolDown": 10.0,
-          "multiShot": 1,
-          "multiShotDelay": 1.0,
-          "mass": 1000.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "특수",
-        "baseWeaponKey": "Weapon_006",
-        "rarityNum": 3
-      },
-      "21": {
-        "weaponData": {
-          "weaponName": "하푼 미사일 런처",
-          "sptiteIndex": 3,
-          "projectiledVelocity": 250.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 45.0,
-          "caliber": 300.0,
-          "apDmgFactor": 0.1,
-          "heDmgFactor": 0.5,
-          "turningSpeedPerSecond": 20.0,
-          "coolDown": 10.0,
-          "multiShot": 4,
-          "multiShotDelay": 0.5,
-          "mass": 1000.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "레어",
-        "baseWeaponKey": "Weapon_002",
-        "rarityNum": 1
-      },
-      "22": {
-        "weaponData": {
-          "weaponName": "406mm 3연장 주포",
-          "sptiteIndex": 4,
-          "projectiledVelocity": 132.0,
-          "dispersion": 10.0,
-          "shellLifeTime": 50.0,
-          "caliber": 406.0,
-          "apDmgFactor": 1.3,
-          "heDmgFactor": 2.0,
-          "turningSpeedPerSecond": 10.0,
-          "coolDown": 8.0,
-          "multiShot": 3,
-          "multiShotDelay": 0.1,
-          "mass": 5000.0,
-          "isPropulsion": false,
-          "isGuided": false
-        },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_005",
-        "rarityNum": 3
-      },
-      "23": {
-        "weaponData": {
-          "weaponName": "203mm 2연장 주포",
-          "sptiteIndex": 3,
-          "projectiledVelocity": 144.0,
-          "dispersion": 6.0,
-          "shellLifeTime": 30.0,
-          "caliber": 203.0,
-          "apDmgFactor": 1.3,
-          "heDmgFactor": 2.0,
-          "turningSpeedPerSecond": 30.0,
-          "coolDown": 2.4,
-          "multiShot": 2,
-          "multiShotDelay": 0.1,
-          "mass": 1000.0,
-          "isPropulsion": false,
-          "isGuided": false
-        },
-        "rarity": "레전더리",
-        "baseWeaponKey": "Weapon_004",
-        "rarityNum": 3
-      },
-      "1000": {
-        "weaponData": {
-          "weaponName": "머로더 미사일 런처",
-          "sptiteIndex": 4,
-          "projectiledVelocity": 200.0,
-          "dispersion": 0.0,
-          "shellLifeTime": 120.0,
-          "caliber": 500.0,
-          "apDmgFactor": 1.0,
-          "heDmgFactor": 3.0,
-          "turningSpeedPerSecond": 5.0,
-          "coolDown": 10.0,
-          "multiShot": 1,
-          "multiShotDelay": 1.0,
-          "mass": 1000.0,
-          "isPropulsion": true,
-          "isGuided": true
-        },
-        "rarity": "특수",
-        "baseWeaponKey": "Weapon_006",
-        "rarityNum": 3
-      },
-      "1001": {
-        "weaponData": {
-          "weaponName": "니들 미사일 런처",
-          "sptiteIndex": 3,
+          "weaponName": "30mm 개틀링 기관포",
+          "weaponKey": "Weapon_001",
+          "sptiteIndex": 0,
           "projectiledVelocity": 100.0,
-          "dispersion": 90.0,
-          "shellLifeTime": 15.0,
+          "dispersion": 6.0,
+          "shellLifeTime": 10.0,
           "caliber": 30.0,
-          "apDmgFactor": 0.2,
-          "heDmgFactor": 2.0,
-          "turningSpeedPerSecond": 90.0,
-          "coolDown": 10.0,
-          "multiShot": 100,
-          "multiShotDelay": 0.01,
-          "mass": 30.0,
-          "isPropulsion": true,
-          "isGuided": true
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.0,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
         },
         "rarity": "일반",
-        "baseWeaponKey": "Weapon_001",
+        "rarityNum": 0
+      },
+      "1": {
+        "weaponData": {
+          "weaponName": "30mm 개틀링 기관포",
+          "weaponKey": "Weapon_001",
+          "sptiteIndex": 0,
+          "projectiledVelocity": 100.0,
+          "dispersion": 6.0,
+          "shellLifeTime": 10.0,
+          "caliber": 30.0,
+          "apDmgFactor": 1.0,
+          "heDmgFactor": 1.0,
+          "turningSpeedPerSecond": 180.0,
+          "coolDown": 3.0,
+          "multiShot": 20,
+          "multiShotDelay": 0.05,
+          "mass": 10.0,
+          "isPropulsion": false,
+          "isGuided": false
+        },
+        "rarity": "일반",
         "rarityNum": 0
       }
     },

@@ -31,6 +31,7 @@ public class ShipData
 public class WeaponData
 {
     public string weaponName;//무기 이름    
+    public string weaponKey;//무기 코드
     public int sptiteIndex;//무기의 스프라이트 인덱스
     public float projectiledVelocity;//초기 발사 속도
     public float dispersion;//발사각 분포(각도)
@@ -48,10 +49,11 @@ public class WeaponData
     public bool isGuided = false;
 
     [JsonConstructor]
-    public WeaponData(string weaponName, int sptiteIndex, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
+    public WeaponData(string weaponName, string weaponKey, int sptiteIndex, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
         float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay, float mass, bool isPropulsion, bool isGuided)
     {
         this.weaponName = weaponName;
+        this.weaponKey = weaponKey;
         this.sptiteIndex = sptiteIndex;
         this.projectiledVelocity = projectiledVelocity;
         this.dispersion = dispersion;
@@ -71,6 +73,7 @@ public class WeaponData
     public WeaponData(WeaponData weaponData)
     {
         this.weaponName = weaponData.weaponName;
+        this.weaponKey = weaponData.weaponKey;
         this.sptiteIndex = weaponData.sptiteIndex;
         this.projectiledVelocity = weaponData.projectiledVelocity;
         this.dispersion = weaponData.dispersion;
@@ -93,7 +96,7 @@ public class CustomWeaponData
 {     
     public WeaponData weaponData;//저장할 무기 스펙
     public string rarity { get; private set; }
-    public string baseWeaponKey { get; private set; }    
+    //public string baseWeaponKey { get; private set; }    
     public int rarityNum { get; private set; }//무기 희귀도. 0~3    
 
     public string[] GetData()
@@ -136,8 +139,8 @@ public class CustomWeaponData
 
     public CustomWeaponData(string baseWeaponKey, int rarityNum)
     {
-        this.baseWeaponKey = baseWeaponKey;
-        this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[this.baseWeaponKey]);
+        //this.baseWeaponKey = baseWeaponKey;
+        this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[baseWeaponKey]);
         this.rarityNum = rarityNum;
 
         //switch (option1)
@@ -237,12 +240,12 @@ public class CustomWeaponData
     }
 
     [JsonConstructor]
-    public CustomWeaponData(WeaponData weaponData, string rarity, int rarityNum, string baseWeaponKey)
+    public CustomWeaponData(WeaponData weaponData, string rarity, int rarityNum)
     {
         this.weaponData = weaponData;
         this.rarity = rarity;
         this.rarityNum = rarityNum;
-        this.baseWeaponKey = baseWeaponKey;        
+        //this.baseWeaponKey = baseWeaponKey;        
     }
 }
 

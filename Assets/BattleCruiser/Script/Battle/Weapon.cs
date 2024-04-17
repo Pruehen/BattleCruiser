@@ -6,6 +6,8 @@ public class Weapon : MonoBehaviour
 {
     Vehicle parentVehicle;
 
+    public string weaponKey { get; private set; }
+
     public Transform firePoint;
     float projectiledVelocity = 100;//발사 속도
     float dispersion = 3;//발사각 분포(각도)
@@ -60,8 +62,10 @@ public class Weapon : MonoBehaviour
         parentVelocity = velocity;
     }
     public void Init(bool isEnemy, WeaponData weaponData, Vector2 localPosition, Vehicle vehicle)
-    {
+    {        
         this.isEnemy = isEnemy;
+
+        this.weaponKey = weaponData.weaponKey;
         this.projectiledVelocity = weaponData.projectiledVelocity;
         this.dispersion = weaponData.dispersion;
         this.shellLifeTime = weaponData.shellLifeTime;
