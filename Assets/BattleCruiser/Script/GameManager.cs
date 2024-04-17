@@ -22,7 +22,7 @@ public class GameManager : GlobalSingleton<GameManager>
     {
         playerShipData.shipIndex = index;//함선 코드        
         playerShipData.shipData = JsonDataManager.Instance.saveData.shipDataDictionary[index.ShipKey()];//함선의 기본 데이터        
-        playerShipData.weaponIndexs.Clear();//기존 장착 무기 코드 제거
+        playerShipData.weaponSpriteIndexs.Clear();//기존 장착 무기 코드 제거
         playerShipData.weaponDatas.Clear();//기존 무기 데이터 제거
 
 
@@ -34,12 +34,12 @@ public class GameManager : GlobalSingleton<GameManager>
 
             if (slot.slotWeaponData != null)//무기가 장착된 경우
             {
-                playerShipData.weaponIndexs.Add(slot.slotWeaponData.baseWeaponKey.Index());//무기 키 추가
+                playerShipData.weaponSpriteIndexs.Add(slot.slotWeaponData.weaponData.sptiteIndex);//무기 스프라이트 키 추가
                 playerShipData.weaponDatas.Add(slot.slotWeaponData.weaponData);//무기 데이터 추가
             }
             else//무기가 장착되지 않은 경우
             {
-                playerShipData.weaponIndexs.Add(-1);//무기 키 -1 추가 (무기 없음을 나타냄)
+                playerShipData.weaponSpriteIndexs.Add(-1);//무기 키 -1 추가 (무기 없음을 나타냄)
                 playerShipData.weaponDatas.Add(null);//null값 추가
             }
         }
@@ -51,12 +51,12 @@ public class GameManager : GlobalSingleton<GameManager>
     {
         public int shipIndex;//함선의 고유 코드
         public ShipData shipData;//함선 데이터
-        public List<int> weaponIndexs;//사용할 무기들의 고유 코드
+        public List<int> weaponSpriteIndexs;//사용할 무기들의 스프라이트 코드
         public List<WeaponData> weaponDatas;//사용할 무기 데이터
 
         public PlayerShipData()
         {
-            weaponIndexs = new List<int>();
+            weaponSpriteIndexs = new List<int>();
             weaponDatas = new List<WeaponData>();
         }
     }

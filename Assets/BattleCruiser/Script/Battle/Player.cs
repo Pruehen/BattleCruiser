@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
 using UnityEngine.InputSystem;
 using static GameManager;
-using static UnityEngine.GraphicsBuffer;
 
 public class Player : SceneSingleton<Player>
 {
@@ -22,7 +20,7 @@ public class Player : SceneSingleton<Player>
         controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
 
         controlledShip.Init(false, playerShipData.shipData);//함선 데이터 초기화
-        controlledShip.WeaponInit(playerShipData.weaponIndexs, playerShipData.weaponDatas);//함선의 무기 초기화
+        controlledShip.WeaponInit(playerShipData.weaponSpriteIndexs, playerShipData.weaponDatas);//함선의 무기 초기화
 
         isInit = true;
     }

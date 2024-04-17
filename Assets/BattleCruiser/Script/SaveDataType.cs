@@ -31,6 +31,7 @@ public class ShipData
 public class WeaponData
 {
     public string weaponName;//무기 이름    
+    public int sptiteIndex;//무기의 스프라이트 인덱스
     public float projectiledVelocity;//초기 발사 속도
     public float dispersion;//발사각 분포(각도)
     public float shellLifeTime;//탄 작동 시간    
@@ -47,10 +48,11 @@ public class WeaponData
     public bool isGuided = false;
 
     [JsonConstructor]
-    public WeaponData(string weaponName, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
+    public WeaponData(string weaponName, int sptiteIndex, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
         float heDmgFactor, float turningSpeedPerSecond, float coolDown, int multiShot, float multiShotDelay, float mass, bool isPropulsion, bool isGuided)
     {
         this.weaponName = weaponName;
+        this.sptiteIndex = sptiteIndex;
         this.projectiledVelocity = projectiledVelocity;
         this.dispersion = dispersion;
         this.shellLifeTime = shellLifeTime;
@@ -68,7 +70,8 @@ public class WeaponData
 
     public WeaponData(WeaponData weaponData)
     {
-        this.weaponName = weaponData.weaponName;        
+        this.weaponName = weaponData.weaponName;
+        this.sptiteIndex = weaponData.sptiteIndex;
         this.projectiledVelocity = weaponData.projectiledVelocity;
         this.dispersion = weaponData.dispersion;
         this.shellLifeTime = weaponData.shellLifeTime;
@@ -92,12 +95,6 @@ public class CustomWeaponData
     public string rarity { get; private set; }
     public string baseWeaponKey { get; private set; }    
     public int rarityNum { get; private set; }//무기 희귀도. 0~3    
-
-    int option1;
-    int option2;
-    string prefix1;
-    string prefix2;
-
 
     public string[] GetData()
     {
@@ -126,7 +123,7 @@ public class CustomWeaponData
 
         data[0] = $"<color={rarityColorCode}>{rarity} 아이템</color>";
         data[1] = $"이름   : {weaponData.weaponName}";
-        data[2] = $"탄속   : {weaponData.projectiledVelocity:N0}m/s";
+        data[2] = $"탄속   : {(weaponData.projectiledVelocity * 10):N0}m/s";
         data[3] = $"분산도 : {weaponData.dispersion:N2}도";
         data[4] = $"구경   : {weaponData.caliber:N0}mm";
         data[5] = $"물리 피해 : {weaponData.apDmgFactor * weaponData.projectiledVelocity * weaponData.projectiledVelocity * 0.00005f * weaponData.caliber * weaponData.caliber:N0}";
@@ -137,73 +134,71 @@ public class CustomWeaponData
         return data;
     }
 
-    public CustomWeaponData(string baseWeaponKey, int option1, int option2, int rarityNum, float randomGain)
+    public CustomWeaponData(string baseWeaponKey, int rarityNum)
     {
         this.baseWeaponKey = baseWeaponKey;
         this.weaponData = new WeaponData(JsonDataManager.Instance.saveData.weaponDataDictionary[this.baseWeaponKey]);
-        this.option1 = option1;
-        this.option2 = option2;
         this.rarityNum = rarityNum;
 
-        switch (option1)
-        {
-            case 0:
-                prefix1 = "";
-                break;
-            case 1:
-                prefix1 = "장포신";
-                weaponData.projectiledVelocity *= 1.2f;
-                weaponData.coolDown *= 1.5f;
-                weaponData.dispersion *= 0.5f;
-                weaponData.mass *= 1.5f;
-                break;
-            case 2:
-                prefix1 = "단포신";
-                weaponData.projectiledVelocity *= 0.8f;
-                weaponData.coolDown *= 0.7f;
-                weaponData.dispersion *= 2f;
-                weaponData.mass *= 0.7f;
-                break;
-            case 3:
-                prefix1 = "로켓추진";
-                weaponData.projectiledVelocity *= 2f;
-                weaponData.dispersion *= 3f;
-                weaponData.apDmgFactor *= 0.2f;
-                weaponData.mass *= 0.5f;
-                weaponData.isPropulsion = true;
-                break;
-            default:
-                break;
-        }
+        //switch (option1)
+        //{
+        //    case 0:
+        //        prefix1 = "";
+        //        break;
+        //    case 1:
+        //        prefix1 = "장포신";
+        //        weaponData.projectiledVelocity *= 1.2f;
+        //        weaponData.coolDown *= 1.5f;
+        //        weaponData.dispersion *= 0.5f;
+        //        weaponData.mass *= 1.5f;
+        //        break;
+        //    case 2:
+        //        prefix1 = "단포신";
+        //        weaponData.projectiledVelocity *= 0.8f;
+        //        weaponData.coolDown *= 0.7f;
+        //        weaponData.dispersion *= 2f;
+        //        weaponData.mass *= 0.7f;
+        //        break;
+        //    case 3:
+        //        prefix1 = "로켓추진";
+        //        weaponData.projectiledVelocity *= 2f;
+        //        weaponData.dispersion *= 3f;
+        //        weaponData.apDmgFactor *= 0.2f;
+        //        weaponData.mass *= 0.5f;
+        //        weaponData.isPropulsion = true;
+        //        break;
+        //    default:
+        //        break;
+        //}
 
-        switch (option2)
-        {
-            case 0:
-                prefix2 = "";
-                break;
-            case 1:
-                prefix2 = "철갑탄";
-                weaponData.projectiledVelocity *= 1.1f;
-                weaponData.apDmgFactor *= 2f;
-                weaponData.heDmgFactor = 0;
-                break;
-            case 2:
-                prefix2 = "고폭탄";
-                weaponData.projectiledVelocity *= 0.9f;
-                weaponData.apDmgFactor = 0;
-                weaponData.heDmgFactor *= 3;
-                break;
-            case 3:
-                prefix2 = "유도탄";
-                weaponData.projectiledVelocity *= 0.8f;
-                weaponData.apDmgFactor *= 0.5f;
-                weaponData.heDmgFactor *= 0.5f;
-                weaponData.isGuided = true;
-                break;
-            default:
-                break;
-        }
-        weaponData.weaponName = string.Format($"{prefix1} {prefix2} {weaponData.weaponName}");
+        //switch (option2)
+        //{
+        //    case 0:
+        //        prefix2 = "";
+        //        break;
+        //    case 1:
+        //        prefix2 = "철갑탄";
+        //        weaponData.projectiledVelocity *= 1.1f;
+        //        weaponData.apDmgFactor *= 2f;
+        //        weaponData.heDmgFactor = 0;
+        //        break;
+        //    case 2:
+        //        prefix2 = "고폭탄";
+        //        weaponData.projectiledVelocity *= 0.9f;
+        //        weaponData.apDmgFactor = 0;
+        //        weaponData.heDmgFactor *= 3;
+        //        break;
+        //    case 3:
+        //        prefix2 = "유도탄";
+        //        weaponData.projectiledVelocity *= 0.8f;
+        //        weaponData.apDmgFactor *= 0.5f;
+        //        weaponData.heDmgFactor *= 0.5f;
+        //        weaponData.isGuided = true;
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //weaponData.weaponName = string.Format($"{prefix1} {prefix2} {weaponData.weaponName}");
 
         switch (rarityNum)
         {
@@ -234,11 +229,11 @@ public class CustomWeaponData
                 break;
         }
 
-        weaponData.projectiledVelocity *= randomGain;
-        weaponData.coolDown *= randomGain;
-        weaponData.dispersion *= randomGain;
-        weaponData.apDmgFactor *= randomGain;
-        weaponData.heDmgFactor *= randomGain;
+        //weaponData.projectiledVelocity *= randomGain;
+        //weaponData.coolDown *= randomGain;
+        //weaponData.dispersion *= randomGain;
+        //weaponData.apDmgFactor *= randomGain;
+        //weaponData.heDmgFactor *= randomGain;
     }
 
     [JsonConstructor]
@@ -247,7 +242,7 @@ public class CustomWeaponData
         this.weaponData = weaponData;
         this.rarity = rarity;
         this.rarityNum = rarityNum;
-        this.baseWeaponKey = baseWeaponKey;
+        this.baseWeaponKey = baseWeaponKey;        
     }
 }
 

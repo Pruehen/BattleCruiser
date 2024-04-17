@@ -65,11 +65,11 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
 
         int positionIndex = (int)(keyIndex % 1000);//무장의 위치 인덱스. 0부터 터렛의 개수 -1까지의 값.
         int shipIndex = (keyIndex / 1000) - 1;//무장을 장착할 함선 인덱스. 0부터 시작.
-        int weaponIndex;//무장의 고유 인덱스. 터렛의 형태를 결정.
+        int weaponIndex;//무장의 스프라이트 인덱스. 터렛의 형태를 결정.
 
         if (equipData != null)
         {
-            weaponIndex = equipData.baseWeaponKey.Index();//무장의 고유 인덱스
+            weaponIndex = equipData.weaponData.sptiteIndex;//무장의 스프라이트 인덱스
         }
         else
         {

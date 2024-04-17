@@ -64,7 +64,7 @@ public class ItemManager : SceneSingleton<ItemManager>
         }
     }
 
-    public void AddItem(int weaponIndex, int rarity, Transform transform)//슬롯에 이미지 추가
+    public void AddItem(int weaponSpriteIndex, int rarity, Transform transform)//슬롯에 이미지 추가
     {
         GameObject itemData = new GameObject();
         itemData.transform.SetParent(transform);
@@ -91,7 +91,7 @@ public class ItemManager : SceneSingleton<ItemManager>
                 break;
         }
 
-        Instantiate(weaponIcons[weaponIndex], itemData.transform);
+        Instantiate(weaponIcons[weaponSpriteIndex], itemData.transform);
     }
 
     public void DataSave()//슬롯데이터를 웨폰데이터로 변환해서 저장. 외부 버튼 클릭해서 호출함.

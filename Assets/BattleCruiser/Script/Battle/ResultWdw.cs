@@ -25,11 +25,11 @@ public class ResultWdw : MonoBehaviour
 
     IEnumerator ResultWdwInit()
     {
-        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_001", 0, 0, 0, Random.Range(0.9f, 1.1f)));
-        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_002", 0, 0, 1, Random.Range(0.9f, 1.1f)));
-        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_003", 0, 0, 2, Random.Range(0.9f, 1.1f)));
-        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_004", 0, 0, 3, Random.Range(0.9f, 1.1f)));
-        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_005", 0, 0, 3, Random.Range(0.9f, 1.1f)));
+        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_001", 0));
+        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_002", 1));
+        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_003", 2));
+        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_004", 3));
+        JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData("Weapon_005", 3));
         JsonDataManager.Instance.DataSave();
 
         yield return new WaitForSecondsRealtime(1);

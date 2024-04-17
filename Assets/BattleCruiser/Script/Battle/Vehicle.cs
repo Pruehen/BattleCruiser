@@ -97,7 +97,7 @@ public class Vehicle : MonoBehaviour
 
         isDead = false;
     }
-    public void WeaponInit(List<int> weaponIndexs, List<WeaponData> weaponDatas)
+    public void WeaponInit(List<int> weaponSpriteIndex, List<WeaponData> weaponDatas)
     {
         maxWeaponVelocity = 0;
         maxEffectiveRange = 0;
@@ -107,10 +107,10 @@ public class Vehicle : MonoBehaviour
         {
             for (int i = 0; i < weaponDatas.Count; i++)
             {
-                if (weaponIndexs[i] == -1)//무장이 없을 경우 해당 루프 건너뜀
+                if (weaponSpriteIndex[i] == -1)//무장이 없을 경우 해당 루프 건너뜀
                     continue;
 
-                Weapon weapon = Instantiate(PrefabManager.Instance.weapons[weaponIndexs[i]], weaponsTrf.GetChild(i)).GetComponent<Weapon>();//무장 생성
+                Weapon weapon = Instantiate(PrefabManager.Instance.weapons[weaponSpriteIndex[i]], weaponsTrf.GetChild(i)).GetComponent<Weapon>();//무장 생성
                 totalMass += weaponDatas[i].mass;//총질량에 무장의 질량 추가
 
                 childWeaponList.Add(weapon);

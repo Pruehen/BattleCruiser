@@ -97,7 +97,7 @@ public class Slot : MonoBehaviour
     public void AddData(CustomWeaponData data)
     {
         slotWeaponData = data;
-        ItemManager.Instance.AddItem(data.baseWeaponKey.Index(), data.rarityNum, this.transform);
+        ItemManager.Instance.AddItem(data.weaponData.sptiteIndex, data.rarityNum, this.transform);
     }
 
     public static void SwapData(Slot targetSlot1, Slot targetSlot2)//타 슬롯과의 위치 및 데이터 교환
