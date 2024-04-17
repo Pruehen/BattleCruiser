@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
             this.propulsion = (deltaV * 5) / selfDestructTime;//추력
             rigidbody2D.velocity = shipVelocity + projectiledVelocity * 0.1f;//초기 속도 설정
 
-            EffectManager.Instance.GenerateEngineEffect(this.transform, selfDestructTime * 0.2f, size * 0.8f);//로켓추진 이펙트 생성            
+            EffectManager.Instance.GenerateEngineEffect(this.transform, selfDestructTime * 0.2f, 0.5f);//로켓추진 이펙트 생성            
         }
         else//일반탄
         {
@@ -121,7 +121,7 @@ public class Projectile : MonoBehaviour
             angleError_temp = toTargetVec;
 
             Vector2 aed_local = this.transform.InverseTransformDirection(angleError_diff);
-            float torque = Mathf.Clamp(aed_local.y, -0.05f, 0.05f) * caliber; ;
+            float torque = Mathf.Clamp(aed_local.y * 5, -0.2f, 0.2f) * Mathf.Sqrt(caliber);
 
             if (Mathf.Abs(targetAngle) > 110)
             {

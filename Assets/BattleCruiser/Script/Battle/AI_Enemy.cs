@@ -10,7 +10,7 @@ public class AI_Enemy : MonoBehaviour
 
     Vehicle controllVehicle;//자신의 함선(참조용)
     Vehicle targetVehicle;//타겟 함선(참조용)
-    Vehicle mustCloseTeamVehicle;//자신과 가장 가까운 아군 함선
+    List<Vehicle> teamVehicles;//아군 함선 리스트
 
     float maxWeaponVelocity;
 
@@ -40,21 +40,48 @@ public class AI_Enemy : MonoBehaviour
 
         maxWeaponVelocity = 300;
 
-        StartCoroutine(MaxWeaponVelocitySet());
+        StartCoroutine(Init());
         StartCoroutine(MoveOrderRepeat());
     }
 
-    IEnumerator MaxWeaponVelocitySet()
+    IEnumerator Init()
     {
         yield return new WaitForSeconds(1);
-        maxWeaponVelocity = controllVehicle.maxWeaponVelocity;        
+        maxWeaponVelocity = controllVehicle.maxWeaponVelocity;
+        teamVehicles = BattleSceneManager.Instance.activeEnemyList;
     }
-    IEnumerator MoveOrderRepeat()//1초마다 이동 포인트를 갱신함
+    IEnumerator MoveOrderRepeat()//0.5초마다 이동 포인트를 갱신함
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
-            movePoint = moveStrategy.Order(controllVehicle, targetVehicle, randomGain1, randomGain2);//기본 이동 명령 생성
+            yield return new WaitForSeconds(0.5f);
+            movePoint = moveStrategy.Order(controllVehicle, targetVehicle);//기본 이동 명령 생성
+
+            if (teamVehicles != null)//아군 함선과의 거리 유지 명령
+            {
+                Vehicle mostCloseVehicle = null;
+                float closeVehicleDistance = float.MaxValue;
+                for (int i = 0; i < teamVehicles.Count; i++)
+                {
+                    if (teamVehicles[i] != controllVehicle)//검색한 함선이 자신이 아닌 경우 
+                    {
+                        float distance = (teamVehicles[i].transform.position - controllVehicle.transform.position).magnitude;//해당 함선과의 거리 계산
+
+                        if (distance < closeVehicleDistance)//거리가 기존 최소값보다 작을 시 갱신
+                        {
+                            closeVehicleDistance = distance;
+                            mostCloseVehicle = teamVehicles[i];
+                        }
+                    }
+                }
+
+                if (mostCloseVehicle != null && closeVehicleDistance < 50)//거리가 50 미만일 경우, 명령을 아군과의 거리 유지 명령으로 오버라이트
+                {
+                    Vector2 myPos = controllVehicle.transform.position;
+                    movePoint = myPos.GenerateDistanceKeepVector(mostCloseVehicle.transform.position, 80);
+                    //Debug.Log("거리 유지 명령");
+                }
+            }
         }        
     }
 
@@ -94,33 +121,19 @@ public class AI_Enemy : MonoBehaviour
 
 interface IMoveStrategy
 {
-    Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2);
+    Vector2 Order(Vehicle myVehicle, Vehicle target);
     void EnterStage();
 }
 
 class DistanceKeep : IMoveStrategy//자신의 유효 사거리 중간값에 해당하는 거리를 두는 명령.
 {
-    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target)
     {
-        Vector2 toTargetDir = (target.transform.position - myVehicle.transform.position).normalized;
+        Vector2 myPos = myVehicle.transform.position;
         float distance = (myVehicle.maxEffectiveRange + myVehicle.minEffectiveRange) * 0.5f;
-        Vector2 movePosition = (Vector2)target.transform.position - (toTargetDir * distance);
-
-        while (movePosition.y <= 50)
-        {
-            // 회전할 각도 설정 (양수일 경우 반시계 방향, 음수일 경우 시계 방향)
-            float angle = (toTargetDir.x > 0) ? -15f : 15f;
-
-            // 쿼터니언으로 회전
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-            toTargetDir = rotation * toTargetDir;
-
-            // 새로운 목표 위치 다시 계산
-            movePosition = (Vector2)target.transform.position - (toTargetDir * distance);
-        }
-
+        //Debug.Log(distance);
         //Debug.Log("거리 유지 명령");
-        return movePosition;
+        return myPos.GenerateDistanceKeepVector(target.transform.position, distance);
     }    
     public void EnterStage()
     {
@@ -130,7 +143,7 @@ class DistanceKeep : IMoveStrategy//자신의 유효 사거리 중간값에 해당하는 거리를 
 
 class HoverAvoidance: IMoveStrategy
 {
-    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target)
     {
         //Vector2 movePositon = new Vector2(200 + randomGain1 + targetPositon.x, Mathf.Clamp(randomGain2 + targetPositon.y, 50, 10000));
 
@@ -145,7 +158,7 @@ class HoverAvoidance: IMoveStrategy
 
 class Banzai : IMoveStrategy
 {
-    public Vector2 Order(Vehicle myVehicle, Vehicle target, float randomGain1, float randomGain2)
+    public Vector2 Order(Vehicle myVehicle, Vehicle target)
     {
         Debug.Log("돌진 명령");
         return Vector2.zero;

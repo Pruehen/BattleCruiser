@@ -76,7 +76,7 @@ public class Weapon : MonoBehaviour
         this.projectileIsPropulsion = weaponData.isPropulsion;
         this.projectileIsGuided = weaponData.isGuided;
 
-        effectiveRange = projectiledVelocity * shellLifeTime * 0.5f;
+        effectiveRange = projectiledVelocity * shellLifeTime * Mathf.Log10(caliber) * 0.2f;
 
         parentVehicle = vehicle;
         delay = this.coolDown;
