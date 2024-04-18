@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CustomShipManager : SceneSingleton<CustomShipManager>
 {
-    public GameObject[] weaponPrfs;//무장의 프리팹
+    //public GameObject[] weaponPrfs;//무장의 프리팹
 
     public Transform customShipParentTrf;//커스텀쉽 클래스의 루트 트랜스폼
     public Transform customShipGameObjectParentTrf;//커스텀쉽 게임오브젝트의 루트 트랜스폼
@@ -93,7 +93,7 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
                 Destroy(targetTrf.GetChild(0).gameObject);
             }
 
-            Instantiate(weaponPrfs[weaponIndex], targetTrf);
+            Instantiate(PrefabManager.Instance.weapons[weaponIndex], targetTrf);
         }
     }
 

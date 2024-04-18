@@ -82,6 +82,8 @@ public class AI_Enemy : MonoBehaviour
                     //Debug.Log("거리 유지 명령");
                 }
             }
+
+            SetAim();
         }        
     }
 
@@ -89,7 +91,6 @@ public class AI_Enemy : MonoBehaviour
     void Update()
     {                
         MovePID();
-        SetAim();
     }
 
     Vector2 moveTargetTemp;
@@ -115,6 +116,17 @@ public class AI_Enemy : MonoBehaviour
 
         aimPoint = targetAimPosition;
         controllUnit.SetAimPoint(aimPoint);
+
+        float Weapondistance = (controllVehicle.maxEffectiveRange + controllVehicle.minEffectiveRange) * 0.6f;
+
+        if(distance > Weapondistance)
+        {
+            controllUnit.fireTrigger = false;
+        }
+        else
+        {
+            controllUnit.fireTrigger = true;
+        }
     }
 }
 

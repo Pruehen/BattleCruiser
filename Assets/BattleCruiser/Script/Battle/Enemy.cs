@@ -22,15 +22,17 @@ public class Enemy : MonoBehaviour
 
         controlledShip.Init(true, shipData);//함선 데이터 초기화
 
-        List<int> weaponIndexs = new List<int>();
+        List<int> weaponSpriteIndexs = new List<int>();
         List<WeaponData> weaponDatas = new List<WeaponData>();
         foreach (string key in shipData.weaponDatas)
         {
-            weaponDatas.Add(JsonDataManager.Instance.saveData.weaponDataDictionary[key]);
-            weaponIndexs.Add(key.Index());
+            WeaponData weaponData = JsonDataManager.Instance.saveData.weaponDataDictionary[key];
+
+            weaponDatas.Add(weaponData);
+            weaponSpriteIndexs.Add(weaponData.sptiteIndex);
         }
 
-        controlledShip.WeaponInit(weaponIndexs, weaponDatas);
+        controlledShip.WeaponInit(weaponSpriteIndexs, weaponDatas);
         controlledShip.SetTarget(target);
 
         isInit = true;

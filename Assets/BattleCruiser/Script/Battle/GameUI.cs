@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -9,9 +10,13 @@ public class GameUI : SceneSingleton<GameUI>
     public TextMeshProUGUI chemicalDmgText;
 
     public GameObject resultWdw;
+    public GameObject pauseWdw;
+    bool isPause;
+
     private void Start()
     {
         DisableDmgText();
+        isPause = false;
     }
 
     public void SetKineticDmgText(float dmg)
@@ -66,5 +71,20 @@ public class GameUI : SceneSingleton<GameUI>
     {
         resultWdw.SetActive(true);
         resultWdw.gameObject.GetComponent<ResultWdw>().isWin = isWin;
+    }
+
+    public void PauseToggle()
+    {
+        isPause = !isPause;
+        pauseWdw.SetActive(isPause);
+
+        if(isPause)
+        {
+            BattleSceneManager.Instance.SetTimeScale(0);
+        }
+        else
+        {
+            BattleSceneManager.Instance.SetTimeScale(1);
+        }
     }
 }

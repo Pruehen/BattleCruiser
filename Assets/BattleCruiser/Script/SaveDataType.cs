@@ -45,8 +45,8 @@ public class WeaponData
     public float multiShotDelay;//1살보시 발사 딜레이
     public float mass;//질량(kg)
     
-    public bool isPropulsion = false;    
-    public bool isGuided = false;
+    public bool isPropulsion;    
+    public bool isGuided;
 
     [JsonConstructor]
     public WeaponData(string weaponName, string weaponKey, int sptiteIndex, float projectiledVelocity, float dispersion, float shellLifeTime, float caliber, float apDmgFactor, 
@@ -87,17 +87,17 @@ public class WeaponData
         this.multiShotDelay = weaponData.multiShotDelay;
         this.mass = weaponData.mass;
 
-        isPropulsion = false;
-        isGuided = false;
+        isPropulsion = weaponData.isPropulsion;
+        isGuided = weaponData.isGuided;
     }
 }
 
 public class CustomWeaponData
 {     
     public WeaponData weaponData;//저장할 무기 스펙
-    public string rarity { get; private set; }
+    //public string rarity { get; private set; }
     //public string baseWeaponKey { get; private set; }    
-    public int rarityNum { get; private set; }//무기 희귀도. 0~3    
+    public int rarityNum { get; private set; }//무기 희귀도. 0~7    
 
     public string[] GetData()
     {
@@ -108,23 +108,35 @@ public class CustomWeaponData
         switch (rarityNum)
         {
             case 0:
-                rarityColorCode = RarityColor.commonCode;
+                rarityColorCode = RarityColor.tech0_Code;
                 break;
             case 1:
-                rarityColorCode = RarityColor.rareCode;
+                rarityColorCode = RarityColor.tech1_Code;
                 break;
             case 2:
-                rarityColorCode = RarityColor.epicCode;
+                rarityColorCode = RarityColor.tech2_Code;
                 break;
             case 3:
-                rarityColorCode = RarityColor.legendaryCode;
+                rarityColorCode = RarityColor.tech3_Code;
+                break;
+            case 4:
+                rarityColorCode = RarityColor.tech4_Code;
+                break;
+            case 5:
+                rarityColorCode = RarityColor.tech5_Code;
+                break;
+            case 6:
+                rarityColorCode = RarityColor.tech6_Code;
+                break;
+            case 7: 
+                rarityColorCode = RarityColor.tech7_Code;
                 break;
             default:
-                rarityColorCode = $"FFFFFF";
+                rarityColorCode = RarityColor.tech0_Code;
                 break;
         }
 
-        data[0] = $"<color={rarityColorCode}>{rarity} 아이템</color>";
+        data[0] = $"<color={rarityColorCode}>{rarityNum + 1}티어 아이템</color>";
         data[1] = $"이름   : {weaponData.weaponName}";
         data[2] = $"탄속   : {(weaponData.projectiledVelocity * 10):N0}m/s";
         data[3] = $"분산도 : {weaponData.dispersion:N2}도";
@@ -205,30 +217,49 @@ public class CustomWeaponData
 
         switch (rarityNum)
         {
-            case 0:
-                rarity = "일반";
+            case 0:                
                 break;
-            case 1:
-                rarity = "레어";
-                weaponData.apDmgFactor *= 1.1f;
-                weaponData.heDmgFactor *= 1.1f;
-                break;
-            case 2:
-                rarity = "에픽";
-                weaponData.apDmgFactor *= 1.1f;
+            case 1:                
+                weaponData.apDmgFactor *= 1.3f;
                 weaponData.heDmgFactor *= 1.3f;
+                break;
+            case 2:                
+                weaponData.apDmgFactor *= 1.6f;
+                weaponData.heDmgFactor *= 2f;
                 weaponData.projectiledVelocity *= 1.1f;
                 weaponData.coolDown *= 0.9f;
                 break;
-            case 3:
-                rarity = "레전더리";
-                weaponData.apDmgFactor *= 1.3f;
-                weaponData.heDmgFactor *= 2f;
+            case 3:                
+                weaponData.apDmgFactor *= 2f;
+                weaponData.heDmgFactor *= 3f;
                 weaponData.projectiledVelocity *= 1.2f;
                 weaponData.coolDown *= 0.8f;
-                break;            
-            default:
-                rarity = "오류";
+                break;
+            case 4:
+                weaponData.apDmgFactor *= 2.5f;
+                weaponData.heDmgFactor *= 4f;
+                weaponData.projectiledVelocity *= 1.3f;
+                weaponData.coolDown *= 0.7f;
+                break;
+            case 5:
+                weaponData.apDmgFactor *= 3f;
+                weaponData.heDmgFactor *= 5f;
+                weaponData.projectiledVelocity *= 1.4f;
+                weaponData.coolDown *= 0.7f;
+                break;
+            case 6:
+                weaponData.apDmgFactor *= 3.5f;
+                weaponData.heDmgFactor *= 6f;
+                weaponData.projectiledVelocity *= 1.5f;
+                weaponData.coolDown *= 0.6f;
+                break;
+            case 7:
+                weaponData.apDmgFactor *= 5f;
+                weaponData.heDmgFactor *= 10f;
+                weaponData.projectiledVelocity *= 1.7f;
+                weaponData.coolDown *= 0.6f;
+                break;
+            default:                
                 break;
         }
 
@@ -240,10 +271,10 @@ public class CustomWeaponData
     }
 
     [JsonConstructor]
-    public CustomWeaponData(WeaponData weaponData, string rarity, int rarityNum)
+    public CustomWeaponData(WeaponData weaponData, int rarityNum)
     {
         this.weaponData = weaponData;
-        this.rarity = rarity;
+        //this.rarity = rarity;
         this.rarityNum = rarityNum;
         //this.baseWeaponKey = baseWeaponKey;        
     }
@@ -262,18 +293,23 @@ public class StageData
 public class UserData
 {
     public Dictionary<int, CustomWeaponData> customWeaponDatas;
+    public Setting setting;
     public int nanobot { get; private set; }
     public int level { get; private set; }
 
     public UserData()
     {
         this.customWeaponDatas = new Dictionary<int, CustomWeaponData>();
+        setting = new Setting(0, 0, 0, 0, 0, 0);
         nanobot = 0;
         level = 0;
     }
-    public UserData(Dictionary<int, CustomWeaponData> customWeaponDatas, int nanobot, int level)
+
+    [JsonConstructor]
+    public UserData(Dictionary<int, CustomWeaponData> customWeaponDatas, Setting setting, int nanobot, int level)
     {
         this.customWeaponDatas = customWeaponDatas;
+        this.setting = setting;
         this.nanobot = nanobot;
         this.level = level;
     }
@@ -298,4 +334,26 @@ public class UserData
         }
         return false;
     }
+}
+
+public class Setting
+{
+    public float bgm;
+    public float sfx;
+    public float radarRange;
+    public float wheelSens;
+    public float camSpeed;
+    public float camRange;
+
+    [JsonConstructor]
+    public Setting(float bgm, float sfx, float radarRange, float wheelSens, float camSpeed, float camRange)
+    {
+        this.bgm = bgm;
+        this.sfx = sfx;
+        this.radarRange = radarRange;
+        this.wheelSens = wheelSens;
+        this.camSpeed = camSpeed;
+        this.camRange = camRange;
+    }
+    //public Setting() { }
 }

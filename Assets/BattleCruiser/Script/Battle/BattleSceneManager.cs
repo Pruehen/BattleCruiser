@@ -10,6 +10,7 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
     List<DropItemData> dropItemDatas;
 
     public Transform vehicleTrf;
+    public ResultWdw resultWdw;
 
     private void Awake()
     {
@@ -42,9 +43,45 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
         dropItemDatas = new List<DropItemData>();
     }
-    public void AddDropItem(string weaponKey, int rarity)
+    public void AddDropItem(string weaponKey, int rarity, Vector2 position)
     {
         dropItemDatas.Add(new DropItemData(weaponKey, rarity));
+        GameObject dropItem = Instantiate(PrefabManager.Instance.dropItem, position, Quaternion.identity);
+
+        Color dropItemColor;
+        switch (rarity)
+        {
+            case 0:
+                dropItemColor = RarityColor.tech0;
+                break;
+            case 1:
+                dropItemColor = RarityColor.tech1;
+                break;
+            case 2:
+                dropItemColor = RarityColor.tech2;
+                break;
+            case 3:
+                dropItemColor = RarityColor.tech3;
+                break;
+            case 4:
+                dropItemColor = RarityColor.tech4;
+                break;
+            case 5:
+                dropItemColor = RarityColor.tech5;
+                break;
+            case 6:
+                dropItemColor = RarityColor.tech6;
+                break;
+            case 7:
+                dropItemColor = RarityColor.tech7;
+                break;
+            default:
+                dropItemColor = Color.black;
+                break;
+        }
+
+        dropItem.GetComponent<SpriteRenderer>().color = dropItemColor;
+        resultWdw.AddRewardItem(weaponKey, dropItemColor);
     }
 
     // Start is called before the first frame update
@@ -88,24 +125,27 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
     IEnumerator GameEnd(bool isWin)
     {
-        Time.timeScale = 0.2f;
+        SetTimeScale(0.2f);
         Time.fixedDeltaTime *= 0.2f;
         yield return new WaitForSecondsRealtime(5);
 
+        SetTimeScale(1);
         Time.fixedDeltaTime *= 5;
-        Time.timeScale = 1f;
         yield return new WaitForSecondsRealtime(3);
 
-        if(isWin)
+        for (int i = 0; i < dropItemDatas.Count; i++)//드랍 아이템을 추가
         {
-            for (int i = 0; i < dropItemDatas.Count; i++)//드랍 아이템을 추가
-            {
-                JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData(dropItemDatas[i].weaponKey, dropItemDatas[i].rarity));
-            }
-            Debug.Log($"{dropItemDatas.Count}개의 아이템 드랍");
-            JsonDataManager.Instance.DataSave();
+            JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData(dropItemDatas[i].weaponKey, dropItemDatas[i].rarity));
         }
+        Debug.Log($"{dropItemDatas.Count}개의 아이템 드랍");
+        JsonDataManager.Instance.DataSave();
+
         GameUI.Instance.OnResultWdw(isWin);
+    }
+
+    public void SetTimeScale(float value)
+    {
+        Time.timeScale = value;
     }
 
 

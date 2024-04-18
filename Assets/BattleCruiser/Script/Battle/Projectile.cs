@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     float heDmgFactor;
     float deltaV;
     float propulsion;
+    float hp;
     bool guided;
 
     Transform target;
@@ -31,6 +32,7 @@ public class Projectile : MonoBehaviour
     public void Init(Vector2 position, Vector2 shipVelocity, Vector2 projectiledVelocity, Quaternion quaternion, float time, float caliber, float apDmgFactor, float heDmgFactor, bool propulsion, bool guided, Vehicle target)
     {
         this.caliber = caliber;//직경 설정
+        this.hp = caliber;        
         this.apDmgFactor = apDmgFactor;//물리 데미지 팩터 설정
         this.heDmgFactor = heDmgFactor;//화학 데미지 팩터 설정
 
@@ -39,10 +41,11 @@ public class Projectile : MonoBehaviour
 
         this.transform.position = position;//좌표 설정
         this.transform.rotation = quaternion;//회전 설정
-
-        rigidbody2D.drag = 1 / caliber;//항력 설정
+       
         float size = Mathf.Sqrt(caliber) * 0.1f;//탄의 렌더 사이즈 변수 설정
         this.transform.localScale = new Vector3(size, size, size);//실제 사이즈 변경
+        rigidbody2D.drag = 1 / caliber;//항력 설정
+        rigidbody2D.mass = caliber * caliber * 0.001f;
 
         if (propulsion)//로켓추진탄
         {
@@ -97,12 +100,12 @@ public class Projectile : MonoBehaviour
 
         if (deltaV > 0)//추진
         {
-            rigidbody2D.AddForce(this.transform.right * propulsion, ForceMode2D.Force);
+            rigidbody2D.AddForce(this.transform.right * propulsion * rigidbody2D.mass, ForceMode2D.Force);
             deltaV -= propulsion * Time.fixedDeltaTime;
         }
         else if (target == null)
         {
-            rigidbody2D.AddTorque(GetAngleBetweenVectors(this.transform.right, rigidbody2D.velocity) * 0.1f, ForceMode2D.Force);//탄의 진행 방향으로 탄을 회전
+            rigidbody2D.AddTorque(GetAngleBetweenVectors(this.transform.right, rigidbody2D.velocity) * 0.1f * rigidbody2D.mass, ForceMode2D.Force);//탄의 진행 방향으로 탄을 회전
         }
 
         velocityTemp = rigidbody2D.velocity;
@@ -129,11 +132,11 @@ public class Projectile : MonoBehaviour
             }            
             
 
-            rigidbody2D.AddTorque(torque, ForceMode2D.Force);
+            rigidbody2D.AddTorque(torque * rigidbody2D.mass, ForceMode2D.Force);
         }
 
         Vector2 sideForce = (Vector2)this.transform.right * rigidbody2D.velocity.magnitude - rigidbody2D.velocity;
-        rigidbody2D.AddForce(sideForce, ForceMode2D.Force);      
+        rigidbody2D.AddForce(sideForce * rigidbody2D.mass, ForceMode2D.Force);      
     }
 
 
@@ -149,21 +152,74 @@ public class Projectile : MonoBehaviour
         lifeTime = 0;
         isUse = false;
 
-        EffectManager.Instance.GenerateExplosion((Vector2)hitPosition, caliber);
+        float dmgRangeSize = caliber * 0.02f * Mathf.Sqrt(heDmgFactor);
+        float explosiveDmg = caliber * caliber * caliber * heDmgFactor * 0.001f;
+        if (dmgRangeSize > 20)
+        {
+            //Debug.Log(dmgRangeSize);
+            Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, dmgRangeSize, 1 << 8);
+            Collider2D[] collider2Ds2 = Physics2D.OverlapCircleAll(this.transform.position, dmgRangeSize, 1 << 6);
+            //Debug.Log(collider2Ds.Length);
+            for (int i = 0; i < collider2Ds.Length; i++)
+            {
+                Vehicle target;
+                if (collider2Ds[i].gameObject.TryGetComponent(out target))
+                {
+                    float dmg = (0.1f * explosiveDmg) / Mathf.Log10((this.transform.position - target.transform.position).sqrMagnitude);
+                    target.Demage(0, dmg);
+                    //Debug.Log();
+                }
+            }
+            for (int i = 0; i < collider2Ds2.Length; i++)
+            {
+                Vehicle target;
+                if (collider2Ds2[i].gameObject.TryGetComponent(out target))
+                {
+                    float dmg = (0.1f * explosiveDmg) / Mathf.Log10((this.transform.position - target.transform.position).sqrMagnitude);
+                    target.Demage(0, dmg);
+                    //Debug.Log();
+                }
+            }
+        }
+
+        EffectManager.Instance.GenerateExplosion((Vector2)hitPosition, caliber * 0.01f * Mathf.Sqrt(heDmgFactor));
         ObjectPoolManager.Instance.EnqueueObject(this.gameObject);
+    }
+    void ProjectileDemage(float dmg)
+    {
+        hp -= dmg;
+        if (hp <= 0) 
+        {
+            hp = caliber;
+            ProjectileDestroy(this.transform.position);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+    {        
         if (collision.gameObject.CompareTag("Vehicle"))
         {
             float kineticEnergy = (velocityTemp - collision.gameObject.GetComponent<Rigidbody2D>().velocity).sqrMagnitude;            
-            float kineticDmg = apDmgFactor * kineticEnergy * 0.00005f * caliber * caliber;            
+            float kineticDmg = apDmgFactor * kineticEnergy * 0.00005f * caliber * caliber;
             float explosiveDmg = caliber * caliber * caliber * heDmgFactor * 0.001f;
 
             collision.gameObject.GetComponent<Vehicle>().Demage(kineticDmg, explosiveDmg);
+
+
+
+            ProjectileDestroy(collision.contacts[0].point);
         }
-        ProjectileDestroy(collision.contacts[0].point);
+        else if(collision.gameObject.CompareTag("Projectile"))
+        {
+            collision.gameObject.GetComponent<Projectile>().ProjectileDemage(this.caliber);
+            this.ProjectileDemage(collision.gameObject.GetComponent<Projectile>().caliber);
+
+            //rigidbody2D.velocity = velocityTemp;
+        }            
+        else
+        {
+            ProjectileDestroy(collision.contacts[0].point);
+        }
     }
 
     float GetAngleBetweenVectors(Vector2 v1, Vector2 v2)//두 방향 벡터간의 각도 차이 반환 (-180~180)

@@ -7,11 +7,26 @@ public class GameManager : GlobalSingleton<GameManager>
 {
     public int selectedStage { get; private set; }
     public PlayerShipData playerShipData { get; private set; }
+    Setting setting;
+    public Setting Setting
+    {
+        get
+        {
+            if (setting == null)
+                setting = JsonDataManager.Instance.saveData.userData.setting;
+            return setting;
+        }
+        set
+        {
+            setting = value;
+        }
+    }
+
 
     private void Awake()
     {
         Debug.Log($"{Instance.name} 인스턴싱 완료");
-        playerShipData = new PlayerShipData();
+        playerShipData = new PlayerShipData();        
     }
     public void SetStageNum(int num)
     {

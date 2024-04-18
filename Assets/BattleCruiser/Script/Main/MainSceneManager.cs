@@ -13,4 +13,10 @@ public class MainSceneManager : SceneSingleton<MainSceneManager>
     {
         GameManager.Instance.SetStageNum(num);
     }
+    public void GameExit()
+    {
+        Debug.Log("게임을 종료합니다.");
+        JsonDataManager.Instance.DataSave();
+        Application.Quit();
+    }
 }

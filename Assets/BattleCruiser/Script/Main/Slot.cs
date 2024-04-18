@@ -75,7 +75,18 @@ public class Slot : MonoBehaviour
 
             if (target != this && check)
             {
-                SwapData(this, target);
+                if (CanMerge(this, target))
+                {
+                    Debug.Log("데이터 병합");
+                    MergeData(this, target);
+
+                    this.gameObject.transform.SetParent(this.slotParentTrf);
+                    this.gameObject.transform.localPosition = this.startlocalPosition;
+                }
+                else
+                {
+                    SwapData(this, target);
+                }
             }
             else
             {
@@ -94,10 +105,15 @@ public class Slot : MonoBehaviour
         slotWeaponData = null;
     }
 
-    public void AddData(CustomWeaponData data)
+    public void SetData(CustomWeaponData data)
     {
         slotWeaponData = data;
-        ItemManager.Instance.AddItem(data.weaponData.sptiteIndex, data.rarityNum, this.transform);
+
+        ItemManager.Instance.TryRemoveItemImage(this.transform);
+        if (data != null)
+        {
+            ItemManager.Instance.AddItemImage(data.weaponData.sptiteIndex, data.rarityNum, this.transform);
+        }        
     }
 
     public static void SwapData(Slot targetSlot1, Slot targetSlot2)//타 슬롯과의 위치 및 데이터 교환
@@ -126,6 +142,39 @@ public class Slot : MonoBehaviour
 
         CustomShipManager.Instance.UpdataEquipment(targetSlot1.index, targetSlot1.slotWeaponData);
         CustomShipManager.Instance.UpdataEquipment(targetSlot2.index, targetSlot2.slotWeaponData);
+    }
+
+    public static void MergeData(Slot targetSlot1, Slot targetSlot2)//데이터 병합. Slot2 위치에 병합한 데이터를 생성함.
+    {
+        targetSlot2.SetData(new CustomWeaponData(targetSlot2.slotWeaponData.weaponData.weaponKey, targetSlot2.slotWeaponData.rarityNum + 1));
+        targetSlot1.SetData(null);
+
+        ItemManager.Instance.slotData[targetSlot2.index] = targetSlot2;
+        ItemManager.Instance.slotData[targetSlot2.index] = targetSlot2;
+
+        CustomShipManager.Instance.UpdataEquipment(targetSlot1.index, targetSlot1.slotWeaponData);
+        CustomShipManager.Instance.UpdataEquipment(targetSlot2.index, targetSlot2.slotWeaponData);
+
+        ItemManager.Instance.itemDataViewer.SetText(targetSlot2.slotWeaponData.GetData());
+    }
+
+    public static bool CanMerge(Slot targetSlot1, Slot targetSlot2)
+    {
+        if(targetSlot1.slotWeaponData != null && targetSlot2.slotWeaponData != null)//둘다 데이터가 있는 슬롯이고
+        {
+            if (targetSlot1.slotWeaponData.weaponData.weaponKey == targetSlot2.slotWeaponData.weaponData.weaponKey)//무기 타입이 같으며
+            {
+                if (targetSlot1.slotWeaponData.rarityNum == targetSlot2.slotWeaponData.rarityNum)//레어도까지 같으며
+                {
+                    if(targetSlot1.slotWeaponData.rarityNum < 7)//레어도가 7 미만일 경우
+                    {
+                        return true;//true 반환
+                    }
+                    
+                }
+            }
+        }
+        return false;
     }
 }
 

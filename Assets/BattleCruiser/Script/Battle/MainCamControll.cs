@@ -21,6 +21,10 @@ public class MainCamControll : MonoBehaviour
     {
         camSize = defaultCamSize;
         cam = GetComponent<Camera>();
+
+        sensitivity = GameManager.Instance.Setting.wheelSens;
+        camSpeed = GameManager.Instance.Setting.camSpeed;
+        canRange = GameManager.Instance.Setting.camRange;
     }
     void FixedUpdate()
     {
