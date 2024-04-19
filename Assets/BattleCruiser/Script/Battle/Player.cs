@@ -19,7 +19,7 @@ public class Player : SceneSingleton<Player>
     {
         controlledShip = GetComponent<Vehicle>();//현재 함선 클래스
 
-        controlledShip.Init(false, playerShipData.shipData);//함선 데이터 초기화
+        controlledShip.Init(false, playerShipData.shipData, 2);//함선 데이터 초기화
         controlledShip.WeaponInit(playerShipData.weaponSpriteIndexs, playerShipData.weaponDatas);//함선의 무기 초기화
 
         isInit = true;
@@ -41,9 +41,9 @@ public class Player : SceneSingleton<Player>
             PlayerUI.Instance.SetVelocityMarker(controlledShip.Rigidbody2D().velocity, this.transform.position);
             if (controlledShip.GetTarget() != null)
             {
-                Vector2 targetPos = controlledShip.GetTarget().transform.position;
-                PlayerUI.Instance.SetLockOnPointPosition(targetPos);
-                PlayerUI.Instance.SetLockOnDistanceText((targetPos - (Vector2)this.transform.position).magnitude);
+                Vehicle target = controlledShip.GetTarget();
+                PlayerUI.Instance.SetLockOnPointPosition(target.transform.position);
+                PlayerUI.Instance.SetLockOnText(((Vector2)target.transform.position - (Vector2)this.transform.position).magnitude, target.name);
             }
             else
             {

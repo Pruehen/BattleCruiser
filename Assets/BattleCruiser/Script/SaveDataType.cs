@@ -221,43 +221,49 @@ public class CustomWeaponData
                 break;
             case 1:                
                 weaponData.apDmgFactor *= 1.3f;
-                weaponData.heDmgFactor *= 1.3f;
+                weaponData.heDmgFactor *= 1.3f;                
                 break;
             case 2:                
                 weaponData.apDmgFactor *= 1.6f;
                 weaponData.heDmgFactor *= 2f;
-                weaponData.projectiledVelocity *= 1.1f;
-                weaponData.coolDown *= 0.9f;
+                weaponData.dispersion *= 0.9f;
+                weaponData.coolDown *= 0.8f;
+                weaponData.multiShotDelay *= 0.8f;
                 break;
             case 3:                
                 weaponData.apDmgFactor *= 2f;
                 weaponData.heDmgFactor *= 3f;
-                weaponData.projectiledVelocity *= 1.2f;
-                weaponData.coolDown *= 0.8f;
+                weaponData.dispersion *= 0.8f;
+                weaponData.coolDown *= 0.7f;
+                weaponData.multiShotDelay *= 0.7f;
                 break;
             case 4:
                 weaponData.apDmgFactor *= 2.5f;
                 weaponData.heDmgFactor *= 4f;
-                weaponData.projectiledVelocity *= 1.3f;
-                weaponData.coolDown *= 0.7f;
+                weaponData.dispersion *= 0.6f;
+                weaponData.coolDown *= 0.6f;
+                weaponData.multiShotDelay *= 0.6f;
                 break;
             case 5:
                 weaponData.apDmgFactor *= 3f;
                 weaponData.heDmgFactor *= 5f;
-                weaponData.projectiledVelocity *= 1.4f;
-                weaponData.coolDown *= 0.7f;
+                weaponData.dispersion *= 0.4f;
+                weaponData.coolDown *= 0.5f;
+                weaponData.multiShotDelay *= 0.5f;
                 break;
             case 6:
                 weaponData.apDmgFactor *= 3.5f;
                 weaponData.heDmgFactor *= 6f;
-                weaponData.projectiledVelocity *= 1.5f;
-                weaponData.coolDown *= 0.6f;
+                weaponData.dispersion *= 0.25f;
+                weaponData.coolDown *= 0.4f;
+                weaponData.multiShotDelay *= 0.4f;
                 break;
             case 7:
-                weaponData.apDmgFactor *= 5f;
-                weaponData.heDmgFactor *= 10f;
-                weaponData.projectiledVelocity *= 1.7f;
-                weaponData.coolDown *= 0.6f;
+                weaponData.apDmgFactor *= 3.5f;
+                weaponData.heDmgFactor *= 6f;
+                weaponData.dispersion *= 0.2f;
+                weaponData.coolDown *= 0.2f;
+                weaponData.multiShotDelay *= 0.2f;
                 break;
             default:                
                 break;

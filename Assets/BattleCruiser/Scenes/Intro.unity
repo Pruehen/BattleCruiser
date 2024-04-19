@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 77715b8b6b248994891d3ccad1ad330b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.26373565, g: 0.3741801, b: 0.4333274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -355,7 +355,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.47058824, g: 0.18039216, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1542,6 +1542,56 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1976390285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976390286}
+  - component: {fileID: 1976390287}
+  m_Layer: 0
+  m_Name: SkyboxChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976390286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976390285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1976390287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976390285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94b559230470b74b9f5ef7819ceff9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSkyboxMaterial:
+  - {fileID: 2100000, guid: 3930fc89a28b29746bde6a2389a513e0, type: 2}
+  - {fileID: 2100000, guid: 169a1b8f06c17c84e8de491f2bfef986, type: 2}
+  - {fileID: 2100000, guid: ceb0a3ed2cb53a94fa21843cc958c52b, type: 2}
+  - {fileID: 2100000, guid: 77715b8b6b248994891d3ccad1ad330b, type: 2}
+  - {fileID: 2100000, guid: 617d9be015db68348a623b01ea51a8c5, type: 2}
 --- !u!1 &1976942949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,11 +1707,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrfs:
   - {fileID: 4974010373487946920, guid: 8ed4d3f7d41e05643b8db9ebe3d12c65, type: 3}
-  - {fileID: 4974010373487946920, guid: 9c644d01fd7dce3478a90530527add0f, type: 3}
-  - {fileID: 4974010373487946920, guid: e3a7bc7e35112934ebcba997793226f7, type: 3}
-  - {fileID: 4974010373487946920, guid: 507061d41dde0d74b99d56549f10c786, type: 3}
+  - {fileID: 4974010373487946920, guid: 36feee1031530a744854031db98953e4, type: 3}
+  - {fileID: 4974010373487946920, guid: 9653011052109104bbd85b77bd05d06e, type: 3}
+  - {fileID: 4974010373487946920, guid: 5d3cca1fc19e8884a8a4cfc2d112de5e, type: 3}
+  - {fileID: 4974010373487946920, guid: dd3439ec8389da04fb40ed6df85bfe77, type: 3}
+  - {fileID: 4974010373487946920, guid: 1c54734ceb4d17c46823bdd623add370, type: 3}
+  - {fileID: 4974010373487946920, guid: 850168320088505438aaab9d1fc717fa, type: 3}
+  - {fileID: 4974010373487946920, guid: 7f14f0f4592c5a345a49fed57d80f1a0, type: 3}
+  - {fileID: 4974010373487946920, guid: ebdd6ec05e6692e4bbcd83f1e857aa1f, type: 3}
+  - {fileID: 4974010373487946920, guid: cd2bfaa282dced14e84ca74a75ac6fb9, type: 3}
+  - {fileID: 4974010373487946920, guid: 17a50d0a3bf3da6438761d7be157f169, type: 3}
   enemyPrfs:
   - {fileID: 4974010373487946920, guid: 62780a8a90b816b478aa192f9dd96625, type: 3}
+  - {fileID: 4974010373487946920, guid: 8a9fa4fcbc3d5d84c93099c217e22c8f, type: 3}
+  - {fileID: 4974010373487946920, guid: 8e42b7e8751eecd4e914b7e047a00a9b, type: 3}
+  - {fileID: 4974010373487946920, guid: 2a626d59334b74b4691c25c879ac5eb3, type: 3}
+  - {fileID: 4974010373487946920, guid: 8de23e8bc580e1d45a5c8cc41251bec8, type: 3}
+  - {fileID: 4974010373487946920, guid: 90e0ff535880571478033f7e70bea9d4, type: 3}
+  - {fileID: 4974010373487946920, guid: 85cc1607f35fb764abda61af371798d6, type: 3}
+  - {fileID: 4974010373487946920, guid: 7cfa86b0157f3494c8199c050429b118, type: 3}
+  - {fileID: 4974010373487946920, guid: 4e0082e33861b4548ba2b4c7968aef91, type: 3}
+  - {fileID: 4974010373487946920, guid: b21f3f44f704d7849b28cb73bd611cad, type: 3}
+  - {fileID: 4974010373487946920, guid: 9e8832a2302e1454880613657a73d592, type: 3}
   projectile: {fileID: 3354648245911325824, guid: ce588fdbcc8ca5247821dc98609de3d1, type: 3}
   projectile_Enemy: {fileID: 3354648245911325824, guid: c9f370b7f3db38b4587435d139f2091e, type: 3}
   weapons:
@@ -1754,7 +1821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2088789517
 Transform:
   m_ObjectHideFlags: 0

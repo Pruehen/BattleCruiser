@@ -42,7 +42,7 @@ public class EffectManager : SceneSingleton<EffectManager>
             item = ObjectPoolManager.Instance.DequeueObject(explosionEffect[0]);//소형 폭발 이펙트 생성
             StartCoroutine(EffectEnqueue(0.5f, item));//코루틴으로 일정 시간 경과 후 인큐
         }
-        else if(size < 50)//50 미만일 경우
+        else if(size < 20)//20 미만일 경우
         {
             item = ObjectPoolManager.Instance.DequeueObject(explosionEffect[1]);//중형 폭발 이펙트 생성
             StartCoroutine(EffectEnqueue(2f, item));//코루틴으로 일정 시간 경과 후 인큐
@@ -79,7 +79,7 @@ public class EffectManager : SceneSingleton<EffectManager>
 
         return item;
     }
-    public GameObject GenerateEngineEffect(Transform parent, float usingTime, float scale)
+    public GameObject GenerateEngineEffect(Transform parent, float scale)
     {
         GameObject item = ObjectPoolManager.Instance.DequeueObject(engineEffect);
 
@@ -89,7 +89,7 @@ public class EffectManager : SceneSingleton<EffectManager>
         item.transform.rotation = parent.rotation;
         item.transform.Rotate(0, 0, -90);
 
-        StartCoroutine(EffectEnqueue(usingTime, item));//코루틴으로 일정 시간 경과 후 인큐
+        //StartCoroutine(EffectEnqueue(usingTime, item));//코루틴으로 일정 시간 경과 후 인큐
         return item;
     }
 
@@ -97,6 +97,10 @@ public class EffectManager : SceneSingleton<EffectManager>
     IEnumerator EffectEnqueue(float time, GameObject item)//인큐 및 트랜스폼 초기화
     {
         yield return new WaitForSeconds(time);
+        ObjectPoolManager.Instance.EnqueueObject(item);
+    }
+    public void EffectEnqueue(GameObject item)
+    {
         ObjectPoolManager.Instance.EnqueueObject(item);
     }
 }

@@ -61,19 +61,19 @@ public class Vehicle : MonoBehaviour
         subEngineTrfs = new List<Transform>();
     }
 
-    public void Init(bool isEnemy, ShipData shipData)
+    public void Init(bool isEnemy, ShipData shipData, float specFactor = 1)
     {
         if (shipData != null)
         {
             this.isEnemy = isEnemy;
-            this.maxHp = shipData.maxHp;
+            this.maxHp = shipData.maxHp * specFactor;
             hp = maxHp;
             this.mass = shipData.mass;
             totalMass = mass;
             rigidbody2D.mass = totalMass;
             this.armor = shipData.armor;
-            this.hoverPower = shipData.hoverPower;
-            this.strafePower = shipData.strafePower;
+            this.hoverPower = shipData.hoverPower * specFactor;
+            this.strafePower = shipData.strafePower * specFactor;
             this.horizontalRestorationPower = shipData.horizontalRestorationPower;
 
             isInit = true;            
@@ -251,8 +251,12 @@ public class Vehicle : MonoBehaviour
             
             if(isEnemy)
             {
-                BattleSceneManager.Instance.KineticDmgUp(apDmg);
-                BattleSceneManager.Instance.ChemicalDmgUp(heDmg);
+                BattleSceneManager.Instance.DmgUp(apDmg, heDmg);                
+            }
+            else
+            {
+                BattleSceneManager.Instance.DmgUp_Enemy(apDmg, heDmg);
+                PlayerUI.Instance.SetHpBarRatio(hp / maxHp);
             }
 
             float hpRatio = HpRatio();

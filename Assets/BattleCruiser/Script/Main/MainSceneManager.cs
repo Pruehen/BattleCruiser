@@ -7,6 +7,7 @@ public class MainSceneManager : SceneSingleton<MainSceneManager>
     private void Awake()
     {
         Debug.Log($"{Instance.name} 로컬 인스턴싱 완료");
+        SkyboxChanger.Instance.ChangeSkybox();
     }
 
     public void SetStageNum(int num)

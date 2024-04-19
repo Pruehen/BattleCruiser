@@ -28,7 +28,7 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
             turretPoints.Add(customShipGameObjects[i].transform.GetChild(customShipGameObjects[i].transform.childCount - 1));
         }
 
-        SelectCustomShip(0);
+        SelectCustomShip(10);
     }
 
     /// <summary>

@@ -54,7 +54,7 @@ public class AI_Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             movePoint = moveStrategy.Order(controllVehicle, targetVehicle);//기본 이동 명령 생성
 
             if (teamVehicles != null)//아군 함선과의 거리 유지 명령

@@ -25,6 +25,8 @@ public class MainCamControll : MonoBehaviour
         sensitivity = GameManager.Instance.Setting.wheelSens;
         camSpeed = GameManager.Instance.Setting.camSpeed;
         canRange = GameManager.Instance.Setting.camRange;
+
+        //LightingSettings
     }
     void FixedUpdate()
     {

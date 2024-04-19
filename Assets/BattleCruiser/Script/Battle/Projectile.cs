@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
 
     Transform target;
 
+    GameObject motorEffect;
     private void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -32,7 +33,7 @@ public class Projectile : MonoBehaviour
     public void Init(Vector2 position, Vector2 shipVelocity, Vector2 projectiledVelocity, Quaternion quaternion, float time, float caliber, float apDmgFactor, float heDmgFactor, bool propulsion, bool guided, Vehicle target)
     {
         this.caliber = caliber;//직경 설정
-        this.hp = caliber;        
+        this.hp = caliber * (apDmgFactor + 1);
         this.apDmgFactor = apDmgFactor;//물리 데미지 팩터 설정
         this.heDmgFactor = heDmgFactor;//화학 데미지 팩터 설정
 
@@ -45,21 +46,31 @@ public class Projectile : MonoBehaviour
         float size = Mathf.Sqrt(caliber) * 0.1f;//탄의 렌더 사이즈 변수 설정
         this.transform.localScale = new Vector3(size, size, size);//실제 사이즈 변경
         rigidbody2D.drag = 1 / caliber;//항력 설정
-        rigidbody2D.mass = caliber * caliber * 0.001f;
-
+        rigidbody2D.mass = caliber * caliber * 0.001f * (apDmgFactor + 1);
+        
         if (propulsion)//로켓추진탄
         {
             this.deltaV = projectiledVelocity.magnitude;//속도증분
             this.propulsion = (deltaV * 5) / selfDestructTime;//추력
             rigidbody2D.velocity = shipVelocity + projectiledVelocity * 0.1f;//초기 속도 설정
 
-            EffectManager.Instance.GenerateEngineEffect(this.transform, selfDestructTime * 0.2f, 0.5f);//로켓추진 이펙트 생성            
+            if (motorEffect != null)
+            {
+                EffectManager.Instance.EffectEnqueue(motorEffect);//로켓추진 이펙트 제거
+            }
+            motorEffect = EffectManager.Instance.GenerateEngineEffect(this.transform, 0.5f);//로켓추진 이펙트 생성         
         }
         else//일반탄
         {
             deltaV = 0;
             this.propulsion = 0;
             rigidbody2D.velocity = shipVelocity + projectiledVelocity;//초기 속도 설정
+
+            if(motorEffect != null)
+            {
+                EffectManager.Instance.EffectEnqueue(motorEffect);//로켓추진 이펙트 제거
+                motorEffect = null;
+            }
         }        
 
         if(guided && target != null)//유도탄
@@ -102,6 +113,11 @@ public class Projectile : MonoBehaviour
         {
             rigidbody2D.AddForce(this.transform.right * propulsion * rigidbody2D.mass, ForceMode2D.Force);
             deltaV -= propulsion * Time.fixedDeltaTime;
+            if(deltaV <= 0 && motorEffect != null)
+            {
+                EffectManager.Instance.EffectEnqueue(motorEffect);
+                motorEffect = null;
+            }
         }
         else if (target == null)
         {
@@ -190,7 +206,7 @@ public class Projectile : MonoBehaviour
         hp -= dmg;
         if (hp <= 0) 
         {
-            hp = caliber;
+            hp = caliber * apDmgFactor;
             ProjectileDestroy(this.transform.position);
         }
     }
@@ -211,8 +227,8 @@ public class Projectile : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Projectile"))
         {
-            collision.gameObject.GetComponent<Projectile>().ProjectileDemage(this.caliber);
-            this.ProjectileDemage(collision.gameObject.GetComponent<Projectile>().caliber);
+            collision.gameObject.GetComponent<Projectile>().ProjectileDemage(this.hp);
+            this.ProjectileDemage(collision.gameObject.GetComponent<Projectile>().hp);
 
             //rigidbody2D.velocity = velocityTemp;
         }            

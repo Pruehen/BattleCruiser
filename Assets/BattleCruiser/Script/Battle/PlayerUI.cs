@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class PlayerUI : SceneSingleton<PlayerUI>
 {
     public RectTransform aimPoint;
@@ -16,6 +17,8 @@ public class PlayerUI : SceneSingleton<PlayerUI>
     public RectTransform velocityMarker;
     public RectTransform moveOrderMarker;
     float markerOrbitRadius = 250;
+
+    public Image hpBar;
 
     public void SetAimPointPosition(Vector2 screenPosition)
     {
@@ -34,9 +37,9 @@ public class PlayerUI : SceneSingleton<PlayerUI>
     {
         lockOnPoint.gameObject.SetActive(false);
     }
-    public void SetLockOnDistanceText(float distance)
+    public void SetLockOnText(float distance, string name)
     {
-        lockOnDistanceText.text = string.Format($"{distance * 10:N0}");
+        lockOnDistanceText.text = string.Format($"{distance * 10:N0}\n-{name}-");
     }
 
 
@@ -80,5 +83,11 @@ public class PlayerUI : SceneSingleton<PlayerUI>
             float angle = Mathf.Atan2(moveOrder.y, moveOrder.x) * Mathf.Rad2Deg;
             moveOrderMarker.rotation = Quaternion.Euler(0, 0, angle - 90);
         }
+    }
+
+    public void SetHpBarRatio(float value)
+    {
+        hpBar.fillAmount = value;
+        hpBar.color = new Color(1-value, value, 0);
     }
 }

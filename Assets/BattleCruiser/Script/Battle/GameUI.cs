@@ -9,6 +9,9 @@ public class GameUI : SceneSingleton<GameUI>
     public TextMeshProUGUI kineticDmgText;
     public TextMeshProUGUI chemicalDmgText;
 
+    public TextMeshProUGUI kineticDmgText_Enemy;
+    public TextMeshProUGUI chemicalDmgText_Enemy;
+
     public GameObject resultWdw;
     public GameObject pauseWdw;
     bool isPause;
@@ -19,20 +22,30 @@ public class GameUI : SceneSingleton<GameUI>
         isPause = false;
     }
 
-    public void SetKineticDmgText(float dmg)
+    public void SetDmgText(float kntDmg, float expDmg)
     {
-        if (dmg != 0)
+        if (kntDmg != 0)
         {
             kineticDmgText.gameObject.SetActive(true);
-            kineticDmgText.text = DmgToString(dmg);
+            kineticDmgText.text = DmgToString(kntDmg);
         }
-    }
-    public void SetChemicalDmgText(float dmg)
-    {
-        if (dmg != 0)
+        if(expDmg != 0)
         {
             chemicalDmgText.gameObject.SetActive(true);
-            chemicalDmgText.text = DmgToString(dmg);
+            chemicalDmgText.text = DmgToString(expDmg);
+        }
+    }
+    public void SetEnemyDmgText(float kntDmg, float expDmg)
+    {
+        if (kntDmg != 0)
+        {
+            kineticDmgText_Enemy.gameObject.SetActive(true);
+            kineticDmgText_Enemy.text = DmgToString(kntDmg);
+        }
+        if (expDmg != 0)
+        {
+            chemicalDmgText_Enemy.gameObject.SetActive(true);
+            chemicalDmgText_Enemy.text = DmgToString(expDmg);
         }
     }
     string DmgToString(float dmg)
@@ -65,6 +78,9 @@ public class GameUI : SceneSingleton<GameUI>
     {
         kineticDmgText.gameObject.SetActive(false);
         chemicalDmgText.gameObject.SetActive(false);
+
+        kineticDmgText_Enemy.gameObject.SetActive(false);
+        chemicalDmgText_Enemy.gameObject.SetActive(false);
     }    
 
     public void OnResultWdw(bool isWin)

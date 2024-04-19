@@ -15,6 +15,9 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
     private void Awake()
     {
         Debug.Log($"{Instance.name} 로컬 인스턴싱 완료");
+
+        SkyboxChanger.Instance.ChangeSkybox();
+
         stage = GameManager.Instance.selectedStage;
         PlayerShipData playerShipData = GameManager.Instance.playerShipData;//플레이어의 함선 데이터
 
@@ -23,7 +26,7 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
         float minX = 300;
         float minY = 50;
-        float maxX = 1000 + stage * 1000;
+        float maxX = 1000 + stage * 200;
         float maxY = 200 + stage * 20;
 
         StageData stageData = JsonDataManager.Instance.saveData.stageList[stage];//저장된 json데이터의 스테이지 데이터를 참조해서 적 랜덤 좌표에 생성.
@@ -31,9 +34,10 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
         for (int i = 0; i < stageData.stageShipDataList.Count; i++)
         {
-            ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[stageData.stageShipDataList[i]];//생성할 함선 데이터
+            string key = stageData.stageShipDataList[i];
+            ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[key];//생성할 함선 데이터
 
-            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[0], new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
+            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[key.Index()], new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
             createEnemy.name = shipData.className;
             Enemy enemy = createEnemy.GetComponent<Enemy>();
             enemy.Init(shipData);//생성한 함선 초기화
@@ -131,16 +135,41 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
 
         SetTimeScale(1);
         Time.fixedDeltaTime *= 5;
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(5);
 
-        for (int i = 0; i < dropItemDatas.Count; i++)//드랍 아이템을 추가
+        if(stage == 10)
         {
-            JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData(dropItemDatas[i].weaponKey, dropItemDatas[i].rarity));
+            yield return new WaitForSecondsRealtime(10);
         }
-        Debug.Log($"{dropItemDatas.Count}개의 아이템 드랍");
-        JsonDataManager.Instance.DataSave();
 
-        GameUI.Instance.OnResultWdw(isWin);
+
+        if (stage != 9 || !isWin)
+        {
+            for (int i = 0; i < dropItemDatas.Count; i++)//드랍 아이템을 추가
+            {
+                JsonDataManager.Instance.saveData.userData.CustomWeaponDataAdd(new CustomWeaponData(dropItemDatas[i].weaponKey, dropItemDatas[i].rarity));
+            }
+            Debug.Log($"{dropItemDatas.Count}개의 아이템 드랍");
+            JsonDataManager.Instance.DataSave();
+
+            GameUI.Instance.OnResultWdw(isWin);
+        }
+        else
+        {
+            stage = 10;
+
+            StageData stageData = JsonDataManager.Instance.saveData.stageList[stage];//저장된 json데이터의 스테이지 데이터를 참조해서 적 랜덤 좌표에 생성.
+            string key = stageData.stageShipDataList[0];
+            ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[key];//생성할 함선 데이터
+
+            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[key.Index()], new Vector2(Player.Instance.transform.position.x + 1000, 2000), Quaternion.identity, vehicleTrf);
+            createEnemy.name = shipData.className;
+            Enemy enemy = createEnemy.GetComponent<Enemy>();
+            enemy.Init(shipData);//생성한 함선 초기화
+
+            activeEnemyList.Add(createEnemy.GetComponent<Vehicle>());
+            StartCoroutine(GameEndCheck());
+        }
     }
 
     public void SetTimeScale(float value)
@@ -152,40 +181,21 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
     float totalKineticDmg = 0;
     float totalChemicalDmg = 0;
 
-    float dmgViewTime = 10;
-    float dmgViewDelay = 0;
+    float totalKineticDmg_Enemy = 0;
+    float totalChemicalDmg_Enemy = 0;
 
-    bool isDmgView = false;
 
-    private void Update()
+    public void DmgUp(float kntDmg, float expDmg)
     {
-        if (isDmgView)
-        {
-            dmgViewDelay += Time.deltaTime;
-            if (dmgViewDelay >= dmgViewTime)
-            {
-                isDmgView = false;
-                GameUI.Instance.DisableDmgText();
-
-                totalKineticDmg = 0;
-                totalChemicalDmg = 0;
-            }
-        }
+        totalKineticDmg += kntDmg;
+        totalChemicalDmg += expDmg;             
+        GameUI.Instance.SetDmgText(totalKineticDmg, totalChemicalDmg);
     }
-
-    public void KineticDmgUp(float dmg)
+    public void DmgUp_Enemy(float kntDmg, float expDmg)
     {
-        totalKineticDmg += dmg;
-        dmgViewDelay = 0;
-        isDmgView = true;
-        GameUI.Instance.SetKineticDmgText(totalKineticDmg);
-    }
-    public void ChemicalDmgUp(float dmg)
-    {
-        totalChemicalDmg += dmg;
-        dmgViewDelay = 0;
-        isDmgView = true;
-        GameUI.Instance.SetChemicalDmgText(totalChemicalDmg);
+        totalKineticDmg_Enemy += kntDmg;
+        totalChemicalDmg_Enemy += expDmg;
+        GameUI.Instance.SetEnemyDmgText(totalKineticDmg_Enemy, totalChemicalDmg_Enemy);
     }
 
     public class DropItemData
