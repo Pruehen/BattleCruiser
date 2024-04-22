@@ -28,7 +28,7 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
             turretPoints.Add(customShipGameObjects[i].transform.GetChild(customShipGameObjects[i].transform.childCount - 1));
         }
 
-        SelectCustomShip(10);
+        SelectCustomShip(JsonDataManager.Instance.saveData.userData.selectShip);
     }
 
     /// <summary>
@@ -53,6 +53,8 @@ public class CustomShipManager : SceneSingleton<CustomShipManager>
         }
 
         //GameManager.Instance.SetShipData(selectedShipIndex);
+        JsonDataManager.Instance.saveData.userData.selectShip = index;
+        //JsonDataManager.Instance.DataSave();
     }
 
     /// <summary>

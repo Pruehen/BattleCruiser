@@ -32,18 +32,22 @@ public class BattleSceneManager : SceneSingleton<BattleSceneManager>
         StageData stageData = JsonDataManager.Instance.saveData.stageList[stage];//저장된 json데이터의 스테이지 데이터를 참조해서 적 랜덤 좌표에 생성.
         activeEnemyList = new List<Vehicle>();
 
-        for (int i = 0; i < stageData.stageShipDataList.Count; i++)
+        for (int l = 0; l < Mathf.Pow(2, GameManager.Instance.Setting.difficulty); l++)
         {
-            string key = stageData.stageShipDataList[i];
-            ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[key];//생성할 함선 데이터
+            for (int i = 0; i < stageData.stageShipDataList.Count; i++)
+            {
+                string key = stageData.stageShipDataList[i];
+                ShipData shipData = JsonDataManager.Instance.saveData.shipDataDictionary[key];//생성할 함선 데이터
 
-            GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[key.Index()], new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
-            createEnemy.name = shipData.className;
-            Enemy enemy = createEnemy.GetComponent<Enemy>();
-            enemy.Init(shipData);//생성한 함선 초기화
+                GameObject createEnemy = Instantiate(PrefabManager.Instance.enemyPrfs[key.Index()], new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)), Quaternion.identity, vehicleTrf);
+                createEnemy.name = shipData.className;
+                Enemy enemy = createEnemy.GetComponent<Enemy>();
+                enemy.Init(shipData);//생성한 함선 초기화
 
-            activeEnemyList.Add(createEnemy.GetComponent<Vehicle>());
+                activeEnemyList.Add(createEnemy.GetComponent<Vehicle>());
+            }
         }
+
 
         dropItemDatas = new List<DropItemData>();
     }

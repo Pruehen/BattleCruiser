@@ -300,33 +300,21 @@ public class UserData
 {
     public Dictionary<int, CustomWeaponData> customWeaponDatas;
     public Setting setting;
-    public int nanobot { get; private set; }
-    public int level { get; private set; }
+    public int selectShip;    
 
     public UserData()
     {
         this.customWeaponDatas = new Dictionary<int, CustomWeaponData>();
-        setting = new Setting(0, 0, 0, 0, 0, 0);
-        nanobot = 0;
-        level = 0;
+        setting = new Setting(0, 0, 0, 0, 0, 0, 0);
+        selectShip = 0;        
     }
 
     [JsonConstructor]
-    public UserData(Dictionary<int, CustomWeaponData> customWeaponDatas, Setting setting, int nanobot, int level)
+    public UserData(Dictionary<int, CustomWeaponData> customWeaponDatas, Setting setting, int selectShip, int level)
     {
         this.customWeaponDatas = customWeaponDatas;
         this.setting = setting;
-        this.nanobot = nanobot;
-        this.level = level;
-    }
-
-    public void nanobotUp(int value)
-    {
-        nanobot += value;
-    }
-    public void levelUp(int value)
-    {
-        level += value;
+        this.selectShip = selectShip;        
     }
     public bool CustomWeaponDataAdd(CustomWeaponData data)//인벤토리에 데이터 추가
     {
@@ -350,9 +338,10 @@ public class Setting
     public float wheelSens;
     public float camSpeed;
     public float camRange;
+    public int difficulty;
 
     [JsonConstructor]
-    public Setting(float bgm, float sfx, float radarRange, float wheelSens, float camSpeed, float camRange)
+    public Setting(float bgm, float sfx, float radarRange, float wheelSens, float camSpeed, float camRange, int difficulty)
     {
         this.bgm = bgm;
         this.sfx = sfx;
@@ -360,6 +349,7 @@ public class Setting
         this.wheelSens = wheelSens;
         this.camSpeed = camSpeed;
         this.camRange = camRange;
+        this.difficulty = difficulty;
     }
     //public Setting() { }
 }
