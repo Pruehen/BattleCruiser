@@ -58,7 +58,10 @@ public class Projectile : MonoBehaviour
             {
                 EffectManager.Instance.EffectEnqueue(motorEffect);//로켓추진 이펙트 제거
             }
-            motorEffect = EffectManager.Instance.GenerateEngineEffect(this.transform, 0.5f);//로켓추진 이펙트 생성         
+            if (Time.deltaTime < 0.01)
+            {
+                motorEffect = EffectManager.Instance.GenerateEngineEffect(this.transform, 0.5f);//로켓추진 이펙트 생성         
+            }
         }
         else//일반탄
         {
@@ -89,8 +92,15 @@ public class Projectile : MonoBehaviour
         }
         else//탄의 직경이 100 이상
         {
-            trilRenderer.enabled = true;//트레일 렌더러 활성화
-            trilRenderer.Clear();//기존 레이 제거
+            if (Time.deltaTime < 1)
+            {
+                trilRenderer.enabled = true;//트레일 렌더러 활성화
+                trilRenderer.Clear();//기존 레이 제거
+            }
+            else
+            {
+                trilRenderer.enabled = false;
+            }
         }
 
         isUse = true;       
